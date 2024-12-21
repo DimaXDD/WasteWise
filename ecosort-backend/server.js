@@ -22,7 +22,7 @@ app.use(express.static('uploads'))
 
 
 // Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 let AuthRouter = require('./routes/AuthRouter');
