@@ -1,0 +1,157 @@
+show databases;
+create database ecosort;
+
+select * from ecosort.users; -- переписано
+select * from ecosort.articles; -- переписано
+select * from ecosort.ratings; -- переписано
+select * from ecosort.likes; -- переписано
+select * from ecosort.points; -- переписано
+select * from ecosort.s_keys; -- переписано
+select * from ecosort.receptions; -- переписано
+select * from ecosort.marks; -- переписано
+select * from ecosort.check_weight; -- переписано
+
+-- Пользователь
+CREATE TABLE IF NOT EXISTS ecosort.users (
+    id int auto_increment,
+    username        varchar(20)               not null,
+    email           varchar(100)              not null,
+    password_hash   varchar(200)              not null,
+    points          int        default 0      null,
+    role            varchar(5) default 'user' not null,
+    is_activated    tinyint(1) default 0      null,
+    activation_link varchar(150)              null,
+  constraint users_ck CHECK (role IN ('admin', 'user')),
+  constraint email_un unique (email),
+  constraint password_hash_un unique (password_hash),
+  constraint users_pk primary key (id));
+
+-- Статьи --
+CREATE TABLE IF NOT EXISTS ecosort.articles (
+    id int auto_increment,
+    title       varchar(100)  not null,
+    text        text          not null,
+    date_of_pub date          not null,
+    image_url   varchar(150)  not null,
+    author      int           not null,
+    likes       int default 0 null,
+    constraint articles_pk primary key (id),
+    constraint title_un unique (title),
+    constraint articles_fk_users foreign key (author) references ecosort.users(id) on delete cascade);
+
+-- Комменты --
+CREATE TABLE IF NOT EXISTS ecosort.ratings (
+    id          int auto_increment,
+    article_id  int          not null,
+    commentator int          not null,
+    comment     varchar(500) not null,
+    constraint ratings_pk primary key (id),
+    constraint ratings_fk_users foreign key (commentator) references ecosort.users(id) on delete cascade,
+    constraint ratings_fk_articles foreign key (article_id) references ecosort.articles(id) on delete cascade);
+
+-- Лайки --
+CREATE TABLE IF NOT EXISTS ecosort.likes(
+    id         int auto_increment,
+    user_id    int not null,
+    article_id int not null,
+    constraint likes_pk primary key (id),
+    constraint likes_fk_users foreign key (user_id) references ecosort.users(id) on delete cascade,
+    constraint likes_fk_articles foreign key (article_id) references ecosort.articles(id) on delete cascade);
+
+-- Секретный ключ --
+create table IF NOT EXISTS ecosort.s_keys(
+    id int auto_increment,
+    secret_key varchar(100)  not null,
+    is_used    int default 0 not null,
+    constraint s_keys_ck CHECK (is_used IN (1,0)),
+    constraint s_keys_pk primary key (id));
+
+-- Пункт сдачи --
+CREATE TABLE IF NOT EXISTS ecosort.points(
+    id           int auto_increment,
+    address      varchar(100) not null,
+    time_of_work varchar(100) not null,
+    key_id       int          not null,
+    admin_id     int          not null,
+    link_to_map  text         not null,
+    point_name   varchar(100) not null,
+    constraint address_un unique (address),
+    constraint key_id_un unique (key_id),
+    constraint point_name_un unique (point_name),
+    constraint points_pk primary key (id),
+    constraint points_fk_users foreign key (admin_id) references ecosort.users(id) on delete cascade,
+    constraint points_fk_s_keys foreign key (key_id) references ecosort.s_keys(id) on delete cascade);
+
+-- Отходы --
+CREATE TABLE IF NOT EXISTS ecosort.marks(
+    id int auto_increment,
+    rubbish varchar(50)  not null,
+    points_per_kg int not null,
+    new_from_kg float not null,
+    image_link varchar(255) null,
+    constraint marks_pk primary key (id));
+
+-- Проверка веса --
+CREATE TABLE IF NOT EXISTS ecosort.check_weight(
+    id int auto_increment,
+    rubbish_id    int          not null,
+    weight        int          not null,
+    key_of_weight varchar(100) not null,
+    constraint key_of_weight_un unique (key_of_weight),
+    constraint check_weight_pk primary key (id),
+    constraint check_weight_fk_marks foreign key (rubbish_id) references ecosort.marks(id) on delete cascade);
+
+-- Сдача --
+CREATE TABLE IF NOT EXISTS ecosort.receptions(
+   id          int auto_increment,
+    user_id     int   not null,
+    weight      float not null,
+    accrued     int   null,
+    new_kg      int   null,
+    type_waste  int   not null,
+    station_key int   not null,
+    weight_key  int   not null,
+    constraint receptions_pk primary key (id),
+    constraint receptions_fk_users foreign key (user_id) references ecosort.users(id) on delete cascade,
+    constraint receptions_fk_s_keys foreign key (station_key) references ecosort.s_keys(id) on delete cascade,
+    constraint receptions_fk_marks foreign key (type_waste) references ecosort.marks(id) on delete cascade,
+    constraint receptions_fk_check_weight foreign key (weight_key) references ecosort.check_weight(id) on delete cascade);
+
+-- Скидки --
+CREATE TABLE IF NOT EXISTS ecosort.discounts(
+    id int auto_increment,
+    discount varchar(50) not null,
+    promo_code varchar(50) not null,
+    count_for_dnt int not null,
+    constraint discount_un unique (discount),
+    constraint promo_code_un unique (promo_code),
+    constraint discounts_pk primary key (id));
+
+--  Промокоды --
+CREATE TABLE IF NOT EXISTS ecosort.promo_codes(
+    id int auto_increment,
+    promo_code varchar(50) not null,
+    user_id int not null,
+    discount_id int not null,
+    date_of_add DATE not null DEFAULT '2023-05-11',
+    constraint discounts_pk primary key (id),
+    constraint user_discount_ids_un unique (user_id, discount_id),
+    constraint promo_codes_fk_users foreign key (user_id) references ecosort.users (id) on delete cascade,
+    constraint promo_codes_fk_discounts foreign key (discount_id) references ecosort.discounts (id) on delete cascade
+);
+
+-- Точки сбора с отходами --
+CREATE TABLE IF NOT EXISTS ecosort.points_marks(
+    id        int auto_increment,
+    points_id int not null,
+    marks_id  int not null,
+    constraint points_marks_pk primary key (id),
+    constraint points_marks_fk_points foreign key (points_id) references ecosort.points(id) on delete cascade,
+    constraint points_marks_fk_marks foreign key (marks_id) references ecosort.marks(id) on delete cascade);
+
+
+
+
+
+
+
