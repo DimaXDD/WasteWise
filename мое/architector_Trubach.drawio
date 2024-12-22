@@ -1,0 +1,119 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.2">
+  <diagram id="hu6SqyUsQMpoPFQubJVd" name="Страница — 1">
+    <mxGraphModel dx="2243" dy="806" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-44" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 14px;&quot;&gt;Docker-compose&lt;/font&gt;" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-160" y="290" width="1220" height="801.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-45" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 14px;&quot;&gt;Docker 25.0.2&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="870" y="1022.5" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-1" value="" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-50" y="720" width="267.5" height="235" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-2" value="" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="-40.379999999999995" y="770.5" width="235.5" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-3" value="&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;Browser&lt;/font&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Google Chrome&lt;/font&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 13px; text-align: start; background-color: rgb(255, 255, 255);&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;129.0.6668.59&lt;/font&gt;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-27" y="782" width="203.5" height="46.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-4" value="&lt;div style=&quot;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-3.6299999999999955" y="835.5" width="178.75" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-5" value="&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;Client&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="32.620000000000005" y="738.5" width="97.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-6" value="&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;ОС. Windows 10&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="85.12" y="917.5" width="114" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-7" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 14px;&quot;&gt;ReactJS 18.0.2&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Redux 9.1.2&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font face=&quot;PvMJpOz3pLV8ocHbTbVb&quot; style=&quot;font-size: 14px;&quot;&gt;Bootstrap 5.3.3&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="25.120000000000005" y="835.5" width="150" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-8" value="" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;endFill=1;startArrow=block;startFill=1;exitX=0.561;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.56;entryY=1.002;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="217.5" y="835.5" as="sourcePoint" />
+            <mxPoint x="322.5" y="835.5" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-9" value="&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;HTTP 1.1&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="8hdBrVyz4YDK7KMscJBu-8" vertex="1" connectable="0">
+          <mxGeometry x="0.0757" y="1" relative="1" as="geometry">
+            <mxPoint x="-6" y="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-10" value="" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="320" y="393" width="560" height="584" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-11" value="&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;Server&lt;/font&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap-mode: nowrap; background-color: initial;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%22%20style%3D%22shape%3Dcylinder3%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3BboundedLbl%3D1%3BbackgroundOutline%3D1%3Bsize%3D15%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22899.75%22%20y%3D%2217%22%20width%3D%22220%22%20height%3D%22140%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%223%22%20value%3D%22%22%20style%3D%22shape%3Dmodule%3Balign%3Dleft%3BspacingLeft%3D20%3Balign%3Dcenter%3BverticalAlign%3Dtop%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22931.88%22%20y%3D%2296%22%20width%3D%22155.75%22%20height%3D%2247.5%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%224%22%20value%3D%22%26lt%3Bfont%20style%3D%26quot%3Bfont-size%3A%2014px%3B%26quot%3B%20face%3D%26quot%3BTimes%20New%20Roman%26quot%3B%26gt%3BDocker%20Container%26lt%3Bbr%26gt%3BDatabase%20Server%26lt%3B%2Ffont%26gt%3B%22%20style%3D%22text%3Bhtml%3D1%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22951%22%20y%3D%2257%22%20width%3D%22107.5%22%20height%3D%2232.5%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%225%22%20value%3D%22%26lt%3Bspan%20style%3D%26quot%3Bfont-family%3A%20%26amp%3Bquot%3BTimes%20New%20Roman%26amp%3Bquot%3B%3B%20font-size%3A%2014px%3B%26quot%3B%26gt%3BMySQL8.0.28%26lt%3B%2Fspan%26gt%3B%22%20style%3D%22text%3Bhtml%3D1%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22972.63%22%20y%3D%22104.75%22%20width%3D%2284%22%20height%3D%2230%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="551.25" y="408" width="97.5" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-12" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="495" y="448" width="210" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-13" value="" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="527.13" y="530" width="137.87" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-14" value="&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;Docker Container&lt;br&gt;Database Server&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="546.25" y="490" width="107.5" height="32.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-15" value="&lt;span style=&quot;font-family: &amp;quot;Times New Roman&amp;quot;; font-size: 14px;&quot;&gt;MySQL8.0.28&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="558" y="535.5" width="84" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-20" value="" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="360" y="650" width="480" height="297.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-21" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&amp;lt;&amp;lt;runtime&amp;gt;&amp;gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="495" y="662.5" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-22" value="" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="387.5" y="697.5" width="172.5" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-23" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;div&gt;&lt;font style=&quot;text-wrap: nowrap;&quot; face=&quot;Times New Roman&quot;&gt;NodeJS 18.7.1&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-family: oEKUUC97mD8u1FqZIiND; background-color: initial;&quot;&gt;ExpressJS 4.21.0&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;oEKUUC97mD8u1FqZIiND&quot;&gt;Sequelize 6.37.3&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="405.6300000000001" y="740.57" width="144.12" height="52.93" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-28" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Routes&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="405.6300000000001" y="707.5" width="136.25" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-29" value="" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="630" y="697.5" width="172.5" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-30" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;div&gt;&lt;font style=&quot;text-wrap: nowrap;&quot; face=&quot;Times New Roman&quot;&gt;NodeJS 18.7.1&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-family: oEKUUC97mD8u1FqZIiND; background-color: initial;&quot;&gt;ExpressJS 4.21.0&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;oEKUUC97mD8u1FqZIiND&quot;&gt;Sequelize 6.37.3&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="648.1300000000001" y="740.57" width="144.12" height="52.93" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-31" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Models&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="648.1300000000001" y="707.5" width="136.25" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-32" value="" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="387.5" y="827.5" width="172.5" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-33" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;div&gt;&lt;font style=&quot;text-wrap: nowrap;&quot; face=&quot;Times New Roman&quot;&gt;NodeJS 18.7.1&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-family: oEKUUC97mD8u1FqZIiND; background-color: initial;&quot;&gt;ExpressJS 4.21.0&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;oEKUUC97mD8u1FqZIiND&quot;&gt;Sequelize 6.37.3&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="405.6300000000001" y="870.57" width="144.12" height="52.93" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-34" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Controllers&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="405.6300000000001" y="837.5" width="136.25" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-35" value="" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="630" y="827.5" width="172.5" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-36" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;div&gt;&lt;font style=&quot;text-wrap: nowrap;&quot; face=&quot;Times New Roman&quot;&gt;NodeJS 18.7.1&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-family: oEKUUC97mD8u1FqZIiND; background-color: initial;&quot;&gt;ExpressJS 4.21.0&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;oEKUUC97mD8u1FqZIiND&quot;&gt;Sequelize 6.37.3&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="648.1300000000001" y="870.57" width="144.12" height="52.93" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-37" value="&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Views&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="648.1300000000001" y="837.5" width="136.25" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-41" value="" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;endFill=1;startArrow=block;startFill=1;exitX=0.003;exitY=0.499;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="8hdBrVyz4YDK7KMscJBu-20" target="8hdBrVyz4YDK7KMscJBu-12" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="532.5" y="620" as="sourcePoint" />
+            <mxPoint x="637.5" y="620" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hdBrVyz4YDK7KMscJBu-43" value="&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Times New Roman&quot;&gt;TCP&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="585.0014285714287" y="610" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
