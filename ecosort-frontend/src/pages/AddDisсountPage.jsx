@@ -13,7 +13,6 @@ export const AddDisсountPage = () => {
 
     const { status } = useSelector((state) => state.alldiscount)
 
-    // const navigate = useNavigate()
     const [discount, setDiscount] = useState('')
     const [count_for_dnt, setCountForDnt] = useState('')
     const [promo_code, setPromoCode] = useState('')

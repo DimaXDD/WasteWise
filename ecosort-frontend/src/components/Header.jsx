@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ReactComponent as LogoIcon} from '../image/EcoSort.svg';
+import {ReactComponent as LogoIcon} from '../image/EcoSort2.svg';
 import {ReactComponent as MenuIcon} from '../image/icon-menu.svg';
 import {ReactComponent as CloseMenuIcon} from '../image/icon-close-menu.svg';
 import {NavItem} from "./NavItam";
@@ -25,7 +25,10 @@ export const Header = () => {
 
     return(
         <header className={'flex'}>
-            <Link to={'/'}> <LogoIcon className={'flex w-11 h-11 items-center'}/></Link>
+            <Link to={'/'}>
+                <LogoIcon className={'flex items-center'} style={{ width: '52px', height: '52px' }} />
+            </Link>
+
             <nav className={'hidden xl:flex space-x-6 ml-8 items-center'}>
 
                 {!user && (

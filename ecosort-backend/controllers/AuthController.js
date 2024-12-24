@@ -44,8 +44,8 @@ const AuthController = {
 
                     const transporter = nodemailer.createTransport({
                         host: "smtp.yandex.ru",
-                        port: 587,
-                        secure: false,
+                        port: 465,
+                        secure: true,
                         auth: {
                             user: 'dimatruba2004@yandex.ru',
                             pass: 'akllfknlkhqfbhtl'
@@ -109,6 +109,59 @@ const AuthController = {
         }
     },
 
+    CreateAdmin: async (req, res) => {
+        try {
+            const { username, email, password } = req.body;
+
+            const existingAdmin = await db.models.Users.findOne({
+                where: { role: "admin" },
+            });
+
+            if (existingAdmin) {
+                return res.status(400).json({
+                message:
+                    "Администратор уже существует. Создать больше одного администратора невозможно.",
+            });
+            }
+    
+            const salt = '$2b$10$qNuSSupDD53DkQfO8wqpf.';
+            const hashedPassword = await bcrypt.hash(password, salt);
+    
+            const existingUser = await db.models.Users.findOne({
+                where: { [Op.or]: [{ username }, { email }] },
+            });
+    
+            if (existingUser) {
+                return res.status(400).json({
+                    message: 'Имя пользователя или почта уже заняты',
+                });
+            }
+    
+            const newAdmin = await db.models.Users.create({
+                username,
+                email,
+                password_hash: hashedPassword,
+                role: 'admin',
+                is_activated: true,
+            });
+    
+            res.status(201).json({
+                message: 'Администратор успешно создан',
+                user: {
+                    id: newAdmin.id,
+                    username: newAdmin.username,
+                    email: newAdmin.email,
+                    role: newAdmin.role,
+                },
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({
+                message: 'Не удалось создать администратора',
+            });
+        }
+    },
+    
     LoginUser: async (req, res) => {
         try {
 

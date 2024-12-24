@@ -42,6 +42,62 @@ router.post('/register', validator.RegisterUser, ValidError, AuthController.Regi
 
 /**
  * @swagger
+ * /register/admin:
+ *   post:
+ *     summary: Создание нового администратора
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: "adminuser"
+ *               email:
+ *                 type: string
+ *                 example: "admin@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "securepassword123"
+ *     responses:
+ *       201:
+ *         description: Администратор успешно создан
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Администратор успешно создан"
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     username:
+ *                       type: string
+ *                       example: "adminuser"
+ *                     email:
+ *                       type: string
+ *                       example: "admin@example.com"
+ *                     role:
+ *                       type: string
+ *                       example: "admin"
+ *       400:
+ *         description: Ошибка валидации данных или конфликт
+ *       500:
+ *         description: Внутренняя ошибка сервера
+ */
+router.post('/register/admin', AuthController.CreateAdmin);
+
+
+/**
+ * @swagger
  * /login:
  *   post:
  *     summary: Логин пользователя

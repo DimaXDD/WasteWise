@@ -11,6 +11,7 @@ const cors = require('cors')
 const checkAuth = require('./utils/checkAuth');
 // const fileUpload = require('express-fileupload')
 const { swaggerUi, swaggerSpec } = require('./swagger/swagger');
+const chalk = require('chalk');
 
 
 app.use(cookieParser('ecofuture'))
@@ -108,12 +109,18 @@ app.use((req, res, next) => {
 
 httpServer.listen(8082, (err) => {
     if (err) {
-        return console.log(err);
+        console.error(chalk.red(`❌ [HTTP] Server failed to start: ${err}`));
+        return;
     }
-    console.log('Server start localhost:8082')});
+    console.log(chalk.green('✅ [HTTP] Server running at ') + chalk.blue.underline('http://localhost:8082'));
+});
 
 httpsServer.listen(8443, (err) => {
     if (err) {
-        return console.log(err);
+        console.error(chalk.red(`❌ [HTTPS] Server failed to start: ${err}`));
+        return;
     }
-console.log('Server start localhost:8443')});
+    console.log(chalk.green('✅ [HTTPS] Server running at ') + chalk.blue.underline('https://localhost:8443'));
+});
+
+console.log(chalk.cyan('📘 [Swagger UI] API Documentation available at ') + chalk.blue.underline('http://localhost:8082/swagger'));

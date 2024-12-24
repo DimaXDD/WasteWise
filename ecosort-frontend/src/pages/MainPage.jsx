@@ -1,7 +1,7 @@
 import React from 'react'
 // import Recycling from '../image/Recycling.svg';
-import {ReactComponent as Recycling} from '../image/Recycling.svg';
-import {ReactComponent as RecyclingMob} from '../image/Recycling.svg';
+import {ReactComponent as Recycling} from '../image/bio-leaves.svg';
+import {ReactComponent as RecyclingMob} from '../image/bio-leaves.svg';
 import { Link } from 'react-router-dom'
 
 import {Button} from "../components/Button";
@@ -12,22 +12,35 @@ import {Button} from "../components/Button";
 export const MainPage = () => {
     return (
         <section className={'w-full flex-col xl:flex-row flex mt-6 justify-between'}>
-            <div className={'relative order-2 xl:order-1 text-center w-full xl:w-2/4 xl:text-left xl:mt-40 mt-12'}>
-                <h1 className={'text-3xl xl:text-8xl text-cyan-950 font-semibold'}>
-                    ЭкоБудущее
-                </h1>
-                <p className={'text-cyan-950 opacity-75 text-lg my-10 whitespace-pre-line'}>
-                    {`представляет собой инициативу,\n направленную на повышение осведомленности о раздельном\n сборе бытовых отходов и активное привлечение людей к этим важным действиям`}
-                </p>
-                <Link to={'/articles'}><Button isFilled={true} className={''}>Читать</Button></Link>
-            </div>
-            <div className={'hidden xl:flex xl:order-2 w-2/4 mt-16 '}>
-                <Recycling/>
-            </div>
-            <div className={'flex xl:hidden w-full  justify-center order-1'}>
-                <RecyclingMob/>
-            </div>
-        </section>
+    <div className={'relative order-2 xl:order-1 text-center w-full xl:w-2/4 xl:text-left xl:mt-40 mt-12'}>
+        <h1 className={'text-3xl xl:text-8xl text-cyan-950 font-semibold'}>
+            ЭкоБудущее
+        </h1>
+        <p className={'text-cyan-950 opacity-75 text-lg my-10 whitespace-pre-line'}>
+            {`представляет собой инициативу,\n направленную на повышение осведомленности о раздельном\n сборе бытовых отходов и активное привлечение людей к этим важным действиям`}
+        </p>
+        <Link to={'/articles'}>
+            <Button isFilled={true}>Читать</Button>
+        </Link>
+    </div>
+
+    {/* Десктопная версия */}
+    <div 
+        className={
+            'hidden xl:flex xl:order-2 w-2/4 justify-center items-center mt-16'
+        }>
+        <Recycling style={{ width: '300px', height: '300px' }} />
+    </div>
+
+    {/* Мобильная версия */}
+    <div 
+        className={
+            'flex xl:hidden w-full justify-center items-center order-1'
+        }>
+        <RecyclingMob style={{ width: '250px', height: '250px' }} />
+    </div>
+</section>
+
 
     )
 }

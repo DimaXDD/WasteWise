@@ -25,6 +25,8 @@ CREATE TABLE IF NOT EXISTS ecosort.users (
   constraint email_un unique (email),
   constraint password_hash_un unique (password_hash),
   constraint users_pk primary key (id));
+  
+  select * from ecosort.users
 
 -- Статьи --
 CREATE TABLE IF NOT EXISTS ecosort.articles (
