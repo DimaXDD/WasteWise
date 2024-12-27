@@ -7,14 +7,12 @@ import { toast } from 'react-toastify'
 
 export const AllArticlesPage = () => {
         const dispatch = useDispatch()
-    const { status } = useSelector((state) => state.articles)
-
-    const {article} = useSelector((state) => state.articles)
+        const { status } = useSelector((state) => state.articles)
+        const {article} = useSelector((state) => state.articles)
 
         useEffect(() => {
             dispatch(getArticles());
             if (status) toast(status)
-            // window.location.reload();
         }, [dispatch, status])
 
         if(!article.length){

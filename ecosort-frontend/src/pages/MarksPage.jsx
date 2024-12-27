@@ -21,7 +21,7 @@ export const MarksPage = () => {
     if(!marks.length) {
         return(
             <div className={'text-xl text-center text-white py-10'}>
-                У вас нет скидок
+                У вас нет видов вторсырья
             </div>
         )
     }

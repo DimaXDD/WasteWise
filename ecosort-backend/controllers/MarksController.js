@@ -70,13 +70,13 @@ const MarksController = {
             }
             else {
                 res.json({
-                    message: 'Такое вротсырье уже есть, введите новое',
+                    message: 'Такое вторсырье уже есть, введите новое',
                 });
             }
         } catch (err) {
             console.log(err);
             res.json({
-                message: 'Не удалось добавить вротсырье'
+                message: 'Не удалось добавить вторсырье'
             });
         }
     },
@@ -91,12 +91,12 @@ const MarksController = {
             }, { where: { id: req.params.id } })
 
             res.json({
-                message: 'Вротсырье обновлено'
+                message: 'Вторсырье обновлено'
             });
         } catch (error) {
             console.log(error);
             res.json({
-                message: 'Не удалось обновить вротсырье'
+                message: 'Не удалось обновить вторсырье'
             });
         }
     },

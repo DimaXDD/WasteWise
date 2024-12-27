@@ -1,5 +1,6 @@
 const db = require('../config/db')
 const { Op } = require("sequelize");
+const logger = require('../utils/logger');
 
 // const { dirname } = require('path')
 // const path = require('path')
@@ -16,21 +17,24 @@ const ArticlesController = {
                     model: db.models.Users,
                     required: true,
                     attributes: ["id", "username"]
-                }]})
-            if (!article) {
-                return res.json({ message: 'Статей нет' })
-            }
-            else {
-                res.json({ article })
+                }]
+            });
+    
+            if (article.length === 0) {
+                logger.warning('No articles found in the database.');
+                return res.json({ message: 'Статей нет' });
+            } else {
+                logger.success(`Fetched ${article.length} article(s) successfully.`);
+                res.json({ articles: article });
             }
         } catch (error) {
-            console.log(error);
+            logger.error(`Error fetching articles: ${error.message}`);
             res.json({
                 message: 'Не удалось найти статьи',
             });
         }
     },
-
+    
     // getArticlesRating: async (req, res) => {
     //     try {
     //         db.models.Ratings.findAll({
@@ -68,16 +72,19 @@ const ArticlesController = {
             }
             )
             if (article == null) {
+                logger.warning(`Article with ID ${req.params.id} not found.`);
                 res.json({
                     message: 'Не удалось найти статью',
                 });
             }
             else {
+                logger.success(`Article with ID ${req.params.id} fetched successfully.`);
                 res.set("Content-Type", "application/json")
                 res.send(JSON.stringify(article))
                 console.log(JSON.stringify(article))
             }
         } catch (error) {
+            logger.error(`Error fetching article with ID ${req.params.id}: ${error.message}`);
             console.log(error);
             res.json({
                 message: 'Не удалось найти статью',
@@ -93,6 +100,8 @@ const ArticlesController = {
 
             const v_b_image_url = req.body.image_url;
             if (v_check_title == null) {
+                logger.info(`Attempting to add article with title: ${req.body.title}`);
+
                 if (v_b_image_url != undefined) {
                     const article = await db.models.Articles.create({
                         author: req.userId,
@@ -101,6 +110,7 @@ const ArticlesController = {
                         image_url: req.body.image_url,
                         date_of_pub: Date.now(),
                     })
+                    logger.success(`Article with title "${req.body.title}" added with image.`);
                     res.json({
                         article,
                         message: 'Статья добавлена с картинкой'
@@ -114,6 +124,7 @@ const ArticlesController = {
                         image_url: '',
                         date_of_pub: Date.now(),
                     })
+                    logger.success(`Article with title "${req.body.title}" added without image.`);
                     res.json({
                         article,
                         message: 'Статья добавлена без картинки'
@@ -121,11 +132,13 @@ const ArticlesController = {
                 }
             }
             else {
+                logger.warning(`Article with title "${req.body.title}" already exists.`);
                 res.json({
                     message: 'Статья с таким названием уже существует'
                 });
             }
         } catch (err) {
+            logger.error(`Error adding article: ${err.message}`);
             console.log(err);
             res.json({
                 message: 'Не удалось добавить статью'
@@ -140,16 +153,19 @@ const ArticlesController = {
             })
             if (v_check_id_articles != null) {
                 const article = await db.models.Articles.destroy({ where: { id: req.params.id } })
+                logger.success(`Article with ID ${req.params.id} deleted successfully.`);
                 res.json({
                         message: 'Статья удалена'
                     });
             }
             else {
+                logger.warning(`No article found with ID ${req.params.id}.`);
                 res.json({
                         message: 'Не удалось удалить статью',
                     });
             }
         } catch (error) {
+            logger.error(`Error deleting article with ID ${req.params.id}: ${error.message}`);
             console.log(error);
             res.json({
                     message: 'Не удалось удалить статью',
@@ -172,6 +188,7 @@ const ArticlesController = {
                 }, {
                     where: { id: req.params.id }
                 })
+                logger.success(`Article with ID ${req.params.id} updated successfully.`);
                 res.json({
                     article,
                     message: 'Статья изменена'
@@ -186,13 +203,14 @@ const ArticlesController = {
                 }, {
                     where: { id: req.params.id }
                 })
+                logger.success(`Article with ID ${req.params.id} updated with image.`);
                 res.json({
                     article,
                     message: 'Статья изменена'
                 });
             }
         } catch (err) {
-            console.log(err);
+            logger.error(`Error updating article with ID ${req.params.id}: ${err.message}`);
             res.json({
                 message: 'Не удалось изменить статью'
             });
@@ -209,6 +227,7 @@ const ArticlesController = {
                 }
             })
             if (!v_likes) {
+                logger.info(`User ${i_user} liked article ${i_article}`);
                 const likes = await db.models.Likes.create({
                     user_id: i_user,
                     article_id: i_article,
@@ -230,6 +249,7 @@ const ArticlesController = {
                         attributes: ["id", "username"]
                     }]
                 }).then(expense => {
+                    logger.success(`Article ${i_article} likes updated. Total likes: ${count_of_likes.count}`);
                     res.json({
                         message: "Вы поставили лайк",
                         expense
@@ -237,6 +257,7 @@ const ArticlesController = {
                 })
             }
             else {
+                logger.info(`User ${i_user} removed like from article ${i_article}`);
                 const likes = await db.models.Likes.destroy({
                     where: {
                         [Op.and]: [{ user_id: i_user }, { article_id: i_article }],
@@ -259,6 +280,7 @@ const ArticlesController = {
                         attributes: ["id", "username"]
                     }]
                 }).then(expense => {
+                    logger.success(`Article ${i_article} likes updated after unliking. Total likes: ${count_of_likes.count}`);
                     res.json({
                         message: "Вы убрали лайк",
                         expense
@@ -266,7 +288,7 @@ const ArticlesController = {
                 })
             }
         } catch (error) {
-            console.log(error);
+            logger.error(`Error processing like action for article ${req.params.id}: ${error.message}`);
             res.json({
                 message: 'Не удалось найти статью',
             });

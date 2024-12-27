@@ -12,6 +12,10 @@ Likes.init (
         id:	{type: Sequelize.INTEGER, primaryKey:true, unique: true, autoIncrementIdentity: true, required: true},
         article_id: {type: Sequelize.INTEGER, allowNull: false, required: true},
         user_id: {type: Sequelize.INTEGER, allowNull: false, required: true},
+        date_of_add: {
+            type: Sequelize.DATE, 
+            defaultValue: Sequelize.NOW
+        },
     },
     { sequelize, modelName: 'Likes', tableName: 'likes', timestamps: false }
 );

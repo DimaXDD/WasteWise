@@ -95,7 +95,6 @@ router.post('/register', validator.RegisterUser, ValidError, AuthController.Regi
  */
 router.post('/register/admin', AuthController.CreateAdmin);
 
-
 /**
  * @swagger
  * /login:

@@ -7,6 +7,7 @@ const { validationResult } = require('express-validator');
 const { Op } = require("sequelize");
 const uuid = require('uuid');
 const nodemailer = require('nodemailer');
+const logger = require('../utils/logger');
 
 
 const AuthController = {
@@ -55,7 +56,7 @@ const AuthController = {
                     const mailOptions = {
                         from: 'dimatruba2004@yandex.ru',
                         to: send_mail,
-                        subject: 'Активация аккаунта на сайте ЭкоБудущее',
+                        subject: 'Активация аккаунта на сайте EcoSort',
                         html:
                             `
                             <div> 
@@ -170,14 +171,16 @@ const AuthController = {
                     [Op.and]: [{ email: req.body.email }, { is_activated: 1 }],
                 }
             })
-            console.log(i_user)
+            logger.info(`User tried to login with email: ${req.body.email}`);
 
             if (i_user == null) {
+                logger.warning('Login failed: Invalid email or account not activated');
                 res.json({ message: 'Неверная почта или пароль' })
             }
             else {
                 const isValidPass = await bcrypt.compare(req.body.password, i_user.password_hash);
                 if (!isValidPass) {
+                    logger.warning('Login failed: Incorrect password');
                     res.json({ message: 'Неверная почта или пароль' })
                 }
                 else {

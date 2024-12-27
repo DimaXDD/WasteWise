@@ -9,18 +9,15 @@ const ReceptionsController = {
             const salt = '$2b$10$qNuSSupDD53DkQfO8wqpf.';
             const o_station_key = await bcrypt.hash(i_station_key, salt)
 
-            // Проверяем ключ
             const v_find_key = await db.models.Keys.findOne({
                 where: { secret_key: o_station_key }
             })
 
-            //Если он существует проверяем закреплен ли он за конкретным пунктом сдачи
             if (v_find_key.is_used == 1) {
                 const v_find_key_point = await db.models.Points.findOne({
                     where: { key_id: v_find_key.id }
                 })
 
-                //Проверям ключ веса
                 if (v_find_key_point != null) {
                     const i_key_of_weight = req.body.key_of_weight;
                     const salt_for_key = '$2b$10$qNuSSupDD53DkQfO8wqpf.';

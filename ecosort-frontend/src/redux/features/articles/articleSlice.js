@@ -24,14 +24,14 @@ export const getArticles = createAsyncThunk(
     'articles/getArticles',
     async () => {
         try {
-            const { data } = await axios.get('/articles')
-            console.log(data)
-            return data
+            const { data } = await axios.get('/articles');
+            console.log("Fetched articles data: ", data); // Проверка данных
+            return data;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    },
-)
+    }
+);
 
 export const removeArticles = createAsyncThunk(
     'articles/removeArticles',
@@ -104,7 +104,7 @@ export const articleSlice = createSlice({
             })
             .addCase(getArticles.fulfilled, (state, action) => {
                 state.loading = false
-                state.article = action.payload.article
+                state.article = action.payload.articles
             })
             .addCase(getArticles.rejected, (state, action) => {
                 state.loading = false

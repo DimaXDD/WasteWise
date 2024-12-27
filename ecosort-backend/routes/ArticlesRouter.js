@@ -27,16 +27,33 @@ let router = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                   title:
- *                     type: string
- *                   content:
- *                     type: string
+ *               type: object
+ *               properties:
+ *                 articles:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                       title:
+ *                         type: string
+ *                       content:
+ *                         type: string
+ *                       date_of_pub:
+ *                         type: string
+ *                         format: date
+ *                       image_url:
+ *                         type: string
+ *                       likes:
+ *                         type: integer
+ *                       author:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                           username:
+ *                             type: string
  */
 router.get('/articles', ArticlesController.getArticles);
 

@@ -29,6 +29,20 @@ const swaggerOptions = {
         description: 'Local secure development server (HTTPS)',
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [], // Указывает, что все запросы должны использовать эту схему авторизации
+      },
+    ],
   },
   apis: ['./routes/*.js'],
 };

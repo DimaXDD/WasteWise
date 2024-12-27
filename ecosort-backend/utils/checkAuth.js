@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 
 module.exports = function chekAuth(req, res, next) {
     const token = (req.headers.authorization || '').replace(/Bearer\s?/, '');
+    console.log('Generated Token:', token);
+
     if (token){
         try{
             const decoded = jwt.verify(token, accessKey);
