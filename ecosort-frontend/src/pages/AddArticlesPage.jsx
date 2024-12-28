@@ -74,15 +74,20 @@ export const AddArticlesPage = () => {
         e.preventDefault();
         try {
             const response = await dispatch(createArticles({ title, text, image_url }));
-
+    
             if (response.payload && response.payload.length > 0) {
                 const validationErrors = response.payload.map((error) => error.msg);
                 toast.error(validationErrors.join(', '));
+            } else {
+                // Успешное добавление статьи, перенаправляем
+                navigate('/articles');
             }
         } catch (error) {
             console.log(error);
+            toast.error('Произошла ошибка при добавлении статьи');
         }
     };
+    
 
     useEffect(() => {
         if (status) toast(status)

@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS ecosort.ratings (
     article_id  int          not null,
     commentator int          not null,
     comment     varchar(500) not null,
+    date_of_add DATETIME DEFAULT CURRENT_TIMESTAMP,
     constraint ratings_pk primary key (id),
     constraint ratings_fk_users foreign key (commentator) references ecosort.users(id) on delete cascade,
     constraint ratings_fk_articles foreign key (article_id) references ecosort.articles(id) on delete cascade);
