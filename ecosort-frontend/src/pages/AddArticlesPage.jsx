@@ -119,16 +119,37 @@ export const AddArticlesPage = () => {
             <input  ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
 
             {image_url && (
-                <>
-                    <button className={'ml-10 mb-5 bg-red-950 text-medium-gray px-5 py-2 text-white  rounded-lg font-bold  mx-0 hover:bg-transparent hover:text-red-950 border-2 border-red-950'} variant="contained" color="error" onClick={onClickRemoveImage}>
-                        Удалить
-                    </button>
-                    <img
-                        className={'mt-50 w-full'}
-                        src={`http://localhost:8082${image_url}`}
-                        alt="Uploaded" />
-                </>
-            )}
+    <>
+        <button
+            className={'ml-10 mb-5 bg-red-950 text-medium-gray px-5 py-2 text-white rounded-lg font-bold mx-0 hover:bg-transparent hover:text-red-950 border-2 border-red-950'}
+            variant="contained"
+            color="error"
+            onClick={onClickRemoveImage}
+        >
+            Удалить
+        </button>
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                margin: '20px 0',
+            }}
+        >
+            <img
+                src={`http://localhost:8082${image_url}`}
+                alt="Uploaded Preview"
+                style={{
+                    maxWidth: '300px',
+                    maxHeight: '200px',
+                    objectFit: 'contain',
+                    border: '2px solid #ccc',
+                    borderRadius: '10px',
+                }}
+            />
+        </div>
+    </>
+)}
+
 
             <br />
             <br />
