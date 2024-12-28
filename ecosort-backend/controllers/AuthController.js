@@ -56,15 +56,37 @@ const AuthController = {
                     const mailOptions = {
                         from: 'dimatruba2004@yandex.ru',
                         to: send_mail,
-                        subject: 'Активация аккаунта на сайте EcoSort',
-                        html:
-                            `
-                            <div> 
-                            <h1 >Для активации перейдите по ссылке</h1>
-                            <a href="${send_link}">${send_link}</a>
+                        subject: 'Подтверждение регистрации на сайте EcoSort',
+                        html: `
+                            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                                <h2 style="color: #4CAF50;">Здравствуйте, ${req.body.username}!</h2>
+                                <p>
+                                    Благодарим за регистрацию на платформе <strong>EcoSort</strong> — месте, где мы вместе заботимся о нашем будущем через переработку отходов.
+                                </p>
+                                <p>
+                                    Для завершения регистрации и активации вашего аккаунта, пожалуйста, перейдите по ссылке ниже:
+                                </p>
+                                <a 
+                                    href="${send_link}" 
+                                    style="display: inline-block; margin: 10px 0; padding: 10px 20px; color: #fff; background-color: #4CAF50; text-decoration: none; border-radius: 5px;"
+                                >
+                                    Активировать аккаунт
+                                </a>
+                                <p>
+                                    Или вы можете скопировать ссылку в браузер:
+                                </p>
+                                <p style="font-size: 14px; color: #555;">${send_link}</p>
+                                <hr style="border: none; border-top: 1px solid #ddd;">
+                                <p style="font-size: 12px; color: #777;">
+                                    Если вы не регистрировались на сайте EcoSort, проигнорируйте это сообщение.
+                                </p>
+                                <p>
+                                    С уважением,<br>Команда EcoSort
+                                </p>
                             </div>
-                            `
+                        `
                     }
+                    
 
                     let info = await transporter.sendMail(mailOptions)
 
