@@ -77,6 +77,13 @@ export const Header = () => {
                     <NavMenu items={DISCOUNTSAdmin}/>
                 </NavItem>
                 )}
+
+{user?.role === "user" && (
+    <Link to={'/recycle-camera'}>
+        <NavItem text={'AI Tool'} />
+    </Link>
+)}  
+
             </nav>
 
             {user && (

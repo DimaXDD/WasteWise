@@ -30,6 +30,7 @@ import {PointsMarksPage} from "./pages/PointsMarksPage";
 import {ChangeUsername} from "./pages/ChangeUsername";
 import {ChangePassPage} from "./pages/ChangePassPage";
 // import {TestPage} from "./pages/TestPage";
+import RecycleCamera from "./components/RecycleCamera";
 
 function App() {
 
@@ -87,6 +88,8 @@ function App() {
                 <Route path='newdisсount' element={<AddDisсountPage/>}/>
                 <Route path=':id/editdiscount' element={<UpdateDiscountPage/>}/>
 
+
+                <Route path="/recycle-camera" element={<RecycleCamera />} />
             </Routes>
             <ToastContainer position='bottom-right' />
         </Wrapper>

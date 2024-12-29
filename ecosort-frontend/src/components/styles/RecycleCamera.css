@@ -1,0 +1,53 @@
+.container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 20px auto;
+    max-width: 800px;
+  }
+  
+  .header {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .camera-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .video-canvas {
+    border: 2px solid #3498db;
+    border-radius: 8px;
+  }
+  
+  .fact-card {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #2ecc71;
+    border-radius: 8px;
+    background-color: #dff9fb;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .fact-card h2 {
+    color: #27ae60;
+  }
+  
+  .fact-card p {
+    font-size: 1rem;
+    color: #34495e;
+  }
+  
+  .fact-card img {
+    margin-top: 15px;
+    width: 200px;
+    border-radius: 8px;
+  }
+  
