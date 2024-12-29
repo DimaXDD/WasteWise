@@ -1,6 +1,6 @@
 const express = require('express');
 const ReceptionsController = require("../controllers/ReceptionsController");
-const checkAuth = require('../utils/checkAuth');
+const checkAuth = require('../middleware/checkAuth');
 
 // const ValidError = require('../utils/HandleErrors');
 // const validator = require('../validations/ReceptionsValidations');

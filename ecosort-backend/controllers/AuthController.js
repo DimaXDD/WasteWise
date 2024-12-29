@@ -2,12 +2,12 @@ const path = require('path')
 const jwt = require('jsonwebtoken')
 const db = require('../config/db')
 const bcrypt = require('bcrypt')
-const { chekAuth } = require('../utils/checkAuth')
+const { chekAuth } = require('../middleware/checkAuth')
 const { validationResult } = require('express-validator');
 const { Op } = require("sequelize");
 const uuid = require('uuid');
 const nodemailer = require('nodemailer');
-const logger = require('../utils/logger');
+const logger = require('../middleware/logger');
 
 
 const AuthController = {

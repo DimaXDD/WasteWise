@@ -1,10 +1,10 @@
 const express = require('express');
 const ArticlesController = require("../controllers/ArticlesController");
-const checkAuth = require('../utils/checkAuth');
-const checkRole = require("../utils/checkRole");
+const checkAuth = require('../middleware/checkAuth');
+const checkRole = require("../middleware/checkRole");
 
 const validator = require('../validations/ArticlesValidations');
-const ValidError = require('../utils/HandleErrors');
+const ValidError = require('../middleware/HandleErrors');
 
 let router = express.Router();
 

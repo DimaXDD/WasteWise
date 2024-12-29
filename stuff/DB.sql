@@ -89,6 +89,14 @@ CREATE TABLE IF NOT EXISTS ecosort.marks(
     new_from_kg float not null,
     image_link varchar(255) null,
     constraint marks_pk primary key (id));
+-- Точки сбора с отходами --
+CREATE TABLE IF NOT EXISTS ecosort.points_marks(
+    id        int auto_increment,
+    points_id int not null,
+    marks_id  int not null,
+    constraint points_marks_pk primary key (id),
+    constraint points_marks_fk_points foreign key (points_id) references ecosort.points(id) on delete cascade,
+    constraint points_marks_fk_marks foreign key (marks_id) references ecosort.marks(id) on delete cascade);
 -- Проверка веса --
 CREATE TABLE IF NOT EXISTS ecosort.check_weight(
     id int auto_increment,
@@ -134,11 +142,3 @@ CREATE TABLE IF NOT EXISTS ecosort.promo_codes(
     constraint promo_codes_fk_users foreign key (user_id) references ecosort.users (id) on delete cascade,
     constraint promo_codes_fk_discounts foreign key (discount_id) references ecosort.discounts (id) on delete cascade
 );
--- Точки сбора с отходами --
-CREATE TABLE IF NOT EXISTS ecosort.points_marks(
-    id        int auto_increment,
-    points_id int not null,
-    marks_id  int not null,
-    constraint points_marks_pk primary key (id),
-    constraint points_marks_fk_points foreign key (points_id) references ecosort.points(id) on delete cascade,
-    constraint points_marks_fk_marks foreign key (marks_id) references ecosort.marks(id) on delete cascade);

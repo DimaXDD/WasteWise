@@ -1,9 +1,9 @@
 const express = require('express');
 const Check_weightsController = require("../controllers/Check_weightsController");
-const checkAuth = require('../utils/checkAuth');
-const checkRole = require('../utils/checkRole');
+const checkAuth = require('../middleware/checkAuth');
+const checkRole = require('../middleware/checkRole');
 const validator = require("../validations/MarksValidations");
-const ValidError = require("../utils/HandleErrors");
+const ValidError = require("../middleware/HandleErrors");
 
 let router = express.Router();
 

@@ -1,9 +1,9 @@
 const express = require('express');
 const UsersController = require("../controllers/UsersController");
-const checkRole = require('../utils/checkRole');
-const checkAuth = require("../utils/checkAuth");
+const checkRole = require('../middleware/checkRole');
+const checkAuth = require("../middleware/checkAuth");
 const validator = require("../validations/AuthValidations");
-const ValidError = require("../utils/HandleErrors");
+const ValidError = require("../middleware/HandleErrors");
 
 let router = express.Router();
 

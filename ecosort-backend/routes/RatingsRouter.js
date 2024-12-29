@@ -1,7 +1,7 @@
 const express = require('express');
 const RatingsController = require("../controllers/RatingsController");
-const checkAuth = require('../utils/checkAuth');
-const checkRole = require("../utils/checkRole");
+const checkAuth = require('../middleware/checkAuth');
+const checkRole = require("../middleware/checkRole");
 
 let router = express.Router();
 

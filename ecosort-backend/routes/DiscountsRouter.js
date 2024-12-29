@@ -1,9 +1,9 @@
 const express = require('express');
 const DiscountsController = require("../controllers/DiscountsController");
 const validator = require('../validations/DiscountsValidations');
-const checkRole = require('../utils/checkRole');
-const ValidError = require('../utils/HandleErrors');
-const checkAuth = require("../utils/checkAuth");
+const checkRole = require('../middleware/checkRole');
+const ValidError = require('../middleware/HandleErrors');
+const checkAuth = require("../middleware/checkAuth");
 
 let router = express.Router();
 

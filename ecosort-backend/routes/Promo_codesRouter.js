@@ -1,6 +1,6 @@
 const express = require('express');
 const Promo_codesController = require("../controllers/Promo_codesController");
-const checkAuth = require('../utils/checkAuth');
+const checkAuth = require('../middleware/checkAuth');
 
 let router = express.Router();
 

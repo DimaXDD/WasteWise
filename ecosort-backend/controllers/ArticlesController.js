@@ -1,6 +1,6 @@
 const db = require('../config/db')
 const { Op } = require("sequelize");
-const logger = require('../utils/logger');
+const logger = require('../middleware/logger');
 
 // const { dirname } = require('path')
 // const path = require('path')

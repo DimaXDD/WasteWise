@@ -1,9 +1,9 @@
 const express = require('express');
 const MarksController = require("../controllers/MarksController");
 const validator = require('../validations/MarksValidations');
-const checkRole = require('../utils/checkRole');
-const checkAuth = require('../utils/checkAuth');
-const ValidError = require('../utils/HandleErrors');
+const checkRole = require('../middleware/checkRole');
+const checkAuth = require('../middleware/checkAuth');
+const ValidError = require('../middleware/HandleErrors');
 
 let router = express.Router();
 

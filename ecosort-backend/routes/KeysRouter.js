@@ -1,8 +1,8 @@
 const express = require('express');
 const KeysController = require("../controllers/KeysController");
-const checkRole = require('../utils/checkRole');
+const checkRole = require('../middleware/checkRole');
 const validator = require("../validations/PointsValidations");
-const ValidError = require("../utils/HandleErrors");
+const ValidError = require("../middleware/HandleErrors");
 
 let router = express.Router();
 

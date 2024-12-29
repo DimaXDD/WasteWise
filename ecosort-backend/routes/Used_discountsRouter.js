@@ -1,7 +1,7 @@
 const express = require('express')
 const Used_discountsController = require("../controllers/Used_discountsController");
-const checkRole = require('../utils/checkRole');
-const checkAuth = require('../utils/checkAuth');
+const checkRole = require('../middleware/checkRole');
+const checkAuth = require('../middleware/checkAuth');
 
 let router = express.Router()
 
