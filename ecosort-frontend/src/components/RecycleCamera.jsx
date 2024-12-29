@@ -1,32 +1,34 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import "@tensorflow/tfjs";
+import plasticBottle from "../image/plastic_bottle.png";
+
 
 const factsData = {
   plastic_bottle: {
     title: "Пластиковая бутылка",
     description: "Пластиковые бутылки можно перерабатывать и использовать снова.",
-    image: "/images/plastic_bottle.jpg",
+    image: plasticBottle,
   },
   paper: {
     title: "Бумага",
     description: "Бумага может перерабатываться до 6 раз, но требует аккуратного обращения.",
-    image: "/images/paper.jpg",
+    image: "/image/paper.jpg",
   },
   aluminum_can: {
     title: "Алюминиевая банка",
     description: "Алюминий на 100% пригоден для переработки без потери качества.",
-    image: "/images/aluminum_can.jpg",
+    image: "/image/aluminum_can.jpg",
   },
   glass_bottle: {
     title: "Стеклянная бутылка",
     description: "Стекло перерабатывается неограниченное количество раз.",
-    image: "/images/glass_bottle.jpg",
+    image: "/image/glass_bottle.jpg",
   },
   tetra_pack: {
     title: "Тетра Пак",
     description: "Тетра Пак состоит из нескольких материалов, что требует сложной переработки.",
-    image: "/images/tetra_pack.jpg",
+    image: "/image/tetra_pack.jpg",
   },
 };
 
@@ -35,6 +37,7 @@ const RecycleCamera = () => {
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
   const [fact, setFact] = useState(null);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const mapToCategory = (label) => {
     if (label.includes("bottle")) return "plastic_bottle";
@@ -85,14 +88,16 @@ const RecycleCamera = () => {
             console.error("Ошибка при анализе:", error);
           }
         }
-        requestAnimationFrame(processFrame);
+        if (!isPopupVisible) {
+          requestAnimationFrame(processFrame);
+        }
       };
 
       processFrame();
     };
 
     initializeCameraAndModel();
-  }, []);
+  }, [isPopupVisible]);
 
   const drawPredictions = (predictions, ctx) => {
     predictions.forEach((prediction) => {
@@ -112,29 +117,38 @@ const RecycleCamera = () => {
       const category = mapToCategory(predictions[0].class);
       if (category && factsData[category]) {
         setFact(factsData[category]);
-      } else {
-        setFact({
-          title: "Неизвестный объект",
-          description: "Факты для данного объекта не найдены.",
-        });
+        setIsPopupVisible(true);
+        videoRef.current?.pause(); // Pause the video
       }
-    } else {
-      setFact(null);
     }
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
+    setFact(null);
+    videoRef.current?.play(); // Resume the video
   };
 
   return (
     <div className="container" style={styles.container}>
       <h1 className="header" style={styles.header}>Определение вторсырья</h1>
-      <div className="camera-container" style={styles.cameraContainer}>
+      <div
+        className="camera-container"
+        style={{ ...styles.cameraContainer, display: isPopupVisible ? "none" : "block" }}
+      >
         <video ref={videoRef} style={styles.video} />
         <canvas ref={canvasRef} className="video-canvas" style={styles.canvas} />
       </div>
-      {fact && (
-        <div className="fact-card" style={styles.factCard}>
-          <h2 style={styles.factTitle}>{fact.title}</h2>
-          <p style={styles.factDescription}>{fact.description}</p>
-          {fact.image && <img src={fact.image} alt={fact.title} style={styles.factImage} />}
+      {isPopupVisible && fact && (
+        <div className="popup" style={styles.popup}>
+          <div className="popup-content" style={styles.popupContent}>
+            <h2>{fact.title}</h2>
+            <p>{fact.description}</p>
+            {fact.image && <img src={fact.image} alt={fact.title} style={styles.factImage} />}
+            <button onClick={closePopup} style={styles.closeButton}>
+              Закрыть
+            </button>
+          </div>
         </div>
       )}
     </div>
@@ -166,25 +180,37 @@ const styles = {
     width: "100%",
     border: "2px solid #000",
   },
-  factCard: {
+  popup: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  popupContent: {
     backgroundColor: "#fff",
     borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     padding: "20px",
     maxWidth: "400px",
     textAlign: "center",
-  },
-  factTitle: {
-    fontSize: "20px",
-    marginBottom: "10px",
-  },
-  factDescription: {
-    fontSize: "16px",
-    marginBottom: "20px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   },
   factImage: {
     maxWidth: "100%",
     borderRadius: "8px",
+    marginBottom: "20px",
+  },
+  closeButton: {
+    padding: "10px 20px",
+    backgroundColor: "#ff0000",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
   },
 };
 
