@@ -27,6 +27,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.get('/promo', checkAuth, Promo_codesController.getPromoCodes);
 
 /**
  * @swagger
@@ -53,8 +54,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
-
-router.get('/promo', checkAuth, Promo_codesController.getPromoCodes);
 router.delete('/promo/:id', checkAuth, Promo_codesController.deletePromoCode);
+
 
 module.exports = router;

@@ -32,7 +32,6 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
-
 router.post('/receptions', checkAuth, ReceptionsController.Receptions);
 
 // router.post('/Receptions', validator.Receptions, ValidError, chekAuth, ReceptionsController.Receptions);

@@ -30,6 +30,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.get('/points', checkAuth, PointsController.getPoints);
 
 /**
  * @swagger
@@ -56,6 +57,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.get('/points/:id', checkRole, PointsController.getPoint);
 
 /**
  * @swagger
@@ -82,6 +84,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.get('/points/marks/:marks_id', checkAuth, PointsController.getPointByMarks);
 
 /**
  * @swagger
@@ -117,6 +120,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.post('/points', validator.addPoints, ValidError, checkRole, checkAuth, PointsController.addPoints);
 
 /**
  * @swagger
@@ -155,6 +159,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.put('/points/key/:id', validator.editKey, ValidError, checkRole, checkAuth, PointsController.editPointsKey);
 
 /**
  * @swagger
@@ -196,6 +201,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.put('/points/:id', validator.editPoints, ValidError, checkRole, checkAuth, PointsController.editPoints);
 
 /**
  * @swagger
@@ -222,13 +228,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
-
-router.get('/points', checkAuth, PointsController.getPoints);
-router.get('/points/:id', checkRole, PointsController.getPoint);
-router.get('/points/marks/:marks_id', checkAuth, PointsController.getPointByMarks);
-router.post('/points', validator.addPoints, ValidError, checkRole, checkAuth, PointsController.addPoints);
-router.put('/points/key/:id', validator.editKey, ValidError, checkRole, checkAuth, PointsController.editPointsKey);
-router.put('/points/:id', validator.editPoints, ValidError, checkRole, checkAuth, PointsController.editPoints);
 router.delete('/points/:id', checkRole, PointsController.deletePoints);
+
 
 module.exports = router;

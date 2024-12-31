@@ -48,7 +48,6 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
-
 router.post('/keys', checkRole, validator.addKey, ValidError, KeysController.addKeys);
 
 module.exports = router;

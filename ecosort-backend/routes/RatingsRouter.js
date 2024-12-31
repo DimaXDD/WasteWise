@@ -33,7 +33,6 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
-
 router.get('/ratings/:article_id', RatingsController.getRatings);
 
 /**
@@ -48,7 +47,6 @@ router.get('/ratings/:article_id', RatingsController.getRatings);
  *       500:
  *         description: Внутренняя ошибка сервера
  */
-
 router.get('/ratings', RatingsController.getAllRating);
 
 /**
@@ -86,7 +84,6 @@ router.get('/ratings', RatingsController.getAllRating);
  *       500:
  *         description: Внутренняя ошибка сервера
  */
-
 router.post('/ratings/:article_id', checkAuth, RatingsController.addRatings);
 
 /**
@@ -112,7 +109,6 @@ router.post('/ratings/:article_id', checkAuth, RatingsController.addRatings);
  *       500:
  *         description: Внутренняя ошибка сервера
  */
-
 router.delete('/ratings/:id', checkAuth, RatingsController.deleteRatings);
 
 module.exports = router;

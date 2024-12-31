@@ -30,6 +30,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.get   ('/discounts',          checkRole, DiscountsController.getDiscounts);
 
 /**
  * @swagger
@@ -57,6 +58,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.get   ('/discounts/:id',      checkRole, DiscountsController.getDiscount);
 
 /**
  * @swagger
@@ -74,6 +76,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.get   ('/used/discounts',     checkAuth, DiscountsController.showMyDiscounts);
 
 /**
  * @swagger
@@ -111,6 +114,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.post  ('/discounts',          checkRole, validator.addDiscounts, ValidError, DiscountsController.addDiscounts);
 
 /**
  * @swagger
@@ -155,6 +159,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.put   ('/discounts/:id',      checkRole, DiscountsController.editDiscounts);
 
 /**
  * @swagger
@@ -180,6 +185,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.delete('/discounts/:id',      checkRole, DiscountsController.deleteDiscounts);
 
 /**
  * @swagger
@@ -205,13 +211,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
- 
-router.get   ('/discounts',          checkRole, DiscountsController.getDiscounts);
-router.get   ('/discounts/:id',      checkRole, DiscountsController.getDiscount);
-router.get   ('/used/discounts',     checkAuth, DiscountsController.showMyDiscounts);
-router.put   ('/discounts/:id',      checkRole, DiscountsController.editDiscounts);
-router.put   ("/used/discounts/:id", checkAuth, DiscountsController.usedMyDiscounts);
-router.delete('/discounts/:id',      checkRole, DiscountsController.deleteDiscounts);
-router.post  ('/discounts',          checkRole, validator.addDiscounts, ValidError, DiscountsController.addDiscounts);
+router.put   ('/used/discounts/:id', checkAuth, DiscountsController.usedMyDiscounts);
+
 
 module.exports = router;

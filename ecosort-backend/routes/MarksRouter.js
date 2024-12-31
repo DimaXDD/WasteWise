@@ -30,6 +30,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.get('/marks', checkAuth, MarksController.getMarks);
 
 /**
  * @swagger
@@ -56,6 +57,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.get('/marks/:id', checkAuth, MarksController.getMark);
 
 /**
  * @swagger
@@ -88,6 +90,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.post('/marks', checkRole, validator.addMarks, ValidError, MarksController.addMarks);
 
 /**
  * @swagger
@@ -127,6 +130,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
+router.put('/marks/:id', checkRole, validator.editMarks, ValidError, MarksController.editMarks);
 
 /**
  * @swagger
@@ -153,11 +157,7 @@ let router = express.Router();
  *       500:
  *         description: Внутренняя ошибка сервера
  */
-
-router.get('/marks', checkAuth, MarksController.getMarks);
-router.get('/marks/:id', checkAuth, MarksController.getMark);
-router.post('/marks', checkRole, validator.addMarks, ValidError, MarksController.addMarks);
-router.put('/marks/:id', checkRole, validator.editMarks, ValidError, MarksController.editMarks);
 router.delete('/marks/:id', checkRole, MarksController.deleteMarks);
+
 
 module.exports = router;

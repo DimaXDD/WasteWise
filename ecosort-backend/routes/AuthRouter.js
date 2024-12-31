@@ -26,6 +26,9 @@ let router = express.Router();
  *           schema:
  *             type: object
  *             properties:
+ *               username:
+ *                 type: string
+ *                 example: "user123"
  *               email:
  *                 type: string
  *                 example: "user@example.com"
@@ -33,10 +36,46 @@ let router = express.Router();
  *                 type: string
  *                 example: "password123"
  *     responses:
- *       201:
+ *       200:
  *         description: Пользователь успешно зарегистрирован
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Мы выслали вам письмо на указанную почту для ее подтверждения"
  *       400:
  *         description: Ошибка валидации данных
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Почта занята, введите другую"
+ *       409:
+ *         description: Пользователь с таким именем уже существует
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Имя пользователя занято, введите другое"
+ *       500:
+ *         description: Внутренняя ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Не удалось зарегистрироваться"
  */
 router.post('/register', validator.RegisterUser, ValidError, AuthController.RegisterUser);
 

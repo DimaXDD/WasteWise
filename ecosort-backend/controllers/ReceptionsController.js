@@ -13,6 +13,12 @@ const ReceptionsController = {
                 where: { secret_key: o_station_key }
             })
 
+            if (!v_find_key) {
+                return res.json({
+                    message: 'Ключ не найден'
+                });
+            }
+
             if (v_find_key.is_used == 1) {
                 const v_find_key_point = await db.models.Points.findOne({
                     where: { key_id: v_find_key.id }

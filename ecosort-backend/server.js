@@ -7,11 +7,11 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
-const cors = require('cors')
 const checkAuth = require('./middleware/checkAuth');
 // const fileUpload = require('express-fileupload')
 const { swaggerUi, swaggerSpec } = require('./swagger/swagger');
 const chalk = require('chalk');
+const cors = require('cors');
 
 
 app.use(cookieParser('ecofuture'))

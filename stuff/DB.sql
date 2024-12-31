@@ -2,14 +2,14 @@ show databases;
 create database ecosort;
 drop database ecosort;
 
-select * from ecosort.users;        -- таблица пользователей (все понятно)
-select * from ecosort.articles;     -- таблица с статьями (все понятно)
-select * from ecosort.ratings;      -- переписано (все понятно)
-select * from ecosort.likes;        -- переписано (все понятно)
-select * from ecosort.points;       -- таблица с пунктами приема (все понятно)
-select * from ecosort.s_keys;       -- ключи от пунктов приема (добавляем ключ, потом пункт) (все понятно)
+select * from ecosort.users;        -- таблица пользователей
+select * from ecosort.articles;     -- таблица с статьями
+select * from ecosort.ratings;      -- комментарии
+select * from ecosort.likes;        -- лайки
+select * from ecosort.points;       -- таблица с пунктами приема
+select * from ecosort.s_keys;       -- ключи от пунктов приема (добавляем ключ, потом пункт)
 select * from ecosort.receptions;   -- переписано
-select * from ecosort.marks;        -- виды вторсырья (все понятно)
+select * from ecosort.marks;        -- виды вторсырья
 select * from ecosort.check_weight; -- подтверждение сдачи
 select * from ecosort.points_marks; -- используется для связи «многие-ко-многим» таблиц points и marks
 
