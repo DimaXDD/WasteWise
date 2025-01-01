@@ -75,7 +75,6 @@ const UsersController = {
             });
         }
     },
-
     changePass: async (req, res) => {
         try{
 

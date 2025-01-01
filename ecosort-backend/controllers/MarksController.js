@@ -34,7 +34,7 @@ const MarksController = {
 
             if (marks == null) {
                 res.json({
-                    message: 'Не удалось найти вротсырье',
+                    message: 'Не удалось найти вторсырье',
                 });
             }
             else {

@@ -16,3 +16,10 @@ exports.AddWeight  = [
     body('weight', 'Вы ввели не число').isNumeric(),
     body('rubbish_w', 'Введите вид вторсырья').isLength({min: 3}),
 ];
+
+exports.EditWeight = [
+    body('id', 'Некорректный идентификатор').isInt().toInt(),
+    body('rubbish_w', 'Введите вид вторсырья').isLength({ min: 3 }),
+    body('weight', 'Вы ввели не число').isNumeric(),
+    body('key_of_weight', 'Введите ключ веса').isString().isLength({ min: 3 })
+];

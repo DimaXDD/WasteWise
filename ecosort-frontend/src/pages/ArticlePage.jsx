@@ -181,15 +181,16 @@ export const ArticlePage = () => {
               </div>
 
               {/*КНОПКИ УДАЛЕНИЯ И ИЗМЕНЕНИЯ*/}
-              {user?.id === articles.User.id && (
-                  <div className={'flex gap-3 mt-4'}>
-                    <button className={'flex items-center justify-center gap-2 text-xl text-lime-900 opacity-50'}>
-                      <Link to={`/${params.id}/edit`}>
-                        <AiTwotoneEdit />
-                      </Link>
-                    </button>
-                  </div>
+              {(user?.id === articles.User.id || user?.role === "admin") && (
+                <div className={'flex gap-3 mt-4'}>
+                  <button className={'flex items-center justify-center gap-2 text-xl text-lime-900 opacity-50'}>
+                  <Link to={`/${params.id}/edit`}>
+                    <AiTwotoneEdit />
+                  </Link>
+                  </button>
+                </div>
               )}
+
 
               {user?.id === articles.User.id || user?.role === "admin" ? (
                 <div className={'flex gap-3 mt-4'}>
@@ -233,7 +234,7 @@ export const ArticlePage = () => {
               ))}
           </div>
 
-          {/*<div className={'w-1/3 p-8 bg-cyan-950 border-cyan-950 flex-col gap-2 rounded-sm'}>*/}
+          {/* <div className={'w-1/3 p-8 bg-cyan-950 border-cyan-950 flex-col gap-2 rounded-sm'}>*/}
           {/*  {user && (*/}
           {/*    <form className={'flex gap-2'} onSubmit={e => e.preventDefault()}>*/}
           {/*      /!*<input*!/*/}
@@ -252,7 +253,7 @@ export const ArticlePage = () => {
           {/*    </form>*/}
           {/*  )}*/}
           {/*
-          {/*</div>*/}
+          {/*</div> */}
         </div>
       </div>
     </div>

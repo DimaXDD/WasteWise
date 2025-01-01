@@ -12,29 +12,40 @@ import {loginUser} from "../redux/features/auth/authSlice";
 
 export const AddMarksPage = ( ) => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const [rubbish, setRubbish] = useState('')
-    const [points_per_kg, setPointsPerKg] = useState('')
-    const [new_from_kg, setNewFromKg] = useState('')
-    const [image_link, setImageLink] = useState('')
+    const [rubbish, setRubbish] = useState('');
+    const [points_per_kg, setPointsPerKg] = useState('');
+    const [new_from_kg, setNewFromKg] = useState('');
+    const [image_link, setImageLink] = useState('');
 
-    const [rubbish_w, setRubbishW] = useState('')
-    const [weight, setWeight] = useState('')
-    const [key_of_weight, setKeyOfWeight] = useState('')
+    const [rubbish_w, setRubbishW] = useState('');
+    const [weight, setWeight] = useState('');
+    const [key_of_weight, setKeyOfWeight] = useState('');
 
-    const { status } = useSelector((state) => state.mark)
-    const { status_weight } = useSelector((state) => state.weight)
+    const [weightData, setWeightData] = useState([]);
+
+    const { status } = useSelector((state) => state.mark);
+    const { status_weight } = useSelector((state) => state.weight);
 
     // const navigate = useNavigate();
 
 
     useEffect(() => {
-        if (status) toast(status)
-        if (status_weight) toast(status_weight)
-    }, [status, status_weight
-        // , rubbish, points_per_kg, new_from_kg, rubbish_w, weight, key_of_weight
-    ])
+        if (status) toast(status);
+        if (status_weight) toast(status_weight);
+        fetchWeightData();
+    }, [status, status_weight]);
+
+    const fetchWeightData = async () => {
+        try {
+            const response = await axios.get('/getWeight');
+            setWeightData(response.data.data);
+        } catch (error) {
+            console.log(error);
+            toast('Не удалось получить данные веса');
+        }
+    };
 
     const handleChangeFile = async (event) => {
         try {
@@ -72,8 +83,7 @@ export const AddMarksPage = ( ) => {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const response = await dispatch(addMark({ rubbish, points_per_kg, new_from_kg, image_link}));
-
+            const response = await dispatch(addMark({ rubbish, points_per_kg, new_from_kg, image_link }));
             if (response.payload && response.payload.length > 0) {
                 const validationErrors = response.payload.map((error) => error.msg);
                 toast.error(validationErrors.join(', '));
@@ -102,8 +112,7 @@ export const AddMarksPage = ( ) => {
     const submitHandlerWeight = async (e) => {
         e.preventDefault();
         try {
-            const response = await dispatch(addWeight({ rubbish_w, weight, key_of_weight}));
-
+            const response = await dispatch(addWeight({ rubbish_w, weight, key_of_weight }));
             if (response.payload && response.payload.length > 0) {
                 const validationErrors = response.payload.map((error) => error.msg);
                 toast.error(validationErrors.join(', '));
@@ -114,25 +123,25 @@ export const AddMarksPage = ( ) => {
     };
 
     const clearFormHandler = () => {
-        setRubbish('')
-        setPointsPerKg('')
-        setNewFromKg('')
-        setImageLink('')
-    }
+        setRubbish('');
+        setPointsPerKg('');
+        setNewFromKg('');
+        setImageLink('');
+    };
 
     const clearFormHandlerWeight = () => {
-        setRubbishW('')
-        setWeight('')
-        setKeyOfWeight('')
-    }
+        setRubbishW('');
+        setWeight('');
+        setKeyOfWeight('');
+    };
 
     const onClickRemoveImage = () => {
         setImageLink('');
     };
 
     return(
-        <section className={'w-full flex-col xl:flex-row flex mt-6 justify-between'}>
-            <div className={'relative items-center justify-center pl-20 xl:pl-48 order-1 text-center w-full xl:w-2/4 xl:text-left xl:mt-0 mt-12'}>
+        <section className={'w-full flex flex-col xl:flex-row mt-6 justify-between'}>
+            <div className={'relative flex flex-col items-center justify-center pl-20 xl:pl-48 order-1 text-center w-full xl:w-1/2 xl:text-left xl:mt-0 mt-12'}>
                 <form
                     className='flex flex-col xl:w-96 pt-5 pb-5 w-80 mt-16 border-2 border-green-500 rounded-lg '
                     onSubmit={(e) => e.preventDefault()}>
@@ -210,7 +219,7 @@ export const AddMarksPage = ( ) => {
                     </div>
                 </form>
             </div>
-            <div className={'relative order-2 text-center pl-20 xl:pl-36 w-full xl:w-2/4 xl:text-left xl:mt-0 mt-12'}>
+            <div className={'relative flex flex-col items-center justify-center pl-20 xl:pl-36 order-2 text-center w-full xl:w-1/2 xl:text-left xl:mt-0 mt-12'}>
                 <form
                     className='flex flex-col xl:w-96 pt-5 pb-5 w-80 mt-16 border-2 border-green-500  rounded-lg '
                     onSubmit={(e) => e.preventDefault()}>
@@ -271,6 +280,29 @@ export const AddMarksPage = ( ) => {
 
                 </form>
 
+            </div>
+            <div className={'relative order-3 w-full mt-12'}>
+                <h2 className='text-lime-900 font-bold xl:text-3xl text-2xl opacity-80 text-center mb-4'>Данные веса</h2>
+                <table className='w-full border-collapse border border-gray-300'>
+                    <thead>
+                        <tr className='bg-gray-200'>
+                            <th className='border border-gray-300 px-4 py-2'>ID</th>
+                            <th className='border border-gray-300 px-4 py-2'>Вид вторсырья</th>
+                            <th className='border border-gray-300 px-4 py-2'>Вес</th>
+                            <th className='border border-gray-300 px-4 py-2'>Ключ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {weightData.map((item) => (
+                            <tr key={item.id} className='hover:bg-gray-100'>
+                                <td className='border border-gray-300 px-4 py-2'>{item.id}</td>
+                                <td className='border border-gray-300 px-4 py-2'>{item.Mark?.rubbish || 'Неизвестно'}</td>
+                                <td className='border border-gray-300 px-4 py-2'>{item.weight}</td>
+                                <td className='border border-gray-300 px-4 py-2'>{item.key_of_weight}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </section>
     )
