@@ -237,7 +237,33 @@ const DiscountsController = {
         catch (error) {
             console.log(error);
         }
-    }
+    },
+
+    // User
+    viewUserDiscounts: async (req, res) => {
+        try {
+            const v_user = await db.models.Users.findOne({
+                attributes: ["points"],
+                where: { id: req.userId }
+            });
+
+            const availableDiscounts = await db.models.Discounts.findAll({
+                attributes: ["id", "discount", "count_for_dnt"],
+                where: { count_for_dnt: { [Op.lte]: v_user.points } }
+            });
+
+            if (!availableDiscounts || availableDiscounts.length === 0) {
+                return res.json({ message: 'Скидок нет' });
+            }
+
+            res.json({ availableDiscounts });
+        } catch (error) {
+            console.log(error);
+            res.json({
+                message: 'Не удалось получить список скидок',
+            });
+        }
+    },
 }
 
 module.exports = DiscountsController

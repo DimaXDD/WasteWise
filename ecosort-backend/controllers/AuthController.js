@@ -187,36 +187,37 @@ const AuthController = {
     
     LoginUser: async (req, res) => {
         try {
-
             const i_user = await db.models.Users.findOne({
                 where: {
                     [Op.and]: [{ email: req.body.email }, { is_activated: 1 }],
                 }
-            })
+            });
             logger.info(`User tried to login with email: ${req.body.email}`);
-
+    
             if (i_user == null) {
                 logger.warning('Login failed: Invalid email or account not activated');
-                res.json({ message: 'Неверная почта или пароль' })
-            }
-            else {
+                res.json({ message: 'Неверная почта или пароль' });
+            } else {
                 const isValidPass = await bcrypt.compare(req.body.password, i_user.password_hash);
                 if (!isValidPass) {
                     logger.warning('Login failed: Incorrect password');
-                    res.json({ message: 'Неверная почта или пароль' })
-                }
-                else {
-                    const accessToken = jwt.sign({ id: i_user.id, username: i_user.username, role: i_user.role }, accessKey, { expiresIn: 30 * 60 })
-                    const refreshToken = jwt.sign({ id: i_user.id, username: i_user.username, role: i_user.role }, refreshKey, { expiresIn: 24 * 60 * 60 })
-
+                    res.json({ message: 'Неверная почта или пароль' });
+                } else {
+                    const accessToken = jwt.sign({ id: i_user.id, username: i_user.username, role: i_user.role }, accessKey, { expiresIn: 30 * 60 });
+                    const refreshToken = jwt.sign({ id: i_user.id, username: i_user.username, role: i_user.role }, refreshKey, { expiresIn: 24 * 60 * 60 });
+    
+                    // Вывод токенов в консоль для отладки
+                    console.log('Access Token:', accessToken);
+                    console.log('Refresh Token:', refreshToken);
+    
                     res.cookie('accessToken', accessToken, {
                         httpOnly: true,
                         sameSite: 'strict'
-                    })
+                    });
                     res.cookie('refreshToken', refreshToken, {
                         httpOnly: true,
                         sameSite: 'strict'
-                    })
+                    });
                     res.json({
                         message: 'Авторизация прошла успешно',
                         accessToken,
@@ -236,6 +237,7 @@ const AuthController = {
             });
         }
     },
+    
 
     Logout: (req, res) => {
         res.clearCookie('accessToken')

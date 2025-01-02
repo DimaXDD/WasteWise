@@ -213,5 +213,23 @@ router.delete('/discounts/:id',      checkRole, DiscountsController.deleteDiscou
  */
 router.put   ('/used/discounts/:id', checkAuth, DiscountsController.usedMyDiscounts);
 
+/**
+ * @swagger
+ * /user/viewDiscounts:
+ *   get:
+ *     summary: Получить список доступных скидок для текущего пользователя
+ *     tags: [Discounts]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Список доступных скидок
+ *       401:
+ *         description: Неавторизованный доступ
+ *       500:
+ *         description: Внутренняя ошибка сервера
+ */
+router.get('/user/viewDiscounts', checkAuth, DiscountsController.viewUserDiscounts);
+
 
 module.exports = router;
