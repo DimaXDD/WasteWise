@@ -17,11 +17,15 @@ export const ArticleItem = ({articles}) => {
         <Link to={`/${articles.id}`}>
             <div className={'flex flex-col basis-1/4 flex-grow bg-green-100 rounded-lg'}>
 
-                <div className={articles.image_url ? 'flex rounded-sm h-full' : 'flex rounded-sm'}>
-                    {articles.image_url && (
-                        <img src={`http://localhost:8082${articles.image_url}`} className={'object-cover w-full rounded-lg'}/>
-                    )}
-                </div>
+            <div className={articles.image_url ? 'flex rounded-sm h-full' : 'flex rounded-sm'}>
+    {articles.image_url && (
+        <img 
+            src={`http://localhost:8082${articles.image_url}`} 
+            className={'object-cover w-96 h-96 mx-auto rounded-lg'} // Ограничиваем размер до 48x48
+        />
+    )}
+</div>
+
 
                 <div className={'flex mx-9 justify-between items-center pt-2'}>
                     <div className={'text-2xl text-lime-900 opacity-50'}>{articles.User.username}</div>

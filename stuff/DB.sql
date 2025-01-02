@@ -12,8 +12,8 @@ select * from ecosort.receptions;   -- переписано
 select * from ecosort.marks;        -- виды вторсырья
 select * from ecosort.check_weight; -- подтверждение сдачи
 select * from ecosort.points_marks; -- используется для связи «многие-ко-многим» таблиц points и marks
-select * from ecosort.discounts;
-select * from ecosort.promo_codes;
+select * from ecosort.discounts;    -- скидки
+select * from ecosort.promo_codes;  -- промокоды
 
 -- Пользователь
 CREATE TABLE IF NOT EXISTS ecosort.users (
@@ -110,12 +110,6 @@ CREATE TABLE IF NOT EXISTS ecosort.check_weight(
     constraint key_of_weight_un unique (key_of_weight),
     constraint check_weight_pk primary key (id),
     constraint check_weight_fk_marks foreign key (rubbish_id) references ecosort.marks(id) on delete cascade);
-
-
-ALTER TABLE ecosort.check_weight
-ADD is_used INT DEFAULT 0 NOT NULL,
-ADD CONSTRAINT check_weight_is_used_ck CHECK (is_used IN (0, 1));
-
 -- Сдача --
 CREATE TABLE IF NOT EXISTS ecosort.receptions(
    id          int auto_increment,
@@ -152,3 +146,8 @@ CREATE TABLE IF NOT EXISTS ecosort.promo_codes(
     constraint promo_codes_fk_users foreign key (user_id) references ecosort.users (id) on delete cascade,
     constraint promo_codes_fk_discounts foreign key (discount_id) references ecosort.discounts (id) on delete cascade
 );
+
+
+ALTER TABLE ecosort.check_weight
+ADD is_used INT DEFAULT 0 NOT NULL,
+ADD CONSTRAINT check_weight_is_used_ck CHECK (is_used IN (0, 1));
