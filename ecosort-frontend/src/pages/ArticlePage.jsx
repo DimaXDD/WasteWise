@@ -137,13 +137,17 @@ export const ArticlePage = () => {
           <div className={'mx-auto w-full h-full bg-green-100 rounded-lg'}>
 
             {/*КАРТИНКА*/}
-            <div className={'flex flex-col basis-1/4 flex-grow  '}>
-              <div className={articles.image_url ? 'flex rounded-sm h-full' : 'flex rounded-sm'}>
-                {articles.image_url && (
-                  <img src={`http://localhost:8082${articles.image_url}`} className={'object-cover w-full rounded-lg'} />
-                )}
-              </div>
-            </div>
+<div className={'flex flex-col basis-1/4 flex-grow'}>
+  <div className={articles.image_url ? 'flex rounded-sm h-full' : 'flex rounded-sm'}>
+    {articles.image_url && (
+      <img 
+        src={`http://localhost:8082${articles.image_url}`} 
+        className={'object-cover w-full max-w-[400px] max-h-[400px] mx-auto rounded-lg'} 
+      />
+    )}
+  </div>
+</div>
+
 
             <div className={'flex mx-9 justify-between items-center pt-2'}>
               {/*ПОЛЬЗОВАТЕЛЬ*/}
