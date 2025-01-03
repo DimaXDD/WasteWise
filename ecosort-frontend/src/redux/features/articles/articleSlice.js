@@ -4,6 +4,7 @@ import axios from '../../../utils/axios'
 const initialState = {
     article: [],
     loading: false,
+    status: null,
 }
 
 export const createArticles = createAsyncThunk(
@@ -77,7 +78,11 @@ export const Likes = createAsyncThunk(
 export const articleSlice = createSlice({
     name: 'articles',
     initialState,
-    reducers: {},
+    reducers: {
+        clearStatus: (state) => {
+            state.status = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             // Создание статьи
@@ -164,5 +169,7 @@ export const articleSlice = createSlice({
             })
     },
 })
+
+export const { clearStatus } = articleSlice.actions;
 
 export default articleSlice.reducer

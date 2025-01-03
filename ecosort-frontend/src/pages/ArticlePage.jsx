@@ -4,7 +4,7 @@ import { AiFillLike, AiOutlineMessage, AiTwotoneEdit, AiFillDelete } from "react
 import axios from "../utils/axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {removeArticles, Likes} from "../redux/features/articles/articleSlice";
+import {removeArticles, Likes, clearStatus} from "../redux/features/articles/articleSlice";
 import { toast } from "react-toastify";
 import { createComment, getComment } from "../redux/features/comment/commentSlice";
 import { CommentItem } from "../components/CommentItem";
@@ -94,12 +94,14 @@ export const ArticlePage = () => {
 
   const onClickLike = () => {
     if (!user) {
-      toast('Авторизируйтесь для оценки статьи')
+        toast('Авторизируйтесь для оценки статьи');
     } else {
-        dispatch(Likes(params.id));
-        // window.location.reload();
+        dispatch(Likes(params.id)).then(() => {
+            dispatch(clearStatus()); // Сброс состояния после лайка
+        });
     }
-  };
+};
+
 
   useEffect(() => {
     fetchComments()
