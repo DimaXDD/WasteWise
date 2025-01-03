@@ -30,6 +30,47 @@ export const AddMarksPage = ( ) => {
 
     // const navigate = useNavigate();
 
+    const [isEditing, setIsEditing] = useState(false);
+    const [currentData, setCurrentData] = useState({
+        id: '',
+        rubbish_w: '',
+        weight: '',
+        key_of_weight: ''
+    });
+
+    const handleEditClick = (item) => {
+        setCurrentData({
+            id: item.id,
+            rubbish_w: item.Mark?.rubbish || '',
+            weight: item.weight,
+            key_of_weight: item.original_key // Оставить пустым, чтобы пользователь заполнил новый ключ
+        });
+        setIsEditing(true);
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setCurrentData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleUpdate = async () => {
+        try {
+            const response = await axios.put('/editWeight', currentData, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            alert(response.data.message); // Сообщение об успехе
+            setIsEditing(false);
+            window.location.reload(); // Обновить таблицу
+        } catch (err) {
+            console.error(err);
+            alert('Не удалось обновить запись');
+        }
+    };
+
 
     useEffect(() => {
         if (status) toast(status);
@@ -288,41 +329,106 @@ export const AddMarksPage = ( ) => {
                     </form>
                 </div>
             </div>
-            {/* Таблица под формами */}
-            <div className='w-full mt-12'>
-                <h2 className='text-lime-900 font-bold text-2xl xl:text-3xl opacity-80 text-center'>
-                    Данные веса
-                </h2>
-                <table className='w-full mt-4 border-collapse border border-gray-300'>
-                    <thead>
-                        <tr className='bg-gray-200'>
-                            <th className='border border-gray-300 px-4 py-2'>ID</th>
-                            <th className='border border-gray-300 px-4 py-2'>Вид вторсырья</th>
-                            <th className='border border-gray-300 px-4 py-2'>Вес</th>
-                            <th className='border border-gray-300 px-4 py-2'>Ключ</th>
+{/* Таблица под формами */}
+<div className='w-full mt-12'>
+        <h2 className='text-lime-900 font-bold text-2xl xl:text-3xl opacity-80 text-center'>
+            Данные веса
+        </h2>
+        <table className='w-full mt-4 border-collapse border border-gray-300 rounded-lg'>
+            <thead>
+                <tr className='bg-green-500 text-white'>
+                    <th className='border border-gray-300 px-4 py-2 text-center'>ID</th>
+                    <th className='border border-gray-300 px-4 py-2 text-center'>Вид вторсырья</th>
+                    <th className='border border-gray-300 px-4 py-2 text-center'>Вес</th>
+                    <th className='border border-gray-300 px-4 py-2 text-center'>Ключ</th>
+                    <th className='border border-gray-300 px-4 py-2 text-center'>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {weightData && weightData.length > 0 ? (
+                    weightData.map((item) => (
+                        <tr key={item.id} className='hover:bg-gray-100'>
+                            <td className='border border-gray-300 px-4 py-2 text-center'>{item.id}</td>
+                            <td className='border border-gray-300 px-4 py-2 text-center'>{item.Mark?.rubbish || 'Неизвестно'}</td>
+                            <td className='border border-gray-300 px-4 py-2 text-center'>{item.weight}</td>
+                            <td className='border border-gray-300 px-4 py-2 text-center'>{item.original_key}</td>
+                            <td className='border border-gray-300 px-4 py-2 text-center'>
+                                <button
+                                    onClick={() => handleEditClick(item)}
+                                    className='bg-blue-600 text-white py-1 px-3 rounded-lg hover:bg-blue-500'
+                                >
+                                    Редактировать
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {weightData && weightData.length > 0 ? (
-                            weightData.map((item) => (
-                                <tr key={item.id} className='hover:bg-gray-100'>
-                                    <td className='border border-gray-300 px-4 py-2'>{item.id}</td>
-                                    <td className='border border-gray-300 px-4 py-2'>{item.Mark?.rubbish || 'Неизвестно'}</td>
-                                    <td className='border border-gray-300 px-4 py-2'>{item.weight}</td>
-                                    {/*<td className='border border-gray-300 px-4 py-2'>{item.weight}</td>*/}
-                                    <td className='border border-gray-300 px-4 py-2'>{item.original_key}</td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan='4' className='text-center py-4'>
-                                    Данные отсутствуют
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan='5' className='text-center py-4'>
+                            Данные отсутствуют
+                        </td>
+                    </tr>
+                )}
+            </tbody>
+        </table>
+
+        {/* Модальное окно для редактирования */}
+        {isEditing && (
+            <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+                <div className='bg-white p-6 rounded-lg shadow-md'>
+                    <h2 className='text-xl font-bold mb-4'>Редактировать данные</h2>
+                    <form>
+                        <label className='block mb-2'>
+                            Вид вторсырья:
+                            <input
+                                type='text'
+                                name='rubbish_w'
+                                value={currentData.rubbish_w}
+                                onChange={handleInputChange}
+                                className='w-full px-3 py-2 border rounded focus:border-emerald-700 focus:outline-none'
+                            />
+                        </label>
+                        <label className='block mb-2'>
+                            Вес:
+                            <input
+                                type='number'
+                                name='weight'
+                                value={currentData.weight}
+                                onChange={handleInputChange}
+                                className='w-full px-3 py-2 border rounded focus:border-emerald-700 focus:outline-none'
+                            />
+                        </label>
+                        <label className='block mb-2'>
+                            Ключ:
+                            <input
+                                type='text'
+                                name='key_of_weight'
+                                value={currentData.key_of_weight}
+                                onChange={handleInputChange}
+                                className='w-full px-3 py-2 border rounded focus:border-emerald-700 focus:outline-none'
+                            />
+                        </label>
+                        <div className='flex justify-end mt-4'>
+                            <button
+                                type='button'
+                                onClick={handleUpdate}
+                                className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400'
+                            >
+                                Сохранить
+                            </button>
+                            <button
+                                type='button'
+                                onClick={() => setIsEditing(false)}
+                                className='ml-2 bg-gray-300 px-4 py-2 rounded hover:bg-gray-200'
+                            >
+                                Отмена
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
+        )}
+    </div>
         </section>
     );
     

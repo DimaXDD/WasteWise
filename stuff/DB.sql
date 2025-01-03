@@ -2,12 +2,12 @@ show databases;
 create database ecosort;
 drop database ecosort;
 
-select * from ecosort.users;        -- таблица пользователей
-select * from ecosort.articles;     -- таблица с статьями
+select * from ecosort.users;        -- пользователи
+select * from ecosort.articles;     -- статьи
 select * from ecosort.ratings;      -- комментарии
 select * from ecosort.likes;        -- лайки
-select * from ecosort.points;       -- таблица с пунктами приема
-select * from ecosort.s_keys;       -- ключи от пунктов приема (добавляем ключ, потом пункт)
+select * from ecosort.s_keys;       -- ключи от пунктов приема
+select * from ecosort.points;       -- пункты приема
 select * from ecosort.receptions;   -- переписано
 select * from ecosort.points_marks; -- переписано
 select * from ecosort.marks;        -- виды вторсырья
@@ -16,9 +16,7 @@ select * from ecosort.points_marks; -- используется для связ�
 select * from ecosort.discounts;    -- скидки
 select * from ecosort.promo_codes;  -- промокоды
 
-    UPDATE ecosort.users
-SET points = 150
-WHERE id = 2;
+UPDATE ecosort.users SET points = 1500 WHERE id = 2;
 
 -- Пользователь
 CREATE TABLE IF NOT EXISTS ecosort.users (
@@ -111,13 +109,11 @@ CREATE TABLE IF NOT EXISTS ecosort.check_weight(
     weight        int          not null,
     key_of_weight varchar(100) not null,
     is_used INT DEFAULT 0 NOT NULL,
+    original_key VARCHAR(100) NOT NULL,
     CONSTRAINT check_weight_is_used_ck CHECK (is_used IN (0, 1)),
     constraint key_of_weight_un unique (key_of_weight),
     constraint check_weight_pk primary key (id),
     constraint check_weight_fk_marks foreign key (rubbish_id) references ecosort.marks(id) on delete cascade);
-
-ALTER TABLE ecosort.check_weight ADD COLUMN original_key VARCHAR(100) NOT NULL;
-
 -- Сдача --
 CREATE TABLE IF NOT EXISTS ecosort.receptions(
    id          int auto_increment,

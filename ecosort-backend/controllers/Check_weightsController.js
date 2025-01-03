@@ -88,35 +88,38 @@ const Check_weightsController = {
     
     editWeight: async (req, res) => {
         try {
-            const { id, rubbish_w, weight, key_of_weight } = req.body;
+            const { id, rubbish_w, weight, key_of_weight, original_key } = req.body;
             const salt_for_key = '$2b$10$qNuSSupDD53DkQfO8wqpf.';
             const o_key_of_weight = await bcrypt.hash(key_of_weight, salt_for_key);
-
+    
+            // Находим ID вида вторсырья
             const o_rubbish = await db.models.Marks.findOne({
                 attributes: ["id"],
                 where: { rubbish: rubbish_w }
             });
-
+    
             if (o_rubbish == null) {
                 res.json({
                     message: `Такого ${rubbish_w} вида вторсырья нет, сначала добавьте его во вторсырье`
                 });
                 return;
             }
-
+    
             const existingRecord = await db.models.Check_weights.findOne({
                 where: { id }
             });
-
+    
             if (existingRecord) {
+                // Обновление записи, включая original_key
                 await db.models.Check_weights.update({
                     rubbish_id: o_rubbish.id,
                     weight,
                     key_of_weight: o_key_of_weight,
+                    original_key: key_of_weight
                 }, {
                     where: { id }
                 });
-
+    
                 res.json({
                     message: 'Запись успешно обновлена'
                 });
@@ -132,5 +135,6 @@ const Check_weightsController = {
             });
         }
     }
+    
 }
 module.exports = Check_weightsController
