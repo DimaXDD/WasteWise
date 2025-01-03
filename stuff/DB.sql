@@ -9,6 +9,7 @@ select * from ecosort.likes;        -- лайки
 select * from ecosort.points;       -- таблица с пунктами приема
 select * from ecosort.s_keys;       -- ключи от пунктов приема (добавляем ключ, потом пункт)
 select * from ecosort.receptions;   -- переписано
+select * from ecosort.points_marks; -- переписано
 select * from ecosort.marks;        -- виды вторсырья
 select * from ecosort.check_weight; -- подтверждение сдачи
 select * from ecosort.points_marks; -- используется для связи «многие-ко-многим» таблиц points и marks

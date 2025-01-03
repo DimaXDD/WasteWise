@@ -21,7 +21,7 @@ const ReceptionsController = {
                 });
             }
 
-            // Находим пункт приема
+            // Находим пункт приема, связан ли с ключом станции
             const v_find_key_point = await db.models.Points.findOne({
                 where: { key_id: v_find_key.id }
             });
@@ -31,6 +31,14 @@ const ReceptionsController = {
                     message: 'Станция с таким ключом не найдена'
                 });
             }
+
+            // Находим виды отходов, которые принимает этот пункт сдачи
+            const pointWasteTypes = await db.models.Points_marks.findAll({
+                where: { points_id: v_find_key_point.id },
+                attributes: ['marks_id'],
+            });
+
+            const pointWasteIds = pointWasteTypes.map(item => item.marks_id);
 
             // Считываем ключ для проверки веса
             const i_key_of_weight = req.body.key_of_weight;
@@ -52,6 +60,13 @@ const ReceptionsController = {
             if (v_check_key_w.is_used === 1) {
                 return res.status(400).json({
                     message: 'Ключ веса уже использован'
+                });
+            }
+
+            // Проверяем, соответствует ли вид отхода пункту сдачи
+            if (!pointWasteIds.includes(v_check_key_w.rubbish_id)) {
+                return res.status(400).json({
+                    message: 'Этот вид отходов не принимается на данный пункт сдачи'
                 });
             }
 
@@ -124,6 +139,6 @@ const ReceptionsController = {
             });
         }
     }
-}
+};
 
 module.exports = ReceptionsController;

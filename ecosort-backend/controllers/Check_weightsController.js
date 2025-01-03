@@ -2,7 +2,6 @@ const db = require('../config/db')
 const bcrypt = require('bcrypt')
 const { Op } = require("sequelize");
 
-
 const Check_weightsController = {
 
     getWeight: async (req, res) => {
@@ -86,7 +85,6 @@ const Check_weightsController = {
         }
     },
     
-
     editWeight: async (req, res) => {
         try {
             const { id, rubbish_w, weight, key_of_weight } = req.body;

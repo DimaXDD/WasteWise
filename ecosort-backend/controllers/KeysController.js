@@ -13,12 +13,6 @@ const KeysController = {
                 where: { secret_key: o_secret_key },
             })
 
-            // const v_last_id = await db.models.Keys.findOne({
-            //     order: [['id', 'DESC']],
-            //   });
-            //
-            //   const o_new_id = v_last_id.id+1;
-
             if (v_check_keys == null) {
                 db.models.Keys.create({
                     // id: o_new_id,
