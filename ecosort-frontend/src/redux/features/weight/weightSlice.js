@@ -9,9 +9,9 @@ const initialState = {
 
 export const addWeight = createAsyncThunk(
     'point/addPoint',
-    async ({ rubbish_w, weight, key_of_weight }) => {
+    async ({ rubbish_w, weight, key_of_weight, original_key }) => {
         try {
-            const { data } = await axios.post('/weight', { rubbish_w, weight, key_of_weight })
+            const { data } = await axios.post('/weight', { rubbish_w, weight, key_of_weight, original_key })
             return data
         } catch (error) {
             console.log(error)

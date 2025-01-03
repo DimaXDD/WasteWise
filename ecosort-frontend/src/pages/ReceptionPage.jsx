@@ -115,7 +115,7 @@ export const ReceptionPage = () => {
                 </form>
             </div>
             <div className={'hidden xl:flex xl:order-2 w-2/5 mt-10 '}>
-                <Earth/>
+                <Earth style={{ width: '80%', height: 'auto' }} />
             </div>
 
 

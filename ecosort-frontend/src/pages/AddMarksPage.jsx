@@ -309,7 +309,8 @@ export const AddMarksPage = ( ) => {
                                     <td className='border border-gray-300 px-4 py-2'>{item.id}</td>
                                     <td className='border border-gray-300 px-4 py-2'>{item.Mark?.rubbish || 'Неизвестно'}</td>
                                     <td className='border border-gray-300 px-4 py-2'>{item.weight}</td>
-                                    <td className='border border-gray-300 px-4 py-2'>{item.key_of_weight}</td>
+                                    {/*<td className='border border-gray-300 px-4 py-2'>{item.weight}</td>*/}
+                                    <td className='border border-gray-300 px-4 py-2'>{item.original_key}</td>
                                 </tr>
                             ))
                         ) : (

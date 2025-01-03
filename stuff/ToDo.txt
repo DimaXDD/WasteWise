@@ -23,15 +23,15 @@ checkKey_iron4 (Металл 20)
 
 http://localhost:3000/newpoint (добавление в таблицу s_keys)
 1) firstpoint 
-    (Има-групп (бумага)  
+    Има-групп (бумага)  
     ул. Болеслава Берута, 3Б, офис 907 
     08:00-17:00 
-    https://yandex.by/maps/-/CHQfUFJ1)
+    https://yandex.by/maps/-/CHQfUFJ1
 2) secondpoint
-    (BlackMetal  
+    BlackMetal  
     ул. Карвата, 101А 
     09:00-17:00 
-    https://yandex.by/maps/-/CHQfaT6N)
+    https://yandex.by/maps/-/CHQfaT6N
 
 3) thirdpoint
 

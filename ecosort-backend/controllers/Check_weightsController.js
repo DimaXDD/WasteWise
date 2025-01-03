@@ -11,7 +11,7 @@ const Check_weightsController = {
                     model: db.models.Marks,
                     attributes: ['rubbish']
                 }],
-                attributes: ['id', 'key_of_weight', 'weight'],
+                attributes: ['id', 'key_of_weight', 'weight', 'original_key'],
             });
 
             if (weightData.length > 0) {
@@ -65,11 +65,12 @@ const Check_weightsController = {
                 return;
             }
     
-            // Записываем новый ключ с указанным видом и весом
+            // Записываем новый ключ с указанным видом, весом и оригинальным ключом
             await db.models.Check_weights.create({
                 rubbish_id: o_rubbish.id,
                 weight: req.body.weight,
                 key_of_weight: o_key_of_weight,
+                original_key: i_key_of_weight, // Сохраняем оригинальный ключ
             });
     
             // Возвращаем успешное сообщение
