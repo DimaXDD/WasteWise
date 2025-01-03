@@ -6,7 +6,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {removeArticles, Likes, clearStatus} from "../redux/features/articles/articleSlice";
 import { toast } from "react-toastify";
-import { createComment, getComment } from "../redux/features/comment/commentSlice";
+import { createComment, getComment, clearStatusCom } from "../redux/features/comment/commentSlice";
 import { CommentItem } from "../components/CommentItem";
 import ReactMarkdown from "react-markdown";
 import SimpleMDE from 'react-simplemde-editor';
@@ -63,15 +63,16 @@ export const ArticlePage = () => {
   //Отправка комментария
   const handleSubmit = () => {
     try {
-      const article_id = params.id
-      dispatch(createComment({ article_id, comment }))
-      setComment('')
-      // toast('Комментарий успешно добавлен')
-      // window.location.reload();
+        const article_id = params.id;
+        dispatch(createComment({ article_id, comment })).then(() => {
+            dispatch(clearStatusCom()); // Сброс состояния после создания комментария
+        });
+        setComment('');
     } catch (e) {
-      console.log(e)
+        console.log(e);
     }
-  }
+};
+
 
   const clearComment = () =>{
     setComment('')

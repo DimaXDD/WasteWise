@@ -49,7 +49,11 @@ export const removeComment = createAsyncThunk(
 export const commentSlice = createSlice({
     name: 'comment',
     initialState,
-    reducers: {},
+    reducers: {
+        clearStatusCom: (state) => {
+            state.status_com = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             // Создание комментария
@@ -99,5 +103,7 @@ export const commentSlice = createSlice({
             })
     },
 })
+
+export const { clearStatusCom } = commentSlice.actions;
 
 export default commentSlice.reducer
