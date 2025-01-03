@@ -64,7 +64,11 @@ export const updateMark = createAsyncThunk(
 export const markSlice = createSlice({
     name: 'mark',
     initialState,
-    reducers: {},
+    reducers: {
+        clearStatus: (state) => {
+            state.status = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             // Получить отходы
@@ -130,5 +134,7 @@ export const markSlice = createSlice({
             })
     }
 })
+
+export const { clearStatus } = markSlice.actions;
 
 export default markSlice.reducer

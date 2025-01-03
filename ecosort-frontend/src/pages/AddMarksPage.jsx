@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import { useNavigate} from "react-router-dom";
 
 import {useDispatch, useSelector} from "react-redux";
-import {addMark} from "../redux/features/mark/markSlice";
+import { addMark, clearStatus } from "../redux/features/mark/markSlice";
 import axios from "../utils/axios";
 import {toast} from "react-toastify";
 import { addWeight, clearStatusWeight } from "../redux/features/weight/weightSlice";
@@ -129,6 +129,7 @@ export const AddMarksPage = ( ) => {
                 const validationErrors = response.payload.map((error) => error.msg);
                 toast.error(validationErrors.join(', '));
             }
+            dispatch(clearStatus()); // Сброс состояния после добавления вторсырья
         } catch (error) {
             console.log(error);
         }
