@@ -117,17 +117,24 @@ export const UpArticlesPage = () => {
                     onChange={handleChangeFile}
                     hidden />
 
-            {image_url && (
-                <>
-                    <button className={'ml-10 mb-5 bg-red-950 text-medium-gray px-5 py-2 text-white  rounded-lg font-bold  mx-0 hover:bg-transparent hover:text-red-950 border-2 border-red-950'} variant="contained" color="error" onClick={onClickRemoveImage}>
-                        Удалить
-                    </button>
-                    <img
-                        className={'mt-50 w-full'}
-                        src={`http://localhost:8082${image_url}`}
-                        alt="Uploaded" />
-                </>
-            )}
+{image_url && (
+    <>
+        <button
+            className={'ml-10 mb-5 bg-red-950 text-medium-gray px-5 py-2 text-white rounded-lg font-bold mx-0 hover:bg-transparent hover:text-red-950 border-2 border-red-950'}
+            variant="contained"
+            color="error"
+            onClick={onClickRemoveImage}
+        >
+            Удалить
+        </button>
+        <img
+            className={'mt-50 w-full max-w-sm h-auto max-h-64 object-contain'}
+            src={`http://localhost:8082${image_url}`}
+            alt="Uploaded"
+        />
+    </>
+)}
+
 
             <br />
             <br />

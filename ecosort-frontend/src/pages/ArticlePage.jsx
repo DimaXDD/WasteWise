@@ -237,27 +237,6 @@ export const ArticlePage = () => {
                   <CommentItem key={cmt.id} cmt={cmt} />
               ))}
           </div>
-
-          {/* <div className={'w-1/3 p-8 bg-cyan-950 border-cyan-950 flex-col gap-2 rounded-sm'}>*/}
-          {/*  {user && (*/}
-          {/*    <form className={'flex gap-2'} onSubmit={e => e.preventDefault()}>*/}
-          {/*      /!*<input*!/*/}
-          {/*      <textarea*/}
-          {/*          type="text"*/}
-          {/*        value={comment}*/}
-          {/*        onChange={(e) => setComment(e.target.value)}*/}
-          {/*        placeholder='Comment'*/}
-          {/*        className=' text-cyan-950 w-full rounded-lg bg-emerald-100 border-emerald-600 p-2 text-xs outline-none placeholder:text-cyan-900'/>*/}
-          {/*      <button*/}
-          {/*        type={'submit'}*/}
-          {/*        onClick={handleSubmit}*/}
-          {/*        className={'flex justify-center items-center bg-emerald-700 text-xs text-white rounded-sm py-2 px-4'} >*/}
-          {/*        Отправить*/}
-          {/*      </button>*/}
-          {/*    </form>*/}
-          {/*  )}*/}
-          {/*
-          {/*</div> */}
         </div>
       </div>
     </div>
