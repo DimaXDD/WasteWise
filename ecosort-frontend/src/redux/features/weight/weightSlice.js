@@ -23,7 +23,11 @@ export const addWeight = createAsyncThunk(
 export const weightSlice = createSlice({
     name: 'weight',
     initialState,
-    reducers: {},
+    reducers: {
+        clearStatusWeight: (state) => {
+            state.status_weight = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             // При добавлении нового веса
@@ -45,4 +49,5 @@ export const weightSlice = createSlice({
     }
 })
 
+export const { clearStatusWeight } = weightSlice.actions;
 export default weightSlice.reducer

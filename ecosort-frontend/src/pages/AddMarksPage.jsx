@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addMark} from "../redux/features/mark/markSlice";
 import axios from "../utils/axios";
 import {toast} from "react-toastify";
-import {addWeight} from "../redux/features/weight/weightSlice";
+import { addWeight, clearStatusWeight } from "../redux/features/weight/weightSlice";
 import {loginUser} from "../redux/features/auth/authSlice";
 
 
@@ -158,6 +158,7 @@ export const AddMarksPage = ( ) => {
                 const validationErrors = response.payload.map((error) => error.msg);
                 toast.error(validationErrors.join(', '));
             }
+            dispatch(clearStatusWeight()); // Сброс состояния после добавления веса
         } catch (error) {
             console.log(error);
         }
