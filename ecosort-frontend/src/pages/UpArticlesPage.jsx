@@ -7,7 +7,7 @@ import {useParams} from "react-router-dom";
 import 'easymde/dist/easymde.min.css';
 import axios from "../utils/axios";
 import {toast} from "react-toastify";
-import {updateArticles} from "../redux/features/articles/articleSlice";
+import { updateArticles, clearStatus } from '../redux/features/articles/articleSlice';
 
 export const UpArticlesPage = () => {
     // const { user } = useSelector((state) => state.auth)
@@ -63,7 +63,9 @@ export const UpArticlesPage = () => {
         try {
             const updatedArticles = { 'title': title, 'text': text, 'id': params.id, 'image_url': image_url }
             console.log(updatedArticles)
-            dispatch(updateArticles(updatedArticles))
+            dispatch(updateArticles(updatedArticles)).then(() => {
+                dispatch(clearStatus()); // Сброс состояния после изменения статьи
+            });
             setTitle('')
             setText('')
             setImage_url('')
