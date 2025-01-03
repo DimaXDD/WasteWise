@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 // import {Link, useNavigate} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addDiscount } from "../redux/features/alldiscount/alldiscountSlice";
+import { addDiscount, clearStatus  } from "../redux/features/alldiscount/alldiscountSlice";
 import { toast } from 'react-toastify'
 import {loginUser} from "../redux/features/auth/authSlice";
 
@@ -37,16 +37,15 @@ export const AddDisсountPage = () => {
         e.preventDefault();
         try {
             const response = await dispatch(addDiscount({ discount, count_for_dnt, promo_code }));
-
             if (response.payload && response.payload.length > 0) {
                 const validationErrors = response.payload.map((error) => error.msg);
                 toast.error(validationErrors.join(', '));
             }
+            dispatch(clearStatus()); // Сброс состояния после добавления скидки
         } catch (error) {
             console.log(error);
         }
     };
-
     const clearFormHandler = () => {
         setDiscount('')
         setCountForDnt('')

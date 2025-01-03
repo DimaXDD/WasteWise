@@ -89,7 +89,11 @@ export const myUsedDiscount = createAsyncThunk(
 export const alldiscountSlice = createSlice({
     name: 'alldiscount',
     initialState,
-    reducers: {},
+    reducers: {
+        clearStatus: (state) => {
+            state.status = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             // Получить все скидки
@@ -188,5 +192,7 @@ export const alldiscountSlice = createSlice({
             })
     }
 })
+
+export const { clearStatus } = alldiscountSlice.actions;
 
 export default alldiscountSlice.reducer
