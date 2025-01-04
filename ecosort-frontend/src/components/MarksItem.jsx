@@ -37,7 +37,7 @@ export const MarksItem = ({mark}) => {
             <Link to={`/${mark.id}/pointsmark`}>
             <div className={mark.image_link ? 'flex rounded-sm ' : 'flex rounded-sm'}>
                 {mark.image_link && (
-                    <img src={`http://localhost:8082${mark.image_link}`} className={'object-cover w-full h-56 rounded-lg'}/>
+                    <img src={`${mark.image_link}`} className={'object-cover w-full h-56 rounded-lg'}/>
                 )}
             </div>
             <div className={'text-cyan-950 font-semibold ml-3 pt-1 opacity-80 text-2xl break-all hover:text-cyan-800 hover:font-bold'}>

@@ -13,11 +13,19 @@ const { swaggerUi, swaggerSpec } = require('./swagger/swagger');
 const chalk = require('chalk');
 const cors = require('cors');
 
+const uploadRouter = require('./routes/UploadRouter');
+app.use(cors({
+    origin: 'http://localhost:3000', // Замените на ваш фронтенд URL
+    credentials: true
+  }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use('/api', uploadRouter);
+
 
 app.use(cookieParser('ecofuture'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(cors());
 // app.use(fileUpload(undefined));
 app.use(express.static('uploads'))
 
