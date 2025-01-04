@@ -1,50 +1,48 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import SimpleMDE from 'react-simplemde-editor';
-import {useDispatch, useSelector} from 'react-redux';
-import { useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import 'easymde/dist/easymde.min.css';
-import axios from "../utils/axios";
-import {toast} from "react-toastify";
-import {createArticles} from "../redux/features/articles/articleSlice";
-import {loginUser} from "../redux/features/auth/authSlice";
-
+import axios from '../utils/axios';
+import { toast } from 'react-toastify';
+import { createArticles } from '../redux/features/articles/articleSlice';
 
 export const AddArticlesPage = () => {
+    const { status } = useSelector((state) => state.articles);
+    const dispatch = useDispatch();
 
-    // const { user } = useSelector((state) => state.auth)
-
-    const { status } = useSelector((state) => state.articles)
-
-    const dispatch = useDispatch()
-
-    const [title, setTitle] = useState('')
-    const [text, setText] = useState('')
-    const [image_url, setImage_url] = useState('')
+    const [title, setTitle] = useState('');
+    const [text, setText] = useState('');
+    const [image_url, setImage_url] = useState('');
 
     const navigate = useNavigate();
-    //
-    // const [loading,
-    //     // isLoading,
-    //     setLoading] = React.useState(false);
-
-
     const inputFileRef = React.useRef(null);
 
     const handleChangeFile = async (event) => {
         try {
-            const formData = new FormData();
             const file = event.target.files[0];
-            formData.append('image', file);
-            const { data } = await axios.post('upload', formData);
-            console.log(data);
-            setImage_url(data.url);
-            toast(`Файл загружен ${image_url}`)
-
+            const base64 = await convertBase64(file);
+            const response = await axios.post('/api/upload', { data: base64 });
+            setImage_url(response.data.url);
+            toast(`Файл загружен ${response.data.url}`);
         } catch (e) {
             console.warn(e);
-            toast('Ошибка загрузки файла')
+            toast('Ошибка загрузки файла');
         }
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
     };
 
     const onClickRemoveImage = () => {
@@ -55,31 +53,14 @@ export const AddArticlesPage = () => {
         setText(value);
     }, []);
 
-    // const submitHandler = () => {
-    //     try {
-    //         dispatch(createArticles({ title, text, image_url }))
-    //         console.log(title);
-    //         console.log(text);
-    //         console.log(image_url);
-    //         setText('')
-    //         setTitle('')
-    //         setImage_url('')
-    //         // navigate('/articles')
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
             const response = await dispatch(createArticles({ title, text, image_url }));
-    
             if (response.payload && response.payload.length > 0) {
                 const validationErrors = response.payload.map((error) => error.msg);
                 toast.error(validationErrors.join(', '));
             } else {
-                // Успешное добавление статьи, перенаправляем
                 navigate('/articles');
             }
         } catch (error) {
@@ -87,12 +68,10 @@ export const AddArticlesPage = () => {
             toast.error('Произошла ошибка при добавлении статьи');
         }
     };
-    
 
     useEffect(() => {
-        if (status) toast(status)
-
-    }, [status])
+        if (status) toast(status);
+    }, [status]);
 
     const options = React.useMemo(
         () => ({
@@ -106,55 +85,54 @@ export const AddArticlesPage = () => {
                 delay: 1000,
             },
         }),
-        [],
+        []
     );
-
 
     return (
         <Paper className={'mt-5 bg-green-100'}>
-
-            <button className={'text-medium-gray mt-5 ml-10 mb-5 px-5 py-2 border-2 border-almost-black rounded-lg'}
-                    onClick={() => inputFileRef.current.click()}
-                    variant="outlined"
-                    size="large"
-                    hasBorder={true}>
+            <button
+                className={'text-medium-gray mt-5 ml-10 mb-5 px-5 py-2 border-2 border-almost-black rounded-lg'}
+                onClick={() => inputFileRef.current.click()}
+                variant="outlined"
+                size="large"
+                hasBorder={true}
+            >
                 Загрузить превью
             </button>
 
-            <input  ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
+            <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
 
             {image_url && (
-    <>
-        <button
-            className={'ml-10 mb-5 bg-red-950 text-medium-gray px-5 py-2 text-white rounded-lg font-bold mx-0 hover:bg-transparent hover:text-red-950 border-2 border-red-950'}
-            variant="contained"
-            color="error"
-            onClick={onClickRemoveImage}
-        >
-            Удалить
-        </button>
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                margin: '20px 0',
-            }}
-        >
-            <img
-                src={`http://localhost:8082${image_url}`}
-                alt="Uploaded Preview"
-                style={{
-                    maxWidth: '300px',
-                    maxHeight: '200px',
-                    objectFit: 'contain',
-                    border: '2px solid #ccc',
-                    borderRadius: '10px',
-                }}
-            />
-        </div>
-    </>
-)}
-
+                <>
+                    <button
+                        className={'ml-10 mb-5 bg-red-950 text-medium-gray px-5 py-2 text-white rounded-lg font-bold mx-0 hover:bg-transparent hover:text-red-950 border-2 border-red-950'}
+                        variant="contained"
+                        color="error"
+                        onClick={onClickRemoveImage}
+                    >
+                        Удалить
+                    </button>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            margin: '20px 0',
+                        }}
+                    >
+                        <img
+                            src={image_url}
+                            alt="Uploaded Preview"
+                            style={{
+                                maxWidth: '300px',
+                                maxHeight: '200px',
+                                objectFit: 'contain',
+                                border: '2px solid #ccc',
+                                borderRadius: '10px',
+                            }}
+                        />
+                    </div>
+                </>
+            )}
 
             <br />
             <br />
@@ -169,26 +147,28 @@ export const AddArticlesPage = () => {
 
             <SimpleMDE
                 className={'font-bold text-2xl'}
-                // className={styles.editor}
-                value={text} onChange={onChange}
-                options={options} />
+                value={text}
+                onChange={onChange}
+                options={options}
+            />
             <div className={'flex mr-3'}>
-                {(text && title)
-                    ?
+                {text && title ? (
                     <button
                         className={`my-4 ml-10 text-medium-gray px-5 py-2 text-white bg-black rounded-lg font-bold  mx-0 hover:bg-transparent hover:text-almost-black border-2 border-almost-black `}
                         onClick={submitHandler}
                         size="large"
                         variant="contained"
                     >
-                        Сохранить </button>
-                    :
+                        Сохранить
+                    </button>
+                ) : (
                     <></>
-                }
+                )}
 
                 <a href="/">
-                    <button className={'my-4 ml-10 text-red-950 font-bold text-xl px-5 py-2'}
-                        size="large">Отмена</button>
+                    <button className={'my-4 ml-10 text-red-950 font-bold text-xl px-5 py-2'} size="large">
+                        Отмена
+                    </button>
                 </a>
             </div>
         </Paper>

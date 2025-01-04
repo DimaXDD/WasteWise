@@ -20,7 +20,7 @@ export const ArticleItem = ({articles}) => {
             <div className={articles.image_url ? 'flex rounded-sm h-full' : 'flex rounded-sm'}>
     {articles.image_url && (
         <img 
-            src={`http://localhost:8082${articles.image_url}`} 
+            src={`${articles.image_url}`} //http://localhost:8082${articles.image_url}
             className={'object-cover w-96 h-96 mx-auto rounded-lg'} // Ограничиваем размер до 48x48
         />
     )}
