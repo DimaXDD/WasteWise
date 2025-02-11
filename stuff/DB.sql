@@ -16,7 +16,6 @@ select * from ecosort.points_marks; -- используется для связ�
 select * from ecosort.discounts;    -- скидки
 select * from ecosort.promo_codes;  -- промокоды
 
-UPDATE ecosort.users SET points = 1500 WHERE id = 2;
 
 -- Пользователь
 CREATE TABLE IF NOT EXISTS ecosort.users (
