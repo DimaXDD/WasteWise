@@ -113,10 +113,13 @@ export const AddMarksPage = () => {
       if (response.payload && response.payload.length > 0) {
         const validationErrors = response.payload.map((error) => error.msg);
         toast.error(validationErrors.join(', '));
+      } else {
+        clearFormHandler();
       }
       dispatch(clearStatus());
     } catch (error) {
       console.log(error);
+      toast.error('Ошибка при добавлении вторсырья');
     }
   };
 

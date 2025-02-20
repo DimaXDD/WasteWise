@@ -5,10 +5,10 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'EcoSort API Documentation',
+      title: 'WasteWise API Documentation',
       version: '1.0.0',
-      description: `Документация для EcoSort. Этот API предоставляет возможности для работы с функционалом 
-      системы переработки отходов. Реализовано DimaDD.`,
+      description: `Документация для WasteWise. Этот API предоставляет возможности для работы с функционалом 
+      системы переработки отходов.`,
       contact: {
         name: 'DimaDD',
         url: 'https://github.com/DimaXDD',
@@ -40,7 +40,7 @@ const swaggerOptions = {
     },
     security: [
       {
-        bearerAuth: [], // Указывает, что все запросы должны использовать эту схему авторизации
+        bearerAuth: [],
       },
     ],
   },
