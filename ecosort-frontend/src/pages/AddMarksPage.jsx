@@ -9,150 +9,155 @@ import { useNavigate } from 'react-router-dom';
 export const AddMarksPage = () => {
   const dispatch = useDispatch();
 
-  const [rubbish, setRubbish] = useState('');
-  const [points_per_kg, setPointsPerKg] = useState('');
-  const [new_from_kg, setNewFromKg] = useState('');
-  const [image_link, setImageLink] = useState('');
+    const [rubbish, setRubbish] = useState('');
+    const [points_per_kg, setPointsPerKg] = useState('');
+    const [new_from_kg, setNewFromKg] = useState('');
+    const [image_link, setImageLink] = useState('');
 
-  const [rubbish_w, setRubbishW] = useState('');
-  const [weight, setWeight] = useState('');
-  const [key_of_weight, setKeyOfWeight] = useState('');
+    const [rubbish_w, setRubbishW] = useState('');
+    const [weight, setWeight] = useState('');
+    const [key_of_weight, setKeyOfWeight] = useState('');
 
-  const [weightData, setWeightData] = useState([]);
+    const [weightData, setWeightData] = useState([]);
 
-  const { status } = useSelector((state) => state.mark);
-  const { status_weight } = useSelector((state) => state.weight);
+    const { status } = useSelector((state) => state.mark);
+    const { status_weight } = useSelector((state) => state.weight);
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentData, setCurrentData] = useState({
-    id: '',
-    rubbish_w: '',
-    weight: '',
-    key_of_weight: ''
-  });
-
-  const handleEditClick = (item) => {
-    setCurrentData({
-      id: item.id,
-      rubbish_w: item.Mark?.rubbish || '',
-      weight: item.weight,
-      key_of_weight: item.original_key
+    const [isEditing, setIsEditing] = useState(false);
+    const [currentData, setCurrentData] = useState({
+        id: '',
+        rubbish_w: '',
+        weight: '',
+        key_of_weight: '',
     });
-    setIsEditing(true);
-  };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+    const handleEditClick = (item) => {
+        setCurrentData({
+            id: item.id,
+            rubbish_w: item.Mark?.rubbish || '',
+            weight: item.weight,
+            key_of_weight: item.original_key,
+        });
+        setIsEditing(true);
+    };
 
-  const handleUpdate = async () => {
-    try {
-      const response = await axios.put('/editWeight', currentData, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setCurrentData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
-      alert(response.data.message);
-      setIsEditing(false);
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-      alert('Не удалось обновить запись');
-    }
-  };
+    const handleUpdate = async () => {
+        try {
+            const response = await axios.put('/editWeight', currentData, {
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-  useEffect(() => {
-    if (status) toast(status);
-    if (status_weight) toast(status_weight);
-    fetchWeightData();
-  }, [status, status_weight]);
+            alert(response.data.message);
+            setIsEditing(false);
+            window.location.reload();
+        } catch (err) {
+            console.error(err);
+            alert('Не удалось обновить запись');
+        }
+    };
 
-  const fetchWeightData = async () => {
-    try {
-      const response = await axios.get('/getWeight');
-      setWeightData(response.data.data);
-    } catch (error) {
-      console.log(error);
-      toast('Не удалось получить данные веса');
-    }
-  };
+    useEffect(() => {
+        if (status) {
+            toast(status); // Показываем уведомление
+            dispatch(clearStatus()); // Сбрасываем статус
+        }
+        if (status_weight) {
+            toast(status_weight); // Показываем уведомление
+            dispatch(clearStatusWeight()); // Сбрасываем статус
+        }
+        fetchWeightData();
+    }, [status, status_weight, dispatch]);
 
-  const handleChangeFile = async (event) => {
-    try {
-      const file = event.target.files[0];
-      const base64 = await convertBase64(file);
-      const response = await axios.post('/api/upload', { data: base64 });
-      setImageLink(response.data.url);
-      toast(`Файл загружен ${response.data.url}`);
-    } catch (e) {
-      console.warn(e);
-      toast('Ошибка загрузки файла');
-    }
-  };
+    const fetchWeightData = async () => {
+        try {
+            const response = await axios.get('/getWeight');
+            setWeightData(response.data.data);
+        } catch (error) {
+            console.log(error);
+            toast('Не удалось получить данные веса');
+        }
+    };
 
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+    const handleChangeFile = async (event) => {
+        try {
+            const file = event.target.files[0];
+            const base64 = await convertBase64(file);
+            const response = await axios.post('/api/upload', { data: base64 });
+            setImageLink(response.data.url);
+            toast(`Файл загружен ${response.data.url}`);
+        } catch (e) {
+            console.warn(e);
+            toast('Ошибка загрузки файла');
+        }
+    };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await dispatch(addMark({ rubbish, points_per_kg, new_from_kg, image_link }));
-      if (response.payload && response.payload.length > 0) {
-        const validationErrors = response.payload.map((error) => error.msg);
-        toast.error(validationErrors.join(', '));
-      } else {
-        clearFormHandler();
-      }
-      dispatch(clearStatus());
-    } catch (error) {
-      console.log(error);
-      toast.error('Ошибка при добавлении вторсырья');
-    }
-  };
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
 
-  const submitHandlerWeight = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await dispatch(addWeight({ rubbish_w, weight, key_of_weight }));
-      if (response.payload && response.payload.length > 0) {
-        const validationErrors = response.payload.map((error) => error.msg);
-        toast.error(validationErrors.join(', '));
-      }
-      dispatch(clearStatusWeight());
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await dispatch(addMark({ rubbish, points_per_kg, new_from_kg, image_link }));
+            if (response.payload && response.payload.length > 0) {
+                const validationErrors = response.payload.map((error) => error.msg);
+                toast.error(validationErrors.join(', '));
+            } else {
+                clearFormHandler();
+            }
+            dispatch(clearStatus()); // Сбрасываем статус
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-  const clearFormHandler = () => {
-    setRubbish('');
-    setPointsPerKg('');
-    setNewFromKg('');
-    setImageLink('');
-  };
+    const submitHandlerWeight = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await dispatch(addWeight({ rubbish_w, weight, key_of_weight }));
+            if (response.payload && response.payload.length > 0) {
+                const validationErrors = response.payload.map((error) => error.msg);
+                toast.error(validationErrors.join(', '));
+            }
+            dispatch(clearStatusWeight()); // Сбрасываем статус
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-  const clearFormHandlerWeight = () => {
-    setRubbishW('');
-    setWeight('');
-    setKeyOfWeight('');
-  };
+    const clearFormHandler = () => {
+        setRubbish('');
+        setPointsPerKg('');
+        setNewFromKg('');
+        setImageLink('');
+    };
 
-  const onClickRemoveImage = () => {
-    setImageLink('');
-  };
+    const clearFormHandlerWeight = () => {
+        setRubbishW('');
+        setWeight('');
+        setKeyOfWeight('');
+    };
+
+    const onClickRemoveImage = () => {
+        setImageLink('');
+    };
 
   return (
     <section className='w-full flex flex-col items-center mt-6'>
