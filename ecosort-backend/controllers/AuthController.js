@@ -55,12 +55,12 @@ const AuthController = {
                     const mailOptions = {
                         from: 'dimatruba2004@yandex.ru',
                         to: send_mail,
-                        subject: 'Подтверждение регистрации на сайте EcoSort',
+                        subject: 'Подтверждение регистрации на сайте WasteWise',
                         html: `
                             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
                                 <h2 style="color: #4CAF50;">Здравствуйте, ${req.body.username}!</h2>
                                 <p>
-                                    Благодарим за регистрацию на платформе <strong>EcoSort</strong> — месте, где мы вместе заботимся о нашем будущем через переработку отходов.
+                                    Благодарим за регистрацию на платформе <strong>WasteWise</strong> — месте, где мы вместе заботимся о нашем будущем через переработку отходов.
                                 </p>
                                 <p>
                                     Для завершения регистрации и активации вашего аккаунта, пожалуйста, перейдите по ссылке ниже:
@@ -77,10 +77,10 @@ const AuthController = {
                                 <p style="font-size: 14px; color: #555;">${send_link}</p>
                                 <hr style="border: none; border-top: 1px solid #ddd;">
                                 <p style="font-size: 12px; color: #777;">
-                                    Если вы не регистрировались на сайте EcoSort, проигнорируйте это сообщение.
+                                    Если вы не регистрировались на сайте WasteWise, проигнорируйте это сообщение.
                                 </p>
                                 <p>
-                                    С уважением,<br>Команда EcoSort
+                                    С уважением,<br>Команда WasteWise
                                 </p>
                             </div>
                         `
