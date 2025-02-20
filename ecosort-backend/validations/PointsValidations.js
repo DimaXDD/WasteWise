@@ -15,7 +15,6 @@ exports.editKey  = [
     body('secret_key', 'Ключ слишком короткий').isLength({min: 8}).isString(),
 ];
 
-
 exports.addKey  = [
     body('secret_key', 'Ключ слишком короткий').isLength({min: 8}).isString(),
 ];
