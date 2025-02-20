@@ -11,7 +11,6 @@ const logger = require('../middleware/logger');
 
 
 const AuthController = {
-
     RegisterUser: async (req, res) => {
         try {
             const i_password = req.body.password;
@@ -237,7 +236,6 @@ const AuthController = {
             });
         }
     },
-    
 
     Logout: (req, res) => {
         res.clearCookie('accessToken')
