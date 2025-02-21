@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ReactComponent as LogoIcon} from '../image/EcoSort2.svg';
+import {ReactComponent as LogoIcon} from '../image/WasteWiseLogo.svg';
 import {ReactComponent as MenuIcon} from '../image/icon-menu.svg';
 import {ReactComponent as CloseMenuIcon} from '../image/icon-close-menu.svg';
 import {NavItem} from "./NavItam";
