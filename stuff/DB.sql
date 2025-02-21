@@ -150,7 +150,6 @@ CREATE TABLE IF NOT EXISTS ecosort.promo_codes(
     constraint promo_codes_fk_discounts foreign key (discount_id) references ecosort.discounts (id) on delete cascade
 );
 
-
 ALTER TABLE ecosort.check_weight
 ADD is_used INT DEFAULT 0 NOT NULL,
 ADD CONSTRAINT check_weight_is_used_ck CHECK (is_used IN (0, 1));

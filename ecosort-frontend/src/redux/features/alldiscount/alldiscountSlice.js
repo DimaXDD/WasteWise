@@ -135,7 +135,7 @@ export const alldiscountSlice = createSlice({
             .addCase(addDiscount.fulfilled, (state, action) => {
                 state.loading = false
                 state.alldiscounts.push(action.payload)
-                state.status = action.payload.message || 'Скидка добавлена'
+                //state.status = action.payload.message || 'Скидка добавлена'
                 state.valid = action.payload.msg || 'Действительная скидка'
             })
             .addCase(addDiscount.rejected, (state, action) => {

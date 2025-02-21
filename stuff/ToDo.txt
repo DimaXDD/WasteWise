@@ -15,9 +15,18 @@
 13) Сделать при добавлении адреса интерактивную карту   
 
 Credentials:
-Admin admin@mail.ru admin123
+Admin admin@gmail.com admin123
 Users   trubachdmitry@gmail.com dima12345
         qazdimaqazdima@gmail.com dima12345
+
+
+Виды мусора
+1) Бумага 100 1
+2) Пластик 150 0.9
+3) Металл 300 1
+ 
+Ключи
+1) secretkey1
 
 http://localhost:3000/newmark (добавление в таблицу check_weight)
 checkKey_paper1 (Бумага 6)
@@ -39,7 +48,11 @@ http://localhost:3000/newpoint (добавление в таблицу s_keys)
     09:00-17:00 
     https://yandex.by/maps/-/CHQfaT6N
 
-3) thirdpoint
+3) secretkey3
+    PlastGroup
+    ул. Свердлова, 57 
+    09:00-17:00 
+    https://yandex.by/maps/-/BFfdaT6N
 
 
 
