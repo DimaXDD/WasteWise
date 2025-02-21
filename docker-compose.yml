@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./ecosort-backend
+    ports:
+      - "8082:8082"
+    environment:
+      - DOCKER_ENV=true
+      - DB_HOST=host.docker.internal  # Используем хост локальной машины для доступа к MySQL
+      - DB_USER=root
+      - DB_PASSWORD=1111
+      - DB_NAME=ecosort
+    volumes:
+      - ./ecosort-backend:/app
+      - /app/node_modules
+    depends_on:
+      - frontend
+
+  frontend:
+    build: ./ecosort-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./ecosort-frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    tty: true
