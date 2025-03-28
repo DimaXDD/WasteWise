@@ -1,0 +1,249 @@
+Credentials:
+Admin admin@gmail.com admin123
+Users   trubachdmitry@gmail.com dima12345
+        qazdimaqazdima@gmail.com dima12345
+
+Виды мусора
+1) Бумага 100 1
+2) Пластик 150 0.9
+3) Металл 300 1
+
+1) secretkey1 
+    Има-групп (бумага)  
+    ул. Болеслава Берута, 3Б, офис 907 
+    08:00-17:00 
+    https://yandex.by/maps/-/CHQfUFJ1
+2) secretkey2
+    BlackMetal  
+    ул. Карвата, 101А 
+    09:00-17:00 
+    https://yandex.by/maps/-/CHQfaT6N
+3) secretkey3
+    PlastGroup
+    ул. Свердлова, 57 
+    09:00-17:00 
+    https://yandex.by/maps/-/BFfdaT6N
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Привет, есть проблема, давай по порядку
+1) Я зашел под админом и создал ключ для будущего пункта приема (ключ - point123), 
+он записался в таблицу s_keys. Вот код таблицы
+create table IF NOT EXISTS ecosort.s_keys(
+    id int auto_increment,
+    secret_key varchar(100)  not null,
+    is_used    int default 0 not null,
+    constraint s_keys_ck CHECK (is_used IN (1,0)),
+    constraint s_keys_pk primary key (id));
+
+2) Далее я создаю вид вторсырья, оно записывается вот сюда
+CREATE TABLE IF NOT EXISTS ecosort.marks(
+    id int auto_increment,
+    rubbish varchar(50)  not null,
+    points_per_kg int not null,
+    new_from_kg float not null,
+    image_link varchar(255) null,
+    constraint marks_pk primary key (id));
+
+3) Далее я создаю пункт приема и он записывеется вот сюда (также к нему привязывается ключ из таблицы s_keys, и поле 
+ключа is_used становится равным 1)
+CREATE TABLE IF NOT EXISTS ecosort.points(
+    id           int auto_increment,
+    address      varchar(100) not null,
+    time_of_work varchar(100) not null,
+    key_id       int          not null,
+    admin_id     int          not null,
+    link_to_map  text         not null,
+    point_name   varchar(100) not null,
+    constraint address_un unique (address),
+    constraint key_id_un unique (key_id),
+    constraint point_name_un unique (point_name),
+    constraint points_pk primary key (id),
+    constraint points_fk_users foreign key (admin_id) references ecosort.users(id) on delete cascade,
+    constraint points_fk_s_keys foreign key (key_id) references ecosort.s_keys(id) on delete cascade);
+
+Также, создается запись в этой таблице (связывает вид вторсырья и пункт приема)
+CREATE TABLE IF NOT EXISTS ecosort.points_marks(
+    id        int auto_increment,
+    points_id int not null,
+    marks_id  int not null,
+    constraint points_marks_pk primary key (id),
+    constraint points_marks_fk_points foreign key (points_id) references ecosort.points(id) on delete cascade,
+    constraint points_marks_fk_marks foreign key (marks_id) references ecosort.marks(id) on delete cascade);
+
+4) Далее я создаю проверку веса (ключ - key123), которая записывается в эту таблицу
+CREATE TABLE IF NOT EXISTS ecosort.check_weight(
+    id int auto_increment,
+    rubbish_id    int          not null,
+    weight        int          not null,
+    key_of_weight varchar(100) not null,
+    constraint key_of_weight_un unique (key_of_weight),
+    constraint check_weight_pk primary key (id),
+    constraint check_weight_fk_marks foreign key (rubbish_id) references ecosort.marks(id) on delete cascade);
+
+Далее у меня есть вот такой контроллер
+
+const db = require('../config/db')
+const bcrypt = require('bcrypt')
+const { Op } = require("sequelize");
+
+const ReceptionsController = {
+    Receptions: async (req, res) => {
+        try {
+            const i_station_key = req.body.station_key;
+            const salt = '$2b$10$qNuSSupDD53DkQfO8wqpf.';
+            const o_station_key = await bcrypt.hash(i_station_key, salt)
+
+            const v_find_key = await db.models.Keys.findOne({
+                where: { secret_key: o_station_key }
+            })
+
+            if (v_find_key.is_used == 1) {
+                const v_find_key_point = await db.models.Points.findOne({
+                    where: { key_id: v_find_key.id }
+                })
+
+                if (v_find_key_point != null) {
+                    const i_key_of_weight = req.body.key_of_weight;
+                    const salt_for_key = '$2b$10$qNuSSupDD53DkQfO8wqpf.';
+                    const o_key_of_weight = await bcrypt.hash(i_key_of_weight, salt_for_key);
+
+                    const v_check_key_w = await db.models.Check_weights.findOne({
+                        attributes: ["id", "rubbish_id", "weight"],
+                        where:
+                            { key_of_weight: o_key_of_weight },
+                    })
+
+                    if (v_check_key_w != null) {
+                        const v_rubbish = await db.models.Marks.findOne({
+                            attributes: ["id", "rubbish", "points_per_kg", "new_from_kg"],
+                            where: { id: v_check_key_w.rubbish_id }
+                        })
+
+                        const v_weight = v_check_key_w.weight;
+                        const o_new_points = v_weight * v_rubbish.points_per_kg;
+                        const o_new_kg = v_weight * v_rubbish.new_from_kg;
+
+                        const i_user_points = await db.models.Users.findOne({
+                            attributes: ["points"],
+                            where: { id: req.userId }
+                        })
+
+                        const o_new_points_user = o_new_points + i_user_points.points
+
+                        db.models.Users.update({
+                            points: o_new_points_user
+                        }, {
+                            where: { id: req.userId }
+                        })
+
+                        db.models.Receptions.create({
+                            user_id: req.userId,
+                            accrued: o_new_points,
+                            new_kg: o_new_kg,
+                            weight: v_weight,
+                            type_waste: v_rubbish.id,
+                            station_key: v_find_key.id,
+                            weight_key: v_check_key_w.id
+                        })
+
+                        const v_find_used = await db.models.Keys.findOne({
+                            where: { is_used: 0 }
+                        })
+
+                        await db.models.Points.update({
+                            key_id: v_find_used.id
+                        }, { where: { id: v_find_key_point.id } })
+
+                        console.log(v_find_used)
+                        await db.models.Keys.update({
+                            is_used: 1,
+                        }, { where: { id: v_find_used.id } })
+
+                        res.json({
+                            o_new_kg,
+                            o_new_points,
+                            o_new_points_user,
+                            message: 'Ваши баллы начислены',
+                        });
+                    }
+                    else {
+                        res.json({
+                            message: 'Ключ веса не действителен'
+                        });
+                    }
+                }
+                else {
+                    res.json({
+                        message: 'Ключ не действителен'
+                    });
+                }
+            }
+            else {
+                res.json({
+                    message: 'Ключ не действителен'
+                });
+            }
+        }
+        catch (error) {
+            console.log(error);
+            res.json({
+                message: 'Не удалось начислить баллы'
+            });
+        }
+    },
+}
+module.exports = ReceptionsController
+
+После того, как я ввел правильные данные в форму баллы добавились, но высветалась ошибка
+
+Executing (default): SELECT `id`, `secret_key`, `is_used` FROM `s_keys` AS `Keys` WHERE `Keys`.`secret_key` = '$2b$10$qNuSSupDD53DkQfO8wqpf.SydGGLNZoRL41A8ZTlzFhU996dx/zQC';
+Executing (default): SELECT `id`, `address`, `point_name`, `time_of_work`, `key_id`, `admin_id`, `link_to_map` FROM `points` AS `Points` WHERE `Points`.`key_id` = 1;
+Executing (default): SELECT `id`, `rubbish_id`, `weight` FROM `check_weight` AS `Check_weights` WHERE `Check_weights`.`key_of_weight` = '$2b$10$qNuSSupDD53DkQfO8wqpf.shnjhJ/ntgKgLKMci5VUv9Dt0k7woJq' LIMIT 1;
+Executing (default): SELECT `id`, `rubbish`, `points_per_kg`, `new_from_kg` FROM `marks` AS `Marks` WHERE `Marks`.`id` = 1;
+Executing (default): SELECT `points` FROM `users` AS `Users` WHERE `Users`.`id` = 2;
+Executing (default): SELECT `id`, `secret_key`, `is_used` FROM `s_keys` AS `Keys` WHERE `Keys`.`is_used` = 0 LIMIT 1;
+Executing (default): UPDATE `users` SET `points`=? WHERE `id` = ?
+TypeError: Cannot read properties of null (reading 'id')
+    at Receptions (E:\coursework\ecosort-backend\controllers\ReceptionsController.js:70:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Executing (default): INSERT INTO `receptions` (`id`,`user_id`,`accrued`,`new_kg`,`weight`,`type_waste`,`station_key`,`weight_key`) VALUES (?,?,?,?,?,?,?,?);
+
+Исправь это, чтобы было корректное уведомление 
+и чтобы key123 (подтверждение сдачи)  я мог использовать только один раз, если будет попытка второго и последующих использований, то выводи соответствующее уведомление 
+Если для решения этой задачи тебе нужно изменить бд, то изменяй и пиши что нужно изменить
