@@ -80,6 +80,15 @@ const RecycleCamera = () => {
     let currentText = "";
     const words = text.split(" ");
     
+    // Всегда создаем новое сообщение
+    const newMessage = {
+      text: "",
+      type: 'bot',
+      category,
+      timestamp: new Date().getTime()
+    };
+    setMessages(prev => [...prev, newMessage]);
+    
     for (let word of words) {
       currentText += word + " ";
       setMessages(prev => {
@@ -87,13 +96,6 @@ const RecycleCamera = () => {
         const lastMessage = newMessages[newMessages.length - 1];
         if (lastMessage && lastMessage.type === 'bot' && lastMessage.category === category) {
           lastMessage.text = currentText;
-        } else {
-          newMessages.push({
-            text: currentText,
-            type: 'bot',
-            category,
-            timestamp: new Date().getTime()
-          });
         }
         return newMessages;
       });
