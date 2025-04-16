@@ -116,7 +116,13 @@ const RecycleCamera = () => {
   useEffect(() => {
     const initializeCameraAndModel = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { 
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            frameRate: { ideal: 30 }
+          } 
+        });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           videoRef.current.onloadedmetadata = () => {
@@ -135,31 +141,38 @@ const RecycleCamera = () => {
     };
 
     const startPeriodicDetection = (model) => {
-      // Очищаем предыдущий интервал, если он был
       if (detectionIntervalRef.current) {
         clearInterval(detectionIntervalRef.current);
       }
       
-      // Устанавливаем новый интервал для обнаружения
+      let lastDetectionTime = 0;
+      const detectionInterval = 50; // Уменьшаем интервал до 200мс
+      
       detectionIntervalRef.current = setInterval(async () => {
+        const currentTime = Date.now();
+        if (currentTime - lastDetectionTime < detectionInterval) return;
+        
         if (isDetectionActive && videoRef.current && canvasRef.current && model) {
           const canvas = canvasRef.current;
           const ctx = canvas.getContext("2d");
 
-          canvas.width = videoRef.current.videoWidth;
-          canvas.height = videoRef.current.videoHeight;
+          if (videoRef.current.readyState === videoRef.current.HAVE_ENOUGH_DATA) {
+            canvas.width = videoRef.current.videoWidth;
+            canvas.height = videoRef.current.videoHeight;
 
-          ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+            ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
 
-          try {
-            const predictions = await model.detect(videoRef.current);
-            drawPredictions(predictions, ctx);
-            handleAnalysis(predictions);
-          } catch (error) {
-            console.error("Ошибка при анализе:", error);
+            try {
+              const predictions = await model.detect(videoRef.current);
+              drawPredictions(predictions, ctx);
+              handleAnalysis(predictions);
+              lastDetectionTime = currentTime;
+            } catch (error) {
+              console.error("Ошибка при анализе:", error);
+            }
           }
         }
-      }, 1000); // Проверяем каждую секунду
+      }, 50); // Проверяем каждые 50мс, но реальное обнаружение происходит каждые 200мс
     };
 
     initializeCameraAndModel();
@@ -215,7 +228,7 @@ const RecycleCamera = () => {
 
   const handleContinue = () => {
     setIsDetectionActive(true); // Возобновляем обнаружение
-    setMessages(prev => prev.filter(msg => msg.type !== 'action')); // Удаляем action-сообщение
+    setMessages([]); // Очищаем все сообщения
   };
 
   return (
