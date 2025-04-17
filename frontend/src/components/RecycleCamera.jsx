@@ -146,7 +146,7 @@ const RecycleCamera = () => {
       }
       
       let lastDetectionTime = 0;
-      const detectionInterval = 50; // Уменьшаем интервал до 200мс
+      const detectionInterval = 50;
       
       detectionIntervalRef.current = setInterval(async () => {
         const currentTime = Date.now();
