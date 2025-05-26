@@ -15,7 +15,7 @@ const cors = require('cors');
 
 const uploadRouter = require('./routes/UploadRouter');
 app.use(cors({
-    origin: 'http://localhost:3000', // Замените на ваш фронтенд URL
+    origin: 'http://localhost:3000',
     credentials: true
   }));
 app.use(express.json({ limit: '50mb' }));
