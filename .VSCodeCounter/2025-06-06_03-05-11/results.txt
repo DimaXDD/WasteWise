@@ -1,0 +1,137 @@
+Date : 2025-06-06 03:05:11
+Directory : e:\diploma\frontend
+Total : 80 files,  26211 codes, 197 comments, 614 blanks, all 27022 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| JSON           |          3 |     20,485 |          0 |          3 |     20,488 |
+| JavaScript JSX |         40 |      3,812 |         78 |        381 |      4,271 |
+| JavaScript     |         22 |      1,424 |         74 |        161 |      1,659 |
+| XML            |          8 |        325 |          3 |          6 |        334 |
+| PostCSS        |          4 |         99 |         11 |         22 |        132 |
+| Markdown       |          1 |         38 |          0 |         33 |         71 |
+| HTML           |          1 |         20 |         23 |          1 |         44 |
+| Docker         |          1 |          8 |          8 |          7 |         23 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                   | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                      |         80 |     26,211 |        197 |        614 |     27,022 |
+| . (Files)                                                              |          5 |     20,525 |         10 |         42 |     20,577 |
+| public                                                                 |          2 |         45 |         23 |          2 |         70 |
+| src                                                                    |         73 |      5,641 |        164 |        570 |      6,375 |
+| src (Files)                                                            |          8 |        166 |         19 |         41 |        226 |
+| src\components                                                         |         21 |      1,288 |         17 |        138 |      1,443 |
+| src\components (Files)                                                 |         19 |      1,240 |         17 |        130 |      1,387 |
+| src\components\styles                                                  |          2 |         48 |          0 |          8 |         56 |
+| src\image                                                              |          7 |        324 |          3 |          6 |        333 |
+| src\pages                                                              |         22 |      2,601 |         63 |        260 |      2,924 |
+| src\redux                                                              |         14 |      1,253 |         62 |        121 |      1,436 |
+| src\redux (Files)                                                      |          1 |         31 |          0 |          1 |         32 |
+| src\redux\features                                                     |         13 |      1,222 |         62 |        120 |      1,404 |
+| src\redux\features\alldiscount                                         |          1 |        176 |          7 |         16 |        199 |
+| src\redux\features\articles                                            |          1 |        157 |          5 |         14 |        176 |
+| src\redux\features\auth                                                |          1 |        113 |          3 |         11 |        127 |
+| src\redux\features\comment                                             |          1 |         97 |          3 |         10 |        110 |
+| src\redux\features\discount                                            |          1 |         41 |          1 |          5 |         47 |
+| src\redux\features\mark                                                |          1 |        121 |          8 |         12 |        141 |
+| src\redux\features\point                                               |          1 |        158 |         13 |         14 |        185 |
+| src\redux\features\point_mark                                          |          1 |         39 |          1 |          5 |         45 |
+| src\redux\features\promo_code                                          |          1 |         68 |          7 |          7 |         82 |
+| src\redux\features\reception                                           |          1 |         43 |          3 |          5 |         51 |
+| src\redux\features\secretkey                                           |          1 |         47 |          4 |          5 |         56 |
+| src\redux\features\user                                                |          1 |        116 |          4 |         11 |        131 |
+| src\redux\features\weight                                              |          1 |         46 |          3 |          5 |         54 |
+| src\utils                                                              |          1 |          9 |          0 |          4 |         13 |
++------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                               | language       | code       | comment    | blank      | total      |
++------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| e:\diploma\frontend\Dockerfile                                         | Docker         |          8 |          8 |          7 |         23 |
+| e:\diploma\frontend\README.md                                          | Markdown       |         38 |          0 |         33 |         71 |
+| e:\diploma\frontend\package-lock.json                                  | JSON           |     20,391 |          0 |          1 |     20,392 |
+| e:\diploma\frontend\package.json                                       | JSON           |         69 |          0 |          1 |         70 |
+| e:\diploma\frontend\public\index.html                                  | HTML           |         20 |         23 |          1 |         44 |
+| e:\diploma\frontend\public\manifest.json                               | JSON           |         25 |          0 |          1 |         26 |
+| e:\diploma\frontend\src\App.css                                        | PostCSS        |         33 |          0 |          6 |         39 |
+| e:\diploma\frontend\src\App.js                                         | JavaScript     |         79 |          4 |         19 |        102 |
+| e:\diploma\frontend\src\App.test.js                                    | JavaScript     |          7 |          0 |          2 |          9 |
+| e:\diploma\frontend\src\components\AllDiscointItem.jsx                 | JavaScript JSX |         58 |          0 |          7 |         65 |
+| e:\diploma\frontend\src\components\ArticleItem.jsx                     | JavaScript JSX |         49 |          0 |          5 |         54 |
+| e:\diploma\frontend\src\components\Button.jsx                          | JavaScript JSX |         17 |          0 |          2 |         19 |
+| e:\diploma\frontend\src\components\CommentItem.jsx                     | JavaScript JSX |         48 |          0 |          6 |         54 |
+| e:\diploma\frontend\src\components\DiscountItem.jsx                    | JavaScript JSX |         67 |          0 |          7 |         74 |
+| e:\diploma\frontend\src\components\Header.jsx                          | JavaScript JSX |        117 |          0 |         14 |        131 |
+| e:\diploma\frontend\src\components\Layout.jsx                          | JavaScript JSX |         11 |          1 |          2 |         14 |
+| e:\diploma\frontend\src\components\MarksItem.jsx                       | JavaScript JSX |         72 |          0 |          5 |         77 |
+| e:\diploma\frontend\src\components\MenuItem.jsx                        | JavaScript JSX |         24 |          2 |          2 |         28 |
+| e:\diploma\frontend\src\components\MobileMenu.jsx                      | JavaScript JSX |         75 |          0 |         14 |         89 |
+| e:\diploma\frontend\src\components\NavItam.jsx                         | JavaScript JSX |         43 |          0 |          5 |         48 |
+| e:\diploma\frontend\src\components\NavMenu.jsx                         | JavaScript JSX |          9 |          0 |          1 |         10 |
+| e:\diploma\frontend\src\components\Navbar.jsx                          | JavaScript JSX |         81 |          4 |          6 |         91 |
+| e:\diploma\frontend\src\components\PointItem.jsx                       | JavaScript JSX |         68 |          0 |          9 |         77 |
+| e:\diploma\frontend\src\components\PointMarkItem.jsx                   | JavaScript JSX |         19 |          2 |          1 |         22 |
+| e:\diploma\frontend\src\components\PromoCodeItem.jsx                   | JavaScript JSX |         40 |          0 |          4 |         44 |
+| e:\diploma\frontend\src\components\RecycleCamera.jsx                   | JavaScript JSX |        405 |          5 |         30 |        440 |
+| e:\diploma\frontend\src\components\Wrapper.jsx                         | JavaScript JSX |          8 |          1 |          1 |         10 |
+| e:\diploma\frontend\src\components\constants.js                        | JavaScript     |         29 |          2 |          9 |         40 |
+| e:\diploma\frontend\src\components\styles\AddArticle.css               | PostCSS        |          3 |          0 |          0 |          3 |
+| e:\diploma\frontend\src\components\styles\RecycleCamera.css            | PostCSS        |         45 |          0 |          8 |         53 |
+| e:\diploma\frontend\src\image\EcoSort.svg                              | XML            |         55 |          1 |          1 |         57 |
+| e:\diploma\frontend\src\image\EcoSort2.svg                             | XML            |         41 |          0 |          2 |         43 |
+| e:\diploma\frontend\src\image\WasteWiseLogo.svg                        | XML            |        215 |          1 |          1 |        217 |
+| e:\diploma\frontend\src\image\bio-leaves.svg                           | XML            |          4 |          0 |          1 |          5 |
+| e:\diploma\frontend\src\image\earth.svg                                | XML            |          2 |          1 |          0 |          3 |
+| e:\diploma\frontend\src\image\icon-close-menu.svg                      | XML            |          3 |          0 |          1 |          4 |
+| e:\diploma\frontend\src\image\icon-menu.svg                            | XML            |          4 |          0 |          0 |          4 |
+| e:\diploma\frontend\src\index.css                                      | PostCSS        |         18 |         11 |          8 |         37 |
+| e:\diploma\frontend\src\index.js                                       | JavaScript     |         15 |          0 |          3 |         18 |
+| e:\diploma\frontend\src\logo.svg                                       | XML            |          1 |          0 |          0 |          1 |
+| e:\diploma\frontend\src\pages\AddArticlesPage.jsx                      | JavaScript JSX |        145 |          1 |         17 |        163 |
+| e:\diploma\frontend\src\pages\AddDisсountPage.jsx                      | JavaScript JSX |        106 |          0 |         11 |        117 |
+| e:\diploma\frontend\src\pages\AddMarksPage.jsx                         | JavaScript JSX |        390 |          0 |         22 |        412 |
+| e:\diploma\frontend\src\pages\AddPointPage.jsx                         | JavaScript JSX |        218 |         10 |         24 |        252 |
+| e:\diploma\frontend\src\pages\AllArticlesPage.jsx                      | JavaScript JSX |         42 |          0 |          5 |         47 |
+| e:\diploma\frontend\src\pages\AllDiscointPage.jsx                      | JavaScript JSX |         41 |          2 |          7 |         50 |
+| e:\diploma\frontend\src\pages\ArticlePage.jsx                          | JavaScript JSX |        204 |          6 |         19 |        229 |
+| e:\diploma\frontend\src\pages\ChangePassPage.jsx                       | JavaScript JSX |        127 |          0 |         13 |        140 |
+| e:\diploma\frontend\src\pages\ChangeUsername.jsx                       | JavaScript JSX |        127 |          0 |         13 |        140 |
+| e:\diploma\frontend\src\pages\LoginPage.jsx                            | JavaScript JSX |         98 |          0 |         10 |        108 |
+| e:\diploma\frontend\src\pages\MainPage.jsx                             | JavaScript JSX |         45 |          2 |          4 |         51 |
+| e:\diploma\frontend\src\pages\MarksPage.jsx                            | JavaScript JSX |         36 |          2 |          7 |         45 |
+| e:\diploma\frontend\src\pages\MyDiscountPage.jsx                       | JavaScript JSX |         70 |          5 |          9 |         84 |
+| e:\diploma\frontend\src\pages\PointPage.jsx                            | JavaScript JSX |         52 |          0 |          5 |         57 |
+| e:\diploma\frontend\src\pages\PointsMarksPage.jsx                      | JavaScript JSX |         52 |          0 |          7 |         59 |
+| e:\diploma\frontend\src\pages\ReceptionPage.jsx                        | JavaScript JSX |        116 |         20 |         14 |        150 |
+| e:\diploma\frontend\src\pages\RegisterPage.jsx                         | JavaScript JSX |        119 |          0 |         11 |        130 |
+| e:\diploma\frontend\src\pages\UpArticlesPage.jsx                       | JavaScript JSX |        158 |         15 |         18 |        191 |
+| e:\diploma\frontend\src\pages\UpdateDiscountPage.jsx                   | JavaScript JSX |        103 |          0 |         10 |        113 |
+| e:\diploma\frontend\src\pages\UpdateMarkPage.jsx                       | JavaScript JSX |        180 |          0 |         16 |        196 |
+| e:\diploma\frontend\src\pages\UpdatePointPage.jsx                      | JavaScript JSX |        100 |          0 |         10 |        110 |
+| e:\diploma\frontend\src\pages\UpdateSecretKeyPage.jsx                  | JavaScript JSX |         72 |          0 |          8 |         80 |
+| e:\diploma\frontend\src\redux\features\alldiscount\alldiscountSlice.js | JavaScript     |        176 |          7 |         16 |        199 |
+| e:\diploma\frontend\src\redux\features\articles\articleSlice.js        | JavaScript     |        157 |          5 |         14 |        176 |
+| e:\diploma\frontend\src\redux\features\auth\authSlice.js               | JavaScript     |        113 |          3 |         11 |        127 |
+| e:\diploma\frontend\src\redux\features\comment\commentSlice.js         | JavaScript     |         97 |          3 |         10 |        110 |
+| e:\diploma\frontend\src\redux\features\discount\discountSlice.js       | JavaScript     |         41 |          1 |          5 |         47 |
+| e:\diploma\frontend\src\redux\features\mark\markSlice.js               | JavaScript     |        121 |          8 |         12 |        141 |
+| e:\diploma\frontend\src\redux\features\point\pointSlice.js             | JavaScript     |        158 |         13 |         14 |        185 |
+| e:\diploma\frontend\src\redux\features\point_mark\point_markSlice.js   | JavaScript     |         39 |          1 |          5 |         45 |
+| e:\diploma\frontend\src\redux\features\promo_code\promo_codeSlice.js   | JavaScript     |         68 |          7 |          7 |         82 |
+| e:\diploma\frontend\src\redux\features\reception\receptionSlice.js     | JavaScript     |         43 |          3 |          5 |         51 |
+| e:\diploma\frontend\src\redux\features\secretkey\secretkeySlice.js     | JavaScript     |         47 |          4 |          5 |         56 |
+| e:\diploma\frontend\src\redux\features\user\userSlice.js               | JavaScript     |        116 |          4 |         11 |        131 |
+| e:\diploma\frontend\src\redux\features\weight\weightSlice.js           | JavaScript     |         46 |          3 |          5 |         54 |
+| e:\diploma\frontend\src\redux\store.js                                 | JavaScript     |         31 |          0 |          1 |         32 |
+| e:\diploma\frontend\src\reportWebVitals.js                             | JavaScript     |         12 |          0 |          2 |         14 |
+| e:\diploma\frontend\src\setupTests.js                                  | JavaScript     |          1 |          4 |          1 |          6 |
+| e:\diploma\frontend\src\utils\axios.js                                 | JavaScript     |          9 |          0 |          4 |         13 |
+| e:\diploma\frontend\tailwind.config.js                                 | JavaScript     |         19 |          2 |          0 |         21 |
+| Total                                                                  |                |     26,211 |        197 |        614 |     27,022 |
++------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

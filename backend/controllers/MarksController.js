@@ -110,19 +110,19 @@ const MarksController = {
             if (v_check_id_marks != null) {
                 await db.models.Marks.destroy({ where: { id: req.params.id } })
                 res.json({
-                    message: 'Вротсырье удалено'
+                    message: 'Вторсырье удалено'
                 });
             }
             else {
                 res.json({
-                    message: 'Не удалось удалить вротсырье',
+                    message: 'Не удалось удалить вторсырье',
                 });
             }
 
         } catch (error) {
             console.log(error);
             res.json({
-                message: 'Не удалось удалить вротсырье',
+                message: 'Не удалось удалить вторсырье',
             });
 
         }

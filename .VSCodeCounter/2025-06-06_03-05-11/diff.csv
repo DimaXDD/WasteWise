@@ -1,0 +1,138 @@
+"filename", "language", "JavaScript", "JavaScript JSX", "PostCSS", "XML", "Markdown", "JSON", "Docker", "HTML", "comment", "blank", "total"
+"e:\diploma\backend\Dockerfile", "Docker", 0, 0, 0, 0, 0, 0, -8, 0, -8, -7, -23
+"e:\diploma\backend\config\Articles.js", "JavaScript", -19, 0, 0, 0, 0, 0, 0, 0, 0, -2, -21
+"e:\diploma\backend\config\Check_weights.js", "JavaScript", -22, 0, 0, 0, 0, 0, 0, 0, 0, -6, -28
+"e:\diploma\backend\config\Discounts.js", "JavaScript", -13, 0, 0, 0, 0, 0, 0, 0, 0, -4, -17
+"e:\diploma\backend\config\Keys.js", "JavaScript", -11, 0, 0, 0, 0, 0, 0, 0, 0, -4, -15
+"e:\diploma\backend\config\Likes.js", "JavaScript", -22, 0, 0, 0, 0, 0, 0, 0, 0, -6, -28
+"e:\diploma\backend\config\Marks.js", "JavaScript", -14, 0, 0, 0, 0, 0, 0, 0, 0, -4, -18
+"e:\diploma\backend\config\Points.js", "JavaScript", -22, 0, 0, 0, 0, 0, 0, 0, 0, -6, -28
+"e:\diploma\backend\config\Points_marks.js", "JavaScript", -18, 0, 0, 0, 0, 0, 0, 0, 0, -6, -24
+"e:\diploma\backend\config\Promo_codes.js", "JavaScript", -20, 0, 0, 0, 0, 0, 0, 0, 0, -6, -26
+"e:\diploma\backend\config\Ratings.js", "JavaScript", -20, 0, 0, 0, 0, 0, 0, 0, 0, -6, -26
+"e:\diploma\backend\config\Receptions.js", "JavaScript", -29, 0, 0, 0, 0, 0, 0, 0, 0, -10, -39
+"e:\diploma\backend\config\Users.js", "JavaScript", -17, 0, 0, 0, 0, 0, 0, 0, 0, -4, -21
+"e:\diploma\backend\config\cloudinaryConfig.js", "JavaScript", -7, 0, 0, 0, 0, 0, 0, 0, -1, -3, -11
+"e:\diploma\backend\config\db.js", "JavaScript", -41, 0, 0, 0, 0, 0, 0, 0, -3, -5, -49
+"e:\diploma\backend\controllers\ArticlesController.js", "JavaScript", -260, 0, 0, 0, 0, 0, 0, 0, -23, -11, -294
+"e:\diploma\backend\controllers\AuthController.js", "JavaScript", -239, 0, 0, 0, 0, 0, 0, 0, -19, -30, -288
+"e:\diploma\backend\controllers\Check_weightsController.js", "JavaScript", -114, 0, 0, 0, 0, 0, 0, 0, -8, -18, -140
+"e:\diploma\backend\controllers\DiscountsController.js", "JavaScript", -218, 0, 0, 0, 0, 0, 0, 0, -16, -36, -270
+"e:\diploma\backend\controllers\KeysController.js", "JavaScript", -37, 0, 0, 0, 0, 0, 0, 0, -3, -8, -48
+"e:\diploma\backend\controllers\MarksController.js", "JavaScript", -115, 0, 0, 0, 0, 0, 0, 0, -4, -13, -132
+"e:\diploma\backend\controllers\PointsController.js", "JavaScript", -255, 0, 0, 0, 0, 0, 0, 0, -16, -36, -307
+"e:\diploma\backend\controllers\Promo_codesController.js", "JavaScript", -51, 0, 0, 0, 0, 0, 0, 0, 0, -6, -57
+"e:\diploma\backend\controllers\RatingsController.js", "JavaScript", -120, 0, 0, 0, 0, 0, 0, 0, -32, -15, -167
+"e:\diploma\backend\controllers\ReceptionsController.js", "JavaScript", -107, 0, 0, 0, 0, 0, 0, 0, -15, -23, -145
+"e:\diploma\backend\controllers\UploadController.js", "JavaScript", -16, 0, 0, 0, 0, 0, 0, 0, 0, -3, -19
+"e:\diploma\backend\controllers\Used_discountsController.js", "JavaScript", -5, 0, 0, 0, 0, 0, 0, 0, -91, -4, -100
+"e:\diploma\backend\controllers\UsersController.js", "JavaScript", -103, 0, 0, 0, 0, 0, 0, 0, -3, -18, -124
+"e:\diploma\backend\middleware\HandleErrors.js", "JavaScript", -9, 0, 0, 0, 0, 0, 0, 0, 0, -1, -10
+"e:\diploma\backend\middleware\checkAuth.js", "JavaScript", -22, 0, 0, 0, 0, 0, 0, 0, -20, -4, -46
+"e:\diploma\backend\middleware\checkRole.js", "JavaScript", -28, 0, 0, 0, 0, 0, 0, 0, 0, -1, -29
+"e:\diploma\backend\middleware\logger.js", "JavaScript", -28, 0, 0, 0, 0, 0, 0, 0, 0, -4, -32
+"e:\diploma\backend\package-lock.json", "JSON", 0, 0, 0, 0, 0, -3054, 0, 0, 0, -1, -3055
+"e:\diploma\backend\package.json", "JSON", 0, 0, 0, 0, 0, -38, 0, 0, 0, -1, -39
+"e:\diploma\backend\routes\ArticlesRouter.js", "JavaScript", -14, 0, 0, 0, 0, 0, 0, 0, -167, -11, -192
+"e:\diploma\backend\routes\AuthRouter.js", "JavaScript", -13, 0, 0, 0, 0, 0, 0, 0, -213, -9, -235
+"e:\diploma\backend\routes\Check_weightsRouter.js", "JavaScript", -11, 0, 0, 0, 0, 0, 0, 0, -128, -7, -146
+"e:\diploma\backend\routes\DiscountsRouter.js", "JavaScript", -16, 0, 0, 0, 0, 0, 0, 0, -207, -12, -235
+"e:\diploma\backend\routes\KeysRouter.js", "JavaScript", -8, 0, 0, 0, 0, 0, 0, 0, -41, -5, -54
+"e:\diploma\backend\routes\MarksRouter.js", "JavaScript", -13, 0, 0, 0, 0, 0, 0, 0, -141, -10, -164
+"e:\diploma\backend\routes\PointsRouter.js", "JavaScript", -15, 0, 0, 0, 0, 0, 0, 0, -208, -12, -235
+"e:\diploma\backend\routes\Promo_codesRouter.js", "JavaScript", -7, 0, 0, 0, 0, 0, 0, 0, -47, -7, -61
+"e:\diploma\backend\routes\RatingsRouter.js", "JavaScript", -10, 0, 0, 0, 0, 0, 0, 0, -97, -8, -115
+"e:\diploma\backend\routes\ReceptionsRouter.js", "JavaScript", -6, 0, 0, 0, 0, 0, 0, 0, -28, -7, -41
+"e:\diploma\backend\routes\UploadRouter.js", "JavaScript", -5, 0, 0, 0, 0, 0, 0, 0, -1, -3, -9
+"e:\diploma\backend\routes\Used_discountsRouter.js", "JavaScript", -6, 0, 0, 0, 0, 0, 0, 0, -2, -3, -11
+"e:\diploma\backend\routes\UsersRouter.js", "JavaScript", -11, 0, 0, 0, 0, 0, 0, 0, -67, -8, -86
+"e:\diploma\backend\server.js", "JavaScript", -108, 0, 0, 0, 0, 0, 0, 0, -3, -23, -134
+"e:\diploma\backend\swagger\swagger.js", "JavaScript", -52, 0, 0, 0, 0, 0, 0, 0, 0, -4, -56
+"e:\diploma\backend\validations\ArticlesValidations.js", "JavaScript", -10, 0, 0, 0, 0, 0, 0, 0, -2, -2, -14
+"e:\diploma\backend\validations\AuthValidations.js", "JavaScript", -14, 0, 0, 0, 0, 0, 0, 0, 0, -3, -17
+"e:\diploma\backend\validations\DiscountsValidations.js", "JavaScript", -6, 0, 0, 0, 0, 0, 0, 0, -4, -2, -12
+"e:\diploma\backend\validations\MarksValidations.js", "JavaScript", -20, 0, 0, 0, 0, 0, 0, 0, 0, -6, -26
+"e:\diploma\backend\validations\PointsValidations.js", "JavaScript", -16, 0, 0, 0, 0, 0, 0, 0, 0, -4, -20
+"e:\diploma\backend\validations\RatingsValidations.js", "JavaScript", -5, 0, 0, 0, 0, 0, 0, 0, 0, -1, -6
+"e:\diploma\backend\validations\ReceptionsValidations.js", "JavaScript", -5, 0, 0, 0, 0, 0, 0, 0, -1, -2, -8
+"e:\diploma\frontend\Dockerfile", "Docker", 0, 0, 0, 0, 0, 0, 8, 0, 8, 7, 23
+"e:\diploma\frontend\README.md", "Markdown", 0, 0, 0, 0, 38, 0, 0, 0, 0, 33, 71
+"e:\diploma\frontend\package-lock.json", "JSON", 0, 0, 0, 0, 0, 20391, 0, 0, 0, 1, 20392
+"e:\diploma\frontend\package.json", "JSON", 0, 0, 0, 0, 0, 69, 0, 0, 0, 1, 70
+"e:\diploma\frontend\public\index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 20, 23, 1, 44
+"e:\diploma\frontend\public\manifest.json", "JSON", 0, 0, 0, 0, 0, 25, 0, 0, 0, 1, 26
+"e:\diploma\frontend\src\App.css", "PostCSS", 0, 0, 33, 0, 0, 0, 0, 0, 0, 6, 39
+"e:\diploma\frontend\src\App.js", "JavaScript", 79, 0, 0, 0, 0, 0, 0, 0, 4, 19, 102
+"e:\diploma\frontend\src\App.test.js", "JavaScript", 7, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9
+"e:\diploma\frontend\src\components\AllDiscointItem.jsx", "JavaScript JSX", 0, 58, 0, 0, 0, 0, 0, 0, 0, 7, 65
+"e:\diploma\frontend\src\components\ArticleItem.jsx", "JavaScript JSX", 0, 49, 0, 0, 0, 0, 0, 0, 0, 5, 54
+"e:\diploma\frontend\src\components\Button.jsx", "JavaScript JSX", 0, 17, 0, 0, 0, 0, 0, 0, 0, 2, 19
+"e:\diploma\frontend\src\components\CommentItem.jsx", "JavaScript JSX", 0, 48, 0, 0, 0, 0, 0, 0, 0, 6, 54
+"e:\diploma\frontend\src\components\DiscountItem.jsx", "JavaScript JSX", 0, 67, 0, 0, 0, 0, 0, 0, 0, 7, 74
+"e:\diploma\frontend\src\components\Header.jsx", "JavaScript JSX", 0, 117, 0, 0, 0, 0, 0, 0, 0, 14, 131
+"e:\diploma\frontend\src\components\Layout.jsx", "JavaScript JSX", 0, 11, 0, 0, 0, 0, 0, 0, 1, 2, 14
+"e:\diploma\frontend\src\components\MarksItem.jsx", "JavaScript JSX", 0, 72, 0, 0, 0, 0, 0, 0, 0, 5, 77
+"e:\diploma\frontend\src\components\MenuItem.jsx", "JavaScript JSX", 0, 24, 0, 0, 0, 0, 0, 0, 2, 2, 28
+"e:\diploma\frontend\src\components\MobileMenu.jsx", "JavaScript JSX", 0, 75, 0, 0, 0, 0, 0, 0, 0, 14, 89
+"e:\diploma\frontend\src\components\NavItam.jsx", "JavaScript JSX", 0, 43, 0, 0, 0, 0, 0, 0, 0, 5, 48
+"e:\diploma\frontend\src\components\NavMenu.jsx", "JavaScript JSX", 0, 9, 0, 0, 0, 0, 0, 0, 0, 1, 10
+"e:\diploma\frontend\src\components\Navbar.jsx", "JavaScript JSX", 0, 81, 0, 0, 0, 0, 0, 0, 4, 6, 91
+"e:\diploma\frontend\src\components\PointItem.jsx", "JavaScript JSX", 0, 68, 0, 0, 0, 0, 0, 0, 0, 9, 77
+"e:\diploma\frontend\src\components\PointMarkItem.jsx", "JavaScript JSX", 0, 19, 0, 0, 0, 0, 0, 0, 2, 1, 22
+"e:\diploma\frontend\src\components\PromoCodeItem.jsx", "JavaScript JSX", 0, 40, 0, 0, 0, 0, 0, 0, 0, 4, 44
+"e:\diploma\frontend\src\components\RecycleCamera.jsx", "JavaScript JSX", 0, 405, 0, 0, 0, 0, 0, 0, 5, 30, 440
+"e:\diploma\frontend\src\components\Wrapper.jsx", "JavaScript JSX", 0, 8, 0, 0, 0, 0, 0, 0, 1, 1, 10
+"e:\diploma\frontend\src\components\constants.js", "JavaScript", 29, 0, 0, 0, 0, 0, 0, 0, 2, 9, 40
+"e:\diploma\frontend\src\components\styles\AddArticle.css", "PostCSS", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3
+"e:\diploma\frontend\src\components\styles\RecycleCamera.css", "PostCSS", 0, 0, 45, 0, 0, 0, 0, 0, 0, 8, 53
+"e:\diploma\frontend\src\image\EcoSort.svg", "XML", 0, 0, 0, 55, 0, 0, 0, 0, 1, 1, 57
+"e:\diploma\frontend\src\image\EcoSort2.svg", "XML", 0, 0, 0, 41, 0, 0, 0, 0, 0, 2, 43
+"e:\diploma\frontend\src\image\WasteWiseLogo.svg", "XML", 0, 0, 0, 215, 0, 0, 0, 0, 1, 1, 217
+"e:\diploma\frontend\src\image\bio-leaves.svg", "XML", 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 5
+"e:\diploma\frontend\src\image\earth.svg", "XML", 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 3
+"e:\diploma\frontend\src\image\icon-close-menu.svg", "XML", 0, 0, 0, 3, 0, 0, 0, 0, 0, 1, 4
+"e:\diploma\frontend\src\image\icon-menu.svg", "XML", 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 4
+"e:\diploma\frontend\src\index.css", "PostCSS", 0, 0, 18, 0, 0, 0, 0, 0, 11, 8, 37
+"e:\diploma\frontend\src\index.js", "JavaScript", 15, 0, 0, 0, 0, 0, 0, 0, 0, 3, 18
+"e:\diploma\frontend\src\logo.svg", "XML", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1
+"e:\diploma\frontend\src\pages\AddArticlesPage.jsx", "JavaScript JSX", 0, 145, 0, 0, 0, 0, 0, 0, 1, 17, 163
+"e:\diploma\frontend\src\pages\AddDisсountPage.jsx", "JavaScript JSX", 0, 106, 0, 0, 0, 0, 0, 0, 0, 11, 117
+"e:\diploma\frontend\src\pages\AddMarksPage.jsx", "JavaScript JSX", 0, 390, 0, 0, 0, 0, 0, 0, 0, 22, 412
+"e:\diploma\frontend\src\pages\AddPointPage.jsx", "JavaScript JSX", 0, 218, 0, 0, 0, 0, 0, 0, 10, 24, 252
+"e:\diploma\frontend\src\pages\AllArticlesPage.jsx", "JavaScript JSX", 0, 42, 0, 0, 0, 0, 0, 0, 0, 5, 47
+"e:\diploma\frontend\src\pages\AllDiscointPage.jsx", "JavaScript JSX", 0, 41, 0, 0, 0, 0, 0, 0, 2, 7, 50
+"e:\diploma\frontend\src\pages\ArticlePage.jsx", "JavaScript JSX", 0, 204, 0, 0, 0, 0, 0, 0, 6, 19, 229
+"e:\diploma\frontend\src\pages\ChangePassPage.jsx", "JavaScript JSX", 0, 127, 0, 0, 0, 0, 0, 0, 0, 13, 140
+"e:\diploma\frontend\src\pages\ChangeUsername.jsx", "JavaScript JSX", 0, 127, 0, 0, 0, 0, 0, 0, 0, 13, 140
+"e:\diploma\frontend\src\pages\LoginPage.jsx", "JavaScript JSX", 0, 98, 0, 0, 0, 0, 0, 0, 0, 10, 108
+"e:\diploma\frontend\src\pages\MainPage.jsx", "JavaScript JSX", 0, 45, 0, 0, 0, 0, 0, 0, 2, 4, 51
+"e:\diploma\frontend\src\pages\MarksPage.jsx", "JavaScript JSX", 0, 36, 0, 0, 0, 0, 0, 0, 2, 7, 45
+"e:\diploma\frontend\src\pages\MyDiscountPage.jsx", "JavaScript JSX", 0, 70, 0, 0, 0, 0, 0, 0, 5, 9, 84
+"e:\diploma\frontend\src\pages\PointPage.jsx", "JavaScript JSX", 0, 52, 0, 0, 0, 0, 0, 0, 0, 5, 57
+"e:\diploma\frontend\src\pages\PointsMarksPage.jsx", "JavaScript JSX", 0, 52, 0, 0, 0, 0, 0, 0, 0, 7, 59
+"e:\diploma\frontend\src\pages\ReceptionPage.jsx", "JavaScript JSX", 0, 116, 0, 0, 0, 0, 0, 0, 20, 14, 150
+"e:\diploma\frontend\src\pages\RegisterPage.jsx", "JavaScript JSX", 0, 119, 0, 0, 0, 0, 0, 0, 0, 11, 130
+"e:\diploma\frontend\src\pages\UpArticlesPage.jsx", "JavaScript JSX", 0, 158, 0, 0, 0, 0, 0, 0, 15, 18, 191
+"e:\diploma\frontend\src\pages\UpdateDiscountPage.jsx", "JavaScript JSX", 0, 103, 0, 0, 0, 0, 0, 0, 0, 10, 113
+"e:\diploma\frontend\src\pages\UpdateMarkPage.jsx", "JavaScript JSX", 0, 180, 0, 0, 0, 0, 0, 0, 0, 16, 196
+"e:\diploma\frontend\src\pages\UpdatePointPage.jsx", "JavaScript JSX", 0, 100, 0, 0, 0, 0, 0, 0, 0, 10, 110
+"e:\diploma\frontend\src\pages\UpdateSecretKeyPage.jsx", "JavaScript JSX", 0, 72, 0, 0, 0, 0, 0, 0, 0, 8, 80
+"e:\diploma\frontend\src\redux\features\alldiscount\alldiscountSlice.js", "JavaScript", 176, 0, 0, 0, 0, 0, 0, 0, 7, 16, 199
+"e:\diploma\frontend\src\redux\features\articles\articleSlice.js", "JavaScript", 157, 0, 0, 0, 0, 0, 0, 0, 5, 14, 176
+"e:\diploma\frontend\src\redux\features\auth\authSlice.js", "JavaScript", 113, 0, 0, 0, 0, 0, 0, 0, 3, 11, 127
+"e:\diploma\frontend\src\redux\features\comment\commentSlice.js", "JavaScript", 97, 0, 0, 0, 0, 0, 0, 0, 3, 10, 110
+"e:\diploma\frontend\src\redux\features\discount\discountSlice.js", "JavaScript", 41, 0, 0, 0, 0, 0, 0, 0, 1, 5, 47
+"e:\diploma\frontend\src\redux\features\mark\markSlice.js", "JavaScript", 121, 0, 0, 0, 0, 0, 0, 0, 8, 12, 141
+"e:\diploma\frontend\src\redux\features\point\pointSlice.js", "JavaScript", 158, 0, 0, 0, 0, 0, 0, 0, 13, 14, 185
+"e:\diploma\frontend\src\redux\features\point_mark\point_markSlice.js", "JavaScript", 39, 0, 0, 0, 0, 0, 0, 0, 1, 5, 45
+"e:\diploma\frontend\src\redux\features\promo_code\promo_codeSlice.js", "JavaScript", 68, 0, 0, 0, 0, 0, 0, 0, 7, 7, 82
+"e:\diploma\frontend\src\redux\features\reception\receptionSlice.js", "JavaScript", 43, 0, 0, 0, 0, 0, 0, 0, 3, 5, 51
+"e:\diploma\frontend\src\redux\features\secretkey\secretkeySlice.js", "JavaScript", 47, 0, 0, 0, 0, 0, 0, 0, 4, 5, 56
+"e:\diploma\frontend\src\redux\features\user\userSlice.js", "JavaScript", 116, 0, 0, 0, 0, 0, 0, 0, 4, 11, 131
+"e:\diploma\frontend\src\redux\features\weight\weightSlice.js", "JavaScript", 46, 0, 0, 0, 0, 0, 0, 0, 3, 5, 54
+"e:\diploma\frontend\src\redux\store.js", "JavaScript", 31, 0, 0, 0, 0, 0, 0, 0, 0, 1, 32
+"e:\diploma\frontend\src\reportWebVitals.js", "JavaScript", 12, 0, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"e:\diploma\frontend\src\setupTests.js", "JavaScript", 1, 0, 0, 0, 0, 0, 0, 0, 4, 1, 6
+"e:\diploma\frontend\src\utils\axios.js", "JavaScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 4, 13
+"e:\diploma\frontend\tailwind.config.js", "JavaScript", 19, 0, 0, 0, 0, 0, 0, 0, 2, 0, 21
+"Total", "-", -949, 3812, 99, 325, 38, 17393, 0, 20, -1422, 153, 19469

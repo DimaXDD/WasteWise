@@ -2,10 +2,6 @@ const db = require('../config/db')
 const { Op } = require("sequelize");
 const logger = require('../middleware/logger');
 
-// const { dirname } = require('path')
-// const path = require('path')
-// const { fileURLToPath } = require('url')
-
 const ArticlesController = {
 
     getArticles: async (req, res) => {

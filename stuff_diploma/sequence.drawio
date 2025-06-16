@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.0.9">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.4">
   <diagram id="PzHTcKvuOduZSgywX2gt" name="Страница — 1">
-    <mxGraphModel dx="1826" dy="751" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1442" dy="535" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -252,7 +252,7 @@
             <mxPoint x="-15" y="-11" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tWoxl3yG6u2iMlQJkLNZ-11" value="Блок базы данных" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=11;" parent="1" vertex="1">
+        <mxCell id="tWoxl3yG6u2iMlQJkLNZ-11" value="База данных" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=11;" parent="1" vertex="1">
           <mxGeometry x="1055" y="13" width="60" height="80" as="geometry" />
         </mxCell>
         <mxCell id="-EpCv7RH39phxAAh9umP-1" value="GUI" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" parent="1" vertex="1">
@@ -270,7 +270,7 @@
         <mxCell id="x2YHVYcyRe_AsGXqTYqq-3" value="&lt;font&gt;Администратор&lt;/font&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11;" parent="1" vertex="1">
           <mxGeometry x="95" y="610" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="x2YHVYcyRe_AsGXqTYqq-4" value="Блок базы данных" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=11;" parent="1" vertex="1">
+        <mxCell id="x2YHVYcyRe_AsGXqTYqq-4" value="База данных" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=11;" parent="1" vertex="1">
           <mxGeometry x="1060" y="614" width="60" height="80" as="geometry" />
         </mxCell>
       </root>

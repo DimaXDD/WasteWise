@@ -1,4 +1,3 @@
-// controllers/UploadController.js
 const cloudinary = require('../config/cloudinaryConfig');
 
 const uploadImage = async (req, res) => {

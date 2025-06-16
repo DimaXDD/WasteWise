@@ -3,7 +3,6 @@ const Sequelize = require('sequelize')
 const Model = Sequelize.Model;
 
 class Users extends Model{}
-// const {Post} = require('../config/Post')
 
 Users.init (
     {

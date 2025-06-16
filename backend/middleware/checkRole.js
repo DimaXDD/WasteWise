@@ -16,12 +16,12 @@ module.exports = function checkRole(req, res, next) {
                 next();
             }
             else {
-                return res.json({
+                return res.status(403).json({
                     message: 'Нет доступа(роль)'
                 })
             }
         } catch (e) {
-            return res.json({
+            return res.status(403).json({
                 message: 'Нет доступа(роль)',
             });
         }

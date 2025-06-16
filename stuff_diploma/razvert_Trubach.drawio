@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.0.9">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.4">
   <diagram id="hu6SqyUsQMpoPFQubJVd" name="Страница — 1">
     <mxGraphModel dx="642" dy="535" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -66,7 +66,7 @@
         <mxCell id="vOAB2O_-1PtPGMtkRpee-51" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="841.94" y="872.5" width="138.63" height="54.5" as="geometry" />
         </mxCell>
-        <mxCell id="vOAB2O_-1PtPGMtkRpee-53" value="&lt;span style=&quot;font-family: &amp;quot;Times New Roman&amp;quot;; text-align: center;&quot;&gt;&lt;font&gt;MySQL 8.0.28&lt;/font&gt;&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;" parent="1" vertex="1">
+        <mxCell id="vOAB2O_-1PtPGMtkRpee-53" value="&lt;span style=&quot;font-family: &amp;quot;Times New Roman&amp;quot;; text-align: center;&quot;&gt;&lt;font&gt;MySQL 8.0.40&lt;/font&gt;&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;" parent="1" vertex="1">
           <mxGeometry x="868.81" y="871" width="104.88" height="50" as="geometry" />
         </mxCell>
         <mxCell id="vOAB2O_-1PtPGMtkRpee-56" value="" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;endFill=1;startArrow=block;startFill=1;fontSize=14;spacing=2;" parent="1" edge="1">
@@ -157,7 +157,7 @@
         <mxCell id="NIcM6Cs3h1m89Xdl_8Vx-3" value="" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="1562" y="361" width="162.62" height="72.75" as="geometry" />
         </mxCell>
-        <mxCell id="NIcM6Cs3h1m89Xdl_8Vx-4" value="&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;u&gt;Goodle API 1.58.1&lt;/u&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;" parent="1" vertex="1">
+        <mxCell id="NIcM6Cs3h1m89Xdl_8Vx-4" value="&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;u&gt;Google API 1.58.1&lt;/u&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;" parent="1" vertex="1">
           <mxGeometry x="1565" y="374" width="148.62" height="52.75" as="geometry" />
         </mxCell>
         <mxCell id="NIcM6Cs3h1m89Xdl_8Vx-5" value="" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;endFill=1;startArrow=block;startFill=1;fontSize=14;spacing=2;exitX=0.553;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0;entryDx=113.375;entryDy=226;entryPerimeter=0;" parent="1" source="NIcM6Cs3h1m89Xdl_8Vx-1" edge="1">

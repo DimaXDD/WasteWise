@@ -1,9 +1,7 @@
 const Sequelize = require('sequelize')
 
 const Model = Sequelize.Model;
-
 class Check_weights extends Model{}
-
 const {Marks} = require('../config/Marks')
 
 
