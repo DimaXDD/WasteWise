@@ -17,9 +17,8 @@ export const LoginPage = () => {
     const { user } = useSelector((state) => state.auth)
 
     useEffect(() => {
-        if (status) toast(status)
         if (user) navigate('/')
-    }, [status, user, navigate])
+    }, [user, navigate])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,6 +49,11 @@ export const LoginPage = () => {
 
             if (response.payload?.errors) {
                 response.payload.errors.forEach(error => toast.error(error.msg));
+                return;
+            }
+
+            if (response.payload?.message) {
+                toast.error(response.payload.message);
                 return;
             }
 

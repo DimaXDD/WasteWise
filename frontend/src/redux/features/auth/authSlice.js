@@ -5,7 +5,6 @@ const initialState = {
     user: null,
     accessToken: null,
     isLoading: false,
-    status: null,
 }
 
 export const registerUser = createAsyncThunk(
@@ -72,7 +71,6 @@ export const authSlice = createSlice({
             state.user = null
             state.accessToken = null
             state.isLoading = false
-            state.status = null
         },
         setIsAuth: (state, action) => {
             state.accessToken = action.payload
@@ -83,16 +81,13 @@ export const authSlice = createSlice({
         builder
             .addCase(registerUser.pending, (state) => {
                 state.isLoading = true
-                state.status = null
             })
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.isLoading = false
-                state.status = action.payload.message
                 state.user = action.payload.user
                 state.accessToken = action.payload.accessToken
             })
-            .addCase(registerUser.rejected, (state, action) => {
-                state.status = action.payload?.message
+            .addCase(registerUser.rejected, (state) => {
                 state.isLoading = false
             })
 
@@ -100,16 +95,13 @@ export const authSlice = createSlice({
         builder
             .addCase(loginUser.pending, (state) => {
                 state.isLoading = true
-                state.status = null
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.isLoading = false
-                state.status = action.payload.message
                 state.user = action.payload.user
                 state.accessToken = window.localStorage.getItem('accessToken')
             })
-            .addCase(loginUser.rejected, (state, action) => {
-                state.status = action.payload?.message
+            .addCase(loginUser.rejected, (state) => {
                 state.isLoading = false
             })
 
@@ -117,16 +109,13 @@ export const authSlice = createSlice({
         builder
             .addCase(getMe.pending, (state) => {
                 state.isLoading = true
-                state.status = null
             })
             .addCase(getMe.fulfilled, (state, action) => {
                 state.isLoading = false
-                state.status = null
                 state.user = action.payload?.user
                 state.accessToken = action.payload?.accessToken
             })
-            .addCase(getMe.rejected, (state, action) => {
-                state.status = action.payload?.message
+            .addCase(getMe.rejected, (state) => {
                 state.isLoading = false
             })
     },

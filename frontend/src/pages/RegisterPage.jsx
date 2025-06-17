@@ -15,12 +15,10 @@ export const RegisterPage = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
-    const { status } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        if (status) toast(status);
         if (user) navigate('/');
-    }, [status, user, navigate]);
+    }, [user, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
