@@ -114,7 +114,7 @@ export const ChangePassPage = () => {
 
                         <div className="flex items-center justify-end gap-4 pt-4">
                             <Link 
-                                to="/profile"
+                                to="/login"
                                 className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
                             >
                                 Отменить

@@ -159,6 +159,7 @@ const AuthController = {
     
     LoginUser: async (req, res) => {
         try {
+            const isGoogleAuth = req.body.isGoogleAuth === true || req.body.isGoogleAuth === 'true';
             const i_user = await db.models.Users.findOne({
                 where: {
                     [Op.and]: [{ email: req.body.email }, { is_activated: 1 }],
@@ -170,7 +171,11 @@ const AuthController = {
                 logger.warning('Login failed: Invalid email or account not activated');
                 res.json({ message: 'Неверная почта или пароль' });
             } else {
-                const isValidPass = await bcrypt.compare(req.body.password, i_user.password_hash);
+                let isValidPass = true;
+                if (!isGoogleAuth) {
+                    isValidPass = await bcrypt.compare(req.body.password, i_user.password_hash);
+                }
+                
                 if (!isValidPass) {
                     logger.warning('Login failed: Incorrect password');
                     res.json({ message: 'Неверная почта или пароль' });

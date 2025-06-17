@@ -3,11 +3,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../redux/features/auth/authSlice'
 import { toast } from 'react-toastify'
+import { GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from "jwt-decode"
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [validationErrors, setValidationErrors] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
     const { status } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -21,6 +24,7 @@ export const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true)
             const response = await dispatch(loginUser({ email, password }));
             if (response.payload && response.payload.length > 0) {
                 const validationErrors = response.payload.map((error) => error.msg);
@@ -28,7 +32,38 @@ export const LoginPage = () => {
             }
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false)
         }
+    };
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            setIsLoading(true);
+            const decoded = jwtDecode(credentialResponse.credential);
+            const { email } = decoded;
+            
+            const response = await dispatch(loginUser({ 
+                email,
+                isGoogleAuth: true
+            }));
+
+            if (response.payload?.errors) {
+                response.payload.errors.forEach(error => toast.error(error.msg));
+                return;
+            }
+
+            navigate('/');
+        } catch (error) {
+            console.error('Google auth error:', error);
+            toast.error('Ошибка при входе через Google');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleGoogleError = () => {
+        toast.error('Ошибка при входе через Google');
     };
 
     return (
@@ -73,11 +108,34 @@ export const LoginPage = () => {
                     {(email && password) && (
                         <button
                             type="submit"
-                            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out shadow-[0_0_0_3px_rgba(16,185,129,0.1)] hover:shadow-[0_0_0_3px_rgba(16,185,129,0.2)]"
+                            disabled={isLoading}
+                            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out shadow-[0_0_0_3px_rgba(16,185,129,0.1)] hover:shadow-[0_0_0_3px_rgba(16,185,129,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            Войти
+                            {isLoading ? 'Вход...' : 'Войти'}
                         </button>
                     )}
+
+                    <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="px-2 bg-white text-gray-500">Или войдите через</span>
+                        </div>
+                    </div>
+
+                    <div className="flex justify-center">
+                        <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={handleGoogleError}
+                            shape="rectangular"
+                            theme="filled_blue"
+                            size="large"
+                            text="signin_with"
+                            width="300"
+                            disabled={isLoading}
+                        />
+                    </div>
 
                     <div className="flex items-center justify-between">
                         <Link
