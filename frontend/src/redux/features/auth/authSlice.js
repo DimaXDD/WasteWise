@@ -10,19 +10,28 @@ const initialState = {
 
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
-    async ({ username, email, password }) => {
+    async ({ username, email, password, isGoogleAuth = false }, { rejectWithValue }) => {
         try {
             const { data } = await axios.post('/register', {
                 username,
                 email,
                 password,
-            })
-            return data
+                isGoogleAuth
+            });
+            
+            if (data.errors) {
+                return rejectWithValue(data);
+            }
+            
+            return data;
         } catch (error) {
-            console.log(error)
+            if (error.response) {
+                return rejectWithValue(error.response.data);
+            }
+            return rejectWithValue({ message: 'Network error' });
         }
-    },
-)
+    }
+);
 
 export const loginUser = createAsyncThunk(
     'auth/loginUser',

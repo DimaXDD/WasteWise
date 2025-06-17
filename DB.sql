@@ -20,7 +20,7 @@ select * from ecosort.points_marks; -- используется для связ�
 select * from ecosort.discounts;    -- скидки
 select * from ecosort.promo_codes;  -- промокоды
 
-
+ALTER TABLE ecosort.users MODIFY password_hash VARCHAR(200) NOT NULL;
 -- Пользователь
 CREATE TABLE IF NOT EXISTS ecosort.users (
     id int auto_increment,

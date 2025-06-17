@@ -9,125 +9,98 @@ const uuid = require('uuid');
 const nodemailer = require('nodemailer');
 const logger = require('../middleware/logger');
 
+const SALT_ROUNDS = 10;
 
 const AuthController = {
     RegisterUser: async (req, res) => {
         try {
-            const i_password = req.body.password;
-            const salt = '$2b$10$qNuSSupDD53DkQfO8wqpf.';
-            const o_password = await bcrypt.hash(i_password, salt);
-
-            const v_check_user = await db.models.Users.findOne({
-                where: { username: req.body.username }
-            })
-
-            const v_check_email = await db.models.Users.findOne({
-                where: { email: req.body.email }
-            })
-
-            if (v_check_user == null) {
-                if (v_check_email == null) {
-
-                    const v_activation_link = uuid.v4();
-
-                    const candidate = await db.models.Users.create({
-                        username: req.body.username,
-                        email: req.body.email,
-                        password_hash: o_password,
-                        role: 'user',
-                        is_activated: false,
-                        activation_link: v_activation_link
-                    })
-
-                    const send_mail = req.body.email;
-                    const send_link = 'http://localhost:8082/activate/' + v_activation_link;
-
-                    const transporter = nodemailer.createTransport({
-                        host: "smtp.yandex.ru",
-                        port: 465,
-                        secure: true,
-                        auth: {
-                            user: 'dimatruba2004@yandex.ru',
-                            pass: 'akllfknlkhqfbhtl'
-                        }
-                    });
-
-                    const mailOptions = {
-                        from: 'dimatruba2004@yandex.ru',
-                        to: send_mail,
-                        subject: 'Подтверждение регистрации на сайте WasteWise',
-                        html: `
-                            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                                <h2 style="color: #4CAF50;">Здравствуйте, ${req.body.username}!</h2>
-                                <p>
-                                    Благодарим за регистрацию на платформе <strong>WasteWise</strong> — месте, где мы вместе заботимся о нашем будущем через переработку отходов.
-                                </p>
-                                <p>
-                                    Для завершения регистрации и активации вашего аккаунта, пожалуйста, перейдите по ссылке ниже:
-                                </p>
-                                <a 
-                                    href="${send_link}" 
-                                    style="display: inline-block; margin: 10px 0; padding: 10px 20px; color: #fff; background-color: #4CAF50; text-decoration: none; border-radius: 5px;"
-                                >
-                                    Активировать аккаунт
-                                </a>
-                                <p>
-                                    Или вы можете скопировать ссылку в браузер:
-                                </p>
-                                <p style="font-size: 14px; color: #555;">${send_link}</p>
-                                <hr style="border: none; border-top: 1px solid #ddd;">
-                                <p style="font-size: 12px; color: #777;">
-                                    Если вы не регистрировались на сайте WasteWise, проигнорируйте это сообщение.
-                                </p>
-                                <p>
-                                    С уважением,<br>Команда WasteWise
-                                </p>
-                            </div>
-                        `
-                    }
-                    
-
-                    let info = await transporter.sendMail(mailOptions)
-
-                    // const accessToken = jwt.sign({ id: candidate.null, username: candidate.username, role: candidate.role }, accessKey, { expiresIn: 30 * 60 })
-                    // const refreshToken = jwt.sign({ id: candidate.null, username: candidate.username, role: candidate.role }, refreshKey, { expiresIn: 24 * 60 * 60 })
-                    //
-                    //
-                    // res.cookie('accessToken', accessToken, {
-                    //     httpOnly: true,
-                    //     sameSite: 'strict'
-                    // })
-                    // res.cookie('refreshToken', refreshToken, {
-                    //     httpOnly: true,
-                    //     sameSite: 'strict'
-                    // })
-                    res.json({
-                        message: 'Мы выслали вам письмо на указанную почту для ее подтверждения',
-                        // accessToken,
-                        // user: {
-                        //     id: candidate.null,
-                        //     username: candidate.username,
-                        //     role: candidate.role
-                        // }
-                    });
-                }
-                else {
-                    res.json({
-                        message: 'Почта занята, введите другую'
-                    });
-                }
-            }
-            else {
-                res.json({
-                    message: 'Имя пользователя занято, введите другое'
-                });
-            }
-        }
-        catch (err) {
-            console.log(err);
-            res.json({
-                message: 'Не удалось зарегистрироваться'
+          const isGoogleAuth = req.body.isGoogleAuth === true || req.body.isGoogleAuth === 'true';
+      
+          if (!isGoogleAuth && (!req.body.password || req.body.password.length < 9)) {
+            return res.status(400).json({
+              errors: [{
+                msg : 'Слишком маленький пароль, минимум 9 символов',
+                path: 'password',
+                type: 'field'
+              }]
             });
+          }
+      
+          const i_password = req.body.password || uuid.v4();
+          const o_password = await bcrypt.hash(i_password, SALT_ROUNDS);
+      
+          const [v_check_user, v_check_email] = await Promise.all([
+            db.models.Users.findOne({ where: { username: req.body.username } }),
+            db.models.Users.findOne({ where: { email: req.body.email } })
+          ]);
+      
+          if (v_check_user) {
+            return res.status(400).json({ message: 'Имя пользователя занято, введите другое' });
+          }
+      
+          if (v_check_email) {
+            return res.status(400).json({ message: 'Почта занята, введите другую' });
+          }
+      
+          const activation_link = isGoogleAuth ? null : uuid.v4();
+      
+          const candidate = await db.models.Users.create({
+            username      : req.body.username,
+            email         : req.body.email,
+            password_hash : o_password,
+            role          : 'user',
+            is_activated  : isGoogleAuth,
+            activation_link
+          });
+      
+          if (!isGoogleAuth) {
+            const transporter = nodemailer.createTransport({
+              host  : process.env.SMTP_HOST,
+              port  : 465,
+              secure: true,
+              auth  : {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
+              }
+            });
+      
+            const send_link = `${process.env.API_URL}/activate/${activation_link}`;
+      
+            await transporter.sendMail({
+              from   : process.env.SMTP_USER,
+              to     : candidate.email,
+              subject: 'Подтверждение регистрации на WasteWise',
+              html   : `
+                <div style="font-family: Arial, sans-serif;">
+                <h2 style="color:#4CAF50;">Здравствуйте, ${req.body.username}!</h2>
+                <p>Благодарим за регистрацию на платформе <strong>WasteWise</strong> — месте, где мы вместе заботимся о нашем будущем через переработку отходов.</p>
+                <p>Для завершения регистрации и активации вашего аккаунта, пожалуйста, перейдите по ссылке:</p>
+                <a href="${send_link}"
+                    style="display:inline-block;margin:10px 0;padding:10px 20px;color:#fff;background:#4CAF50;
+                            text-decoration:none;border-radius:5px;">
+                    Активировать аккаунт
+                </a>
+                <p>Или скопируйте ссылку в адресную строку браузера:</p>
+                <p style="font-size:14px;color:#555;">${send_link}</p>
+                <hr style="border: none; border-top: 1px solid #ddd;">
+                <p style="font-size:12px;color:#777;">
+                    Если вы не регистрировались на WasteWise, просто проигнорируйте это письмо.
+                </p>
+                <p>С уважением,<br>Команда WasteWise</p>
+                </div>
+                    `
+            });
+          }
+      
+          res.json({
+            success      : true,
+            isGoogleAuth : isGoogleAuth,
+            emailSent    : !isGoogleAuth
+          });
+      
+        } catch (err) {
+          console.error(err);
+          res.status(500).json({ message: 'Не удалось зарегистрироваться', error: err.message });
         }
     },
 
