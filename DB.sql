@@ -21,6 +21,10 @@ select * from ecosort.discounts;    -- скидки
 select * from ecosort.promo_codes;  -- промокоды
 
 ALTER TABLE ecosort.users MODIFY password_hash VARCHAR(200) NOT NULL;
+DELETE FROM ecosort.users WHERE email = 'qazdimaqazdima@gmail.com';
+ALTER TABLE ecosort.users DROP INDEX password_hash_un;
+
+
 -- Пользователь
 CREATE TABLE IF NOT EXISTS ecosort.users (
     id int auto_increment,
@@ -33,7 +37,7 @@ CREATE TABLE IF NOT EXISTS ecosort.users (
     activation_link varchar(150)              null,
   constraint users_ck CHECK (role IN ('admin', 'user')),
   constraint email_un unique (email),
-  constraint password_hash_un unique (password_hash),
+  -- constraint password_hash_un unique (password_hash),
   constraint users_pk primary key (id));
 -- Статьи --
 CREATE TABLE IF NOT EXISTS ecosort.articles (
