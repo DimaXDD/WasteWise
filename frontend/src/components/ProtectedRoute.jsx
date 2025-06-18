@@ -1,19 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { AccessDeniedPage } from './AccessDeniedPage';
 
 export const ProtectedRoute = ({ children }) => {
     const { user, isLoading } = useSelector((state) => state.auth);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        // Проверяем только если загрузка завершена и пользователь не авторизован
-        if (!isLoading && !user) {
-            // Автоматически перенаправляем на страницу входа
-            navigate('/login');
-        }
-    }, [user, isLoading, navigate]);
 
     // Показываем загрузку, пока проверяется авторизация
     if (isLoading) {
