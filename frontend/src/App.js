@@ -29,6 +29,7 @@ import {UpArticlesPage} from "./pages/UpArticlesPage";
 import {PointsMarksPage} from "./pages/PointsMarksPage";
 import {ChangeUsername} from "./pages/ChangeUsername";
 import {ChangePassPage} from "./pages/ChangePassPage";
+import {ProtectedRoute} from "./components/ProtectedRoute";
 // import {TestPage} from "./pages/TestPage";
 import RecycleCamera from "./components/RecycleCamera";
 
@@ -43,8 +44,10 @@ function App() {
     console.log(isAuth())
 
     useEffect(() => {
-        dispatch(getMe())
-        // dispatch(setIsAuth(isAuth()))
+        // Проверяем авторизацию при загрузке приложения
+        if (isAuth()) {
+            dispatch(getMe())
+        }
         dispatch(setIsAuth(isAuth()))
         console.log('1')
     }, [dispatch])
@@ -64,32 +67,32 @@ function App() {
                 <Route path='/' element={<MainPage/>}/>
 
                 <Route path='articles' element={<AllArticlesPage/>}/>
-                <Route path='addarticle' element={<AddArticlesPage/>}/>
+                <Route path='addarticle' element={<ProtectedRoute><AddArticlesPage/></ProtectedRoute>}/>
                 <Route path=':id' element={<ArticlePage/>}/>
-                <Route path=':id/edit' element={<UpArticlesPage/>}/>
+                <Route path=':id/edit' element={<ProtectedRoute><UpArticlesPage/></ProtectedRoute>}/>
 
-                <Route path='reception' element={<ReceptionPage/>}/>
+                <Route path='reception' element={<ProtectedRoute><ReceptionPage/></ProtectedRoute>}/>
 
                 <Route path='mark' element={<MarksPage/>}/>
-                <Route path='newmark' element={<AddMarksPage/>}/>
-                <Route path=':id/editmark' element={<UpdateMarkPage/>}/>
-                <Route path=':id/pointsmark' element={<PointsMarksPage/>}/>
+                <Route path='newmark' element={<ProtectedRoute><AddMarksPage/></ProtectedRoute>}/>
+                <Route path=':id/editmark' element={<ProtectedRoute><UpdateMarkPage/></ProtectedRoute>}/>
+                <Route path=':id/pointsmark' element={<ProtectedRoute><PointsMarksPage/></ProtectedRoute>}/>
                 {/*<Route path='newweight' element={<AddWeightPage/>}/>*/}
 
 
                 <Route path='point' element={<PointPage/>}/>
-                <Route path='newpoint' element={<AddPointPage/>}/>
-                <Route path=':id/editpoint' element={<UpdatePointPage/>}/>
-                <Route path=':id/editpointk' element={<UpdateSecretKeyPage/>}/>
+                <Route path='newpoint' element={<ProtectedRoute><AddPointPage/></ProtectedRoute>}/>
+                <Route path=':id/editpoint' element={<ProtectedRoute><UpdatePointPage/></ProtectedRoute>}/>
+                <Route path=':id/editpointk' element={<ProtectedRoute><UpdateSecretKeyPage/></ProtectedRoute>}/>
                 {/*<Route path='newkey' element={<AddSecretKeyPage/>}/>*/}
 
-                <Route path='mydiscount' element={<MyDiscountPage/>}/>
-                <Route path='alldisсount' element={<AllDiscointPage/>}/>
-                <Route path='newdisсount' element={<AddDisсountPage/>}/>
-                <Route path=':id/editdiscount' element={<UpdateDiscountPage/>}/>
+                <Route path='mydiscount' element={<ProtectedRoute><MyDiscountPage/></ProtectedRoute>}/>
+                <Route path='alldisсount' element={<ProtectedRoute><AllDiscointPage/></ProtectedRoute>}/>
+                <Route path='newdisсount' element={<ProtectedRoute><AddDisсountPage/></ProtectedRoute>}/>
+                <Route path=':id/editdiscount' element={<ProtectedRoute><UpdateDiscountPage/></ProtectedRoute>}/>
 
 
-                <Route path="/recycle-camera" element={<RecycleCamera />} />
+                <Route path="/recycle-camera" element={<ProtectedRoute><RecycleCamera /></ProtectedRoute>} />
             </Routes>
             <ToastContainer position='bottom-right' />
         </Wrapper>

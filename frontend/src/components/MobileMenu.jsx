@@ -3,12 +3,20 @@ import {NavItem} from "./NavItam";
 import {MenuItem} from "./MenuItem";
 import {ARTICLES, ARTICLESUser, DISCOUNTS, DISCOUNTSAdmin, MARKS, MARKSAdmin, POINTSAdmin} from "./constants";
 import {Button} from "./Button";
-import {useSelector} from "react-redux";
-import { Link } from 'react-router-dom'
-
+import {useSelector, useDispatch} from "react-redux";
+import { Link, useNavigate } from 'react-router-dom'
+import {logout} from "../redux/features/auth/authSlice";
 
 export const MobileMenu = ({isOpen = false}) => {
     const { user } = useSelector((state) => state.auth)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    
+    const logoutHandler = () => {
+        dispatch(logout())
+        window.localStorage.removeItem('accessToken')
+        navigate('/')
+    }
 
     return(
         <React.Fragment>
@@ -78,8 +86,23 @@ export const MobileMenu = ({isOpen = false}) => {
                     )}
 
                     <div className={'flex flex-col space-y-5'}>
-                        <Button>Войти</Button>
-                        <Button hasBorder={true}>Регистариция</Button>
+                        {user ? (
+                            <button 
+                                onClick={logoutHandler}
+                                className="w-full bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg text-sm font-medium transition-colors duration-200"
+                            >
+                                Выйти
+                            </button>
+                        ) : (
+                            <>
+                                <Link to="/login">
+                                    <Button>Войти</Button>
+                                </Link>
+                                <Link to="/register">
+                                    <Button hasBorder={true}>Регистрация</Button>
+                                </Link>
+                            </>
+                        )}
                     </div>
 
                 </nav>

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from '../../../utils/axios'
+import { toast } from 'react-toastify'
 
 const initialState = {
     user: null,
@@ -79,6 +80,7 @@ export const authSlice = createSlice({
             state.accessToken = null
             state.isLoading = false
             state.error = null
+            toast('Вы вышли из системы')
         },
         setIsAuth: (state, action) => {
             state.accessToken = action.payload

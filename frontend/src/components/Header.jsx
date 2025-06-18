@@ -7,19 +7,20 @@ import {NavMenu} from "./NavMenu";
 import {ARTICLES, ARTICLESUser, DISCOUNTS, DISCOUNTSAdmin, MARKS, MARKSAdmin, POINTSAdmin} from "./constants";
 import {Button} from "./Button";
 import {MobileMenu} from "./MobileMenu";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../redux/features/auth/authSlice";
-import {toast} from "react-toastify";
 
 export const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const { user } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    
     const logoutHandler = () => {
         dispatch(logout())
         window.localStorage.removeItem('accessToken')
-        toast('Вы вышли из системы')
+        navigate('/')
     }
 
     return(
