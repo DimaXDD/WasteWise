@@ -290,7 +290,6 @@ export const AddPointPage = () => {
                         </form>
                     </div>
 
-                    {/* Форма добавления секретного ключа */}
                     <div className="bg-white rounded-xl shadow-sm p-6 space-y-6">
                         <div className="space-y-2">
                             <h1 className="text-2xl font-bold text-slate-800">Добавление секретного ключа</h1>

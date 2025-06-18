@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser } from '../redux/features/auth/authSlice'
+import { loginUser, clearError } from '../redux/features/auth/authSlice'
 import { toast } from 'react-toastify'
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from "jwt-decode"
@@ -11,7 +11,7 @@ export const LoginPage = () => {
     const [password, setPassword] = useState('')
     const [validationErrors, setValidationErrors] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
-    const { status } = useSelector((state) => state.auth)
+    const { status, error } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { user } = useSelector((state) => state.auth)
@@ -20,17 +20,63 @@ export const LoginPage = () => {
         if (user) navigate('/')
     }, [user, navigate])
 
+    useEffect(() => {
+        dispatch(clearError());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (error) {
+            if (Array.isArray(error)) {
+                const errorMessages = error.map(err => err.msg).join(', ');
+                toast.error(errorMessages);
+            } else if (error.message) {
+                toast.error(error.message);
+            } else if (error.errors && Array.isArray(error.errors)) {
+                const errorMessages = error.errors.map(err => err.msg).join(', ');
+                toast.error(errorMessages);
+            } else if (typeof error === 'string') {
+                toast.error(error);
+            } else {
+                toast.error('Произошла ошибка при входе');
+            }
+        }
+    }, [error]);
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+        if (error) dispatch(clearError());
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+        if (error) dispatch(clearError());
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             setIsLoading(true)
             const response = await dispatch(loginUser({ email, password }));
-            if (response.payload && response.payload.length > 0) {
+            
+            if (loginUser.rejected.match(response)) {
+                return;
+            }
+            
+            if (response.payload && Array.isArray(response.payload) && response.payload.length > 0) {
                 const validationErrors = response.payload.map((error) => error.msg);
                 toast.error(validationErrors.join(', '));
+                return;
             }
+            
+            if (response.payload && response.payload.message && response.payload.message !== 'Авторизация прошла успешно') {
+                toast.error(response.payload.message);
+                return;
+            }
+            
+            navigate('/');
         } catch (error) {
             console.log(error);
+            toast.error('Произошла ошибка при входе');
         } finally {
             setIsLoading(false)
         }
@@ -47,12 +93,17 @@ export const LoginPage = () => {
                 isGoogleAuth: true
             }));
 
-            if (response.payload?.errors) {
-                response.payload.errors.forEach(error => toast.error(error.msg));
+            if (loginUser.rejected.match(response)) {
                 return;
             }
 
-            if (response.payload?.message) {
+            if (response.payload && Array.isArray(response.payload) && response.payload.length > 0) {
+                const validationErrors = response.payload.map((error) => error.msg);
+                toast.error(validationErrors.join(', '));
+                return;
+            }
+
+            if (response.payload && response.payload.message && response.payload.message !== 'Авторизация прошла успешно') {
                 toast.error(response.payload.message);
                 return;
             }
@@ -85,7 +136,7 @@ export const LoginPage = () => {
                             <input
                                 type="text"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={handleEmailChange}
                                 placeholder="Введите почту..."
                                 className="mt-1 block w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm shadow-sm placeholder:text-slate-400
                                 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
@@ -99,7 +150,7 @@ export const LoginPage = () => {
                             <input
                                 type="password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={handlePasswordChange}
                                 placeholder="Введите пароль..."
                                 className="mt-1 block w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm shadow-sm placeholder:text-slate-400
                                 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"

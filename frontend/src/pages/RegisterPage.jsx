@@ -41,6 +41,16 @@ export const RegisterPage = () => {
                 return;
             }
 
+            if (response.payload?.errorType === 'google_user_exists') {
+                toast.error(response.payload.message);
+                return;
+            }
+
+            if (response.payload?.errorType === 'email_user_exists') {
+                toast.error(response.payload.message);
+                return;
+            }
+
             toast.success('Регистрация прошла успешно! Проверьте вашу почту для активации аккаунта.');
         } catch (error) {
             console.error('Registration error:', error);
@@ -70,10 +80,21 @@ export const RegisterPage = () => {
                 return;
             }
 
-            // Автоматический вход после регистрации
-            const loginResponse = await dispatch(loginUser({ email, password }));
-            if (loginUser.fulfilled.match(loginResponse)) {
-                navigate('/');
+            if (response.payload?.errorType === 'google_user_exists') {
+                toast.error(response.payload.message);
+                return;
+            }
+
+            if (response.payload?.errorType === 'email_user_exists') {
+                toast.error(response.payload.message);
+                return;
+            }
+
+            // Показываем уведомление об успешной регистрации
+            if (response.payload?.message) {
+                toast.success(response.payload.message);
+            } else {
+                toast.success('Регистрация через Google прошла успешно!');
             }
         } catch (error) {
             console.error('Google auth error:', error);

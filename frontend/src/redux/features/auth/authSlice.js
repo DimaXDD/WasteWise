@@ -5,6 +5,7 @@ const initialState = {
     user: null,
     accessToken: null,
     isLoading: false,
+    error: null,
 }
 
 export const registerUser = createAsyncThunk(
@@ -41,6 +42,12 @@ export const loginUser = createAsyncThunk(
                 password,
                 isGoogleAuth
             })
+            
+            // Проверяем, есть ли ошибка с неправильным способом авторизации
+            if (data.errorType === 'wrong_auth_method') {
+                return rejectWithValue(data);
+            }
+            
             if (data.accessToken) {
                 window.localStorage.setItem('accessToken', data.accessToken)
             }
@@ -71,9 +78,13 @@ export const authSlice = createSlice({
             state.user = null
             state.accessToken = null
             state.isLoading = false
+            state.error = null
         },
         setIsAuth: (state, action) => {
             state.accessToken = action.payload
+        },
+        clearError: (state) => {
+            state.error = null
         }
     },
     extraReducers: (builder) => {
@@ -81,28 +92,34 @@ export const authSlice = createSlice({
         builder
             .addCase(registerUser.pending, (state) => {
                 state.isLoading = true
+                state.error = null
             })
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.user = action.payload.user
                 state.accessToken = action.payload.accessToken
+                state.error = null
             })
-            .addCase(registerUser.rejected, (state) => {
+            .addCase(registerUser.rejected, (state, action) => {
                 state.isLoading = false
+                state.error = action.payload
             })
 
         // Login user
         builder
             .addCase(loginUser.pending, (state) => {
                 state.isLoading = true
+                state.error = null
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.user = action.payload.user
                 state.accessToken = window.localStorage.getItem('accessToken')
+                state.error = null
             })
-            .addCase(loginUser.rejected, (state) => {
+            .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false
+                state.error = action.payload
             })
 
         // Проверка авторизации
@@ -123,6 +140,6 @@ export const authSlice = createSlice({
 
 export const checkIsAuth = (state) => Boolean(state.auth.accessToken)
 
-export const { logout, setIsAuth } = authSlice.actions
+export const { logout, setIsAuth, clearError } = authSlice.actions
 
 export default authSlice.reducer

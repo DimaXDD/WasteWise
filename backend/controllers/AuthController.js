@@ -39,7 +39,19 @@ const AuthController = {
           }
       
           if (v_check_email) {
-            return res.status(400).json({ message: 'Почта занята, введите другую' });
+            // Проверяем способ регистрации существующего пользователя
+            const existingUser = await db.models.Users.findOne({ where: { email: req.body.email } });
+            if (existingUser.activation_link === null) {
+              return res.status(400).json({ 
+                message: 'Аккаунт с этой почтой уже существует и был зарегистрирован через Google. Пожалуйста, войдите через Google.',
+                errorType: 'google_user_exists'
+              });
+            } else {
+              return res.status(400).json({ 
+                message: 'Аккаунт с этой почтой уже существует и был зарегистрирован через email. Пожалуйста, войдите через обычную форму или активируйте аккаунт.',
+                errorType: 'email_user_exists'
+              });
+            }
           }
       
           const activation_link = isGoogleAuth ? null : uuid.v4();
@@ -95,7 +107,8 @@ const AuthController = {
           res.json({
             success      : true,
             isGoogleAuth : isGoogleAuth,
-            emailSent    : !isGoogleAuth
+            emailSent    : !isGoogleAuth,
+            message      : isGoogleAuth ? 'Регистрация через Google прошла успешно' : 'Регистрация прошла успешно! Проверьте вашу почту для активации аккаунта.'
           });
       
         } catch (err) {
@@ -171,6 +184,29 @@ const AuthController = {
                 logger.warning('Login failed: Invalid email or account not activated');
                 res.json({ message: 'Неверная почта или пароль' });
             } else {
+                // Проверяем способ регистрации пользователя
+                const isGoogleUser = i_user.activation_link === null;
+                
+                // Если пользователь пытается войти через Google, но регистрировался через обычную форму
+                if (isGoogleAuth && !isGoogleUser) {
+                    logger.warning('Login failed: User registered via email/password, trying to login via Google');
+                    res.json({ 
+                        message: 'Этот аккаунт был зарегистрирован через email и пароль. Пожалуйста, используйте обычную форму входа.',
+                        errorType: 'wrong_auth_method'
+                    });
+                    return;
+                }
+                
+                // Если пользователь пытается войти через обычную форму, но регистрировался через Google
+                if (!isGoogleAuth && isGoogleUser) {
+                    logger.warning('Login failed: User registered via Google, trying to login via email/password');
+                    res.json({ 
+                        message: 'Этот аккаунт был зарегистрирован через Google. Пожалуйста, используйте вход через Google.',
+                        errorType: 'wrong_auth_method'
+                    });
+                    return;
+                }
+                
                 let isValidPass = true;
                 if (!isGoogleAuth) {
                     isValidPass = await bcrypt.compare(req.body.password, i_user.password_hash);
