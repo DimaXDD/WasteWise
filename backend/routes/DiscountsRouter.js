@@ -231,5 +231,22 @@ router.put   ('/used/discounts/:id', checkAuth, DiscountsController.usedMyDiscou
  */
 router.get('/user/viewDiscounts', checkAuth, DiscountsController.viewUserDiscounts);
 
+/**
+ * @swagger
+ * /user/allDiscounts:
+ *   get:
+ *     summary: Получить все скидки с информацией о доступности для текущего пользователя
+ *     tags: [Discounts]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Список всех скидок с информацией о доступности
+ *       401:
+ *         description: Неавторизованный доступ
+ *       500:
+ *         description: Внутренняя ошибка сервера
+ */
+router.get('/user/allDiscounts', checkAuth, DiscountsController.getAllDiscountsWithAvailability);
 
 module.exports = router;

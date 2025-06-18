@@ -28,7 +28,7 @@ export const POINTSAdmin = [
 ];
 
 export const DISCOUNTS = [
-    {text: 'Мои скидки', icon: <BsPercent/>, link: '/mydiscount' }
+    {text: 'Все скидки', icon: <BsPercent/>, link: '/mydiscount' }
 ];
 
 export const DISCOUNTSAdmin = [

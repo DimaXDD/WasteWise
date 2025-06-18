@@ -175,6 +175,14 @@ const DiscountsController = {
                 where: {id: req.params.id}
             })
 
+            // Проверяем, достаточно ли баллов у пользователя
+            if (i_discounts.count_for_dnt > v_user.points) {
+                return res.json({
+                    message: `Недостаточно баллов. Нужно еще ${i_discounts.count_for_dnt - v_user.points} баллов.`,
+                    errorType: 'insufficient_points'
+                });
+            }
+
             // console.log(i_discounts.count_for_dnt);
 
             const o_new_points = v_user.points - i_discounts.count_for_dnt
@@ -257,6 +265,39 @@ const DiscountsController = {
             }
 
             res.json({ availableDiscounts });
+        } catch (error) {
+            console.log(error);
+            res.json({
+                message: 'Не удалось получить список скидок',
+            });
+        }
+    },
+
+    // User - получить все скидки с информацией о доступности
+    getAllDiscountsWithAvailability: async (req, res) => {
+        try {
+            const v_user = await db.models.Users.findOne({
+                attributes: ["points"],
+                where: { id: req.userId }
+            });
+
+            const allDiscounts = await db.models.Discounts.findAll({
+                attributes: ["id", "discount", "count_for_dnt", "promo_code"],
+            });
+
+            if (!allDiscounts || allDiscounts.length === 0) {
+                return res.json({ message: 'Скидок нет' });
+            }
+
+            // Добавляем информацию о доступности для каждой скидки
+            const discountsWithAvailability = allDiscounts.map(discount => ({
+                ...discount.toJSON(),
+                isAvailable: discount.count_for_dnt <= v_user.points,
+                pointsNeeded: Math.max(0, discount.count_for_dnt - v_user.points),
+                userPoints: v_user.points
+            }));
+
+            res.json({ alldiscounts: discountsWithAvailability });
         } catch (error) {
             console.log(error);
             res.json({

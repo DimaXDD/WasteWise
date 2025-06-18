@@ -38,7 +38,7 @@ export const MyDiscountPage = () => {
                     <div className="xl:col-span-2 space-y-6">
                         <div className="bg-white rounded-xl shadow-sm p-6">
                             <div className="flex items-center justify-between mb-6">
-                                <h1 className="text-2xl font-bold text-slate-800">Ваши скидки</h1>
+                                <h1 className="text-2xl font-bold text-slate-800">Все скидки</h1>
                                 <div className="text-lg font-medium text-emerald-600">
                                     Баллы: {users.points}
                                 </div>
@@ -52,7 +52,7 @@ export const MyDiscountPage = () => {
                                 </div>
                             ) : (
                                 <div className="text-center py-8">
-                                    <p className="text-slate-500 text-lg">У вас пока нет доступных скидок</p>
+                                    <p className="text-slate-500 text-lg">Скидки не найдены</p>
                                 </div>
                             )}
                         </div>

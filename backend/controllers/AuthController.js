@@ -187,6 +187,48 @@ const AuthController = {
                 // Проверяем способ регистрации пользователя
                 const isGoogleUser = i_user.activation_link === null;
                 
+                // Исключение для администраторов - они могут входить через обычную форму
+                if (i_user.role === 'admin') {
+                    // Администраторы могут входить через обычную форму независимо от способа регистрации
+                    let isValidPass = true;
+                    if (!isGoogleAuth) {
+                        isValidPass = await bcrypt.compare(req.body.password, i_user.password_hash);
+                    }
+                    
+                    if (!isValidPass) {
+                        logger.warning('Login failed: Incorrect password for admin');
+                        res.json({ message: 'Неверная почта или пароль' });
+                    } else {
+                        const accessToken = jwt.sign({ id: i_user.id, username: i_user.username, role: i_user.role }, accessKey, { expiresIn: 30 * 60 });
+                        const refreshToken = jwt.sign({ id: i_user.id, username: i_user.username, role: i_user.role }, refreshKey, { expiresIn: 24 * 60 * 60 });
+        
+                        // Вывод токенов в консоль для отладки
+                        console.log('Access Token:', accessToken);
+                        console.log('Refresh Token:', refreshToken);
+        
+                        res.cookie('accessToken', accessToken, {
+                            httpOnly: true,
+                            sameSite: 'strict'
+                        });
+                        res.cookie('refreshToken', refreshToken, {
+                            httpOnly: true,
+                            sameSite: 'strict'
+                        });
+                        res.json({
+                            message: 'Авторизация прошла успешно',
+                            accessToken,
+                            user: {
+                                id: i_user.id,
+                                username: i_user.username,
+                                role: i_user.role,
+                                points: i_user.points
+                            }
+                        });
+                    }
+                    return;
+                }
+                
+                // Для обычных пользователей - проверяем соответствие способа входа и регистрации
                 // Если пользователь пытается войти через Google, но регистрировался через обычную форму
                 if (isGoogleAuth && !isGoogleUser) {
                     logger.warning('Login failed: User registered via email/password, trying to login via Google');

@@ -11,6 +11,11 @@ export const DiscountItem = ({ alldiscount }) => {
     const UseMyDiscount = () => {
         if (!alldiscount) return;
 
+        if (!alldiscount.isAvailable) {
+            toast.error(`Недостаточно баллов. Нужно еще ${alldiscount.pointsNeeded} баллов.`);
+            return;
+        }
+
         try {
             dispatch(UseDiscount(alldiscount.id));
             setModal(true);
@@ -35,7 +40,9 @@ export const DiscountItem = ({ alldiscount }) => {
     return (
         <div className="w-full">
             {!modal && (
-                <div className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 p-4">
+                <div className={`bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 p-4 ${
+                    !alldiscount.isAvailable ? 'opacity-75' : ''
+                }`}>
                     <div className="flex items-center justify-between mb-3">
                         <div className="text-2xl font-bold text-emerald-600">
                             {alldiscount.discount}
@@ -44,11 +51,25 @@ export const DiscountItem = ({ alldiscount }) => {
                             {alldiscount.count_for_dnt} баллов
                         </div>
                     </div>
+                    
+                    {!alldiscount.isAvailable && (
+                        <div className="mb-3 p-2 bg-red-50 border border-red-200 rounded-lg">
+                            <p className="text-sm text-red-600">
+                                Недостаточно баллов. Нужно еще: <span className="font-semibold">{alldiscount.pointsNeeded}</span> баллов
+                            </p>
+                        </div>
+                    )}
+                    
                     <button
                         onClick={UseMyDiscount}
-                        className="w-full py-2 px-4 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors duration-200 text-sm font-medium"
+                        disabled={!alldiscount.isAvailable}
+                        className={`w-full py-2 px-4 rounded-lg transition-colors duration-200 text-sm font-medium ${
+                            alldiscount.isAvailable 
+                                ? 'bg-emerald-600 text-white hover:bg-emerald-700' 
+                                : 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                        }`}
                     >
-                        Получить промокод
+                        {alldiscount.isAvailable ? 'Получить промокод' : 'Недоступно'}
                     </button>
                 </div>
             )}

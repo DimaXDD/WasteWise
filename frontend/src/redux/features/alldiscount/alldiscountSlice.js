@@ -64,7 +64,7 @@ export const myDiscount = createAsyncThunk(
     'discount/myDiscount',
     async () => {
         try {
-            const { data } = await axios.get('/used/discounts')
+            const { data } = await axios.get('/user/allDiscounts')
             return data
         } catch (error) {
             console.log(error)

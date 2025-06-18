@@ -9,13 +9,23 @@ const initialState = {
 
 export const UseDiscount = createAsyncThunk(
     'discount/UseDiscount',
-    async (id) => {
+    async (id, { rejectWithValue }) => {
         try {
             console.log(id)
             const { data } = await axios.put(`/used/discounts/${id}`, id)
+            
+            // Проверяем, есть ли ошибка с недостаточным количеством баллов
+            if (data.errorType === 'insufficient_points') {
+                return rejectWithValue(data);
+            }
+            
             return data
         } catch (error) {
             console.log(error)
+            if (error.response) {
+                return rejectWithValue(error.response.data);
+            }
+            return rejectWithValue({ message: 'Network error' });
         }
     }
 )
