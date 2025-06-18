@@ -28,31 +28,36 @@ export const PointsMarksPage = () => {
     }, [dispatch])
 
     return (
-        <section className="w-full min-h-[80vh] py-8">
-            <div className="max-w-[1200px] mx-auto px-6">
-                <div className="text-center space-y-4 mb-8">
-                    <h1 className="text-3xl font-bold text-cyan-900">
-                        Адреса и время работы пунктов приема
-                    </h1>
-                    <h2 className="text-2xl font-medium text-cyan-700">
-                        {rubbish}
-                    </h2>
-                </div>
-
-                {points_marks?.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {points_marks.map((point_mark) => (
-                            <PointMarkItem key={point_mark.id} point_mark={point_mark}/>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center py-12">
-                        <p className="text-lg text-cyan-700">
-                            Пунктов приема не найдено
+        <div className="w-full min-h-[80vh] bg-gray-50">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div className="space-y-6">
+                    <div className="text-center space-y-2">
+                        <h1 className="text-3xl font-bold text-slate-800">
+                            Адреса и время работы пунктов приема
+                        </h1>
+                        <p className="text-2xl font-medium text-slate-700">
+                            {rubbish}
                         </p>
                     </div>
-                )}
+
+                    {points_marks?.length > 0 ? (
+                        <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
+                            {points_marks.map((point_mark) => (
+                                <div key={point_mark.id} className="w-full sm:w-80 lg:w-72 xl:w-80">
+                                    <PointMarkItem point_mark={point_mark}/>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="w-full min-h-[60vh] flex items-center justify-center">
+                            <div className="text-center space-y-4">
+                                <h2 className="text-2xl font-semibold text-slate-800">Пунктов приема не найдено</h2>
+                                <p className="text-slate-600">Попробуйте проверить позже</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
-        </section>
+        </div>
     )
 }
