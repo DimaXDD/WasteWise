@@ -42,7 +42,7 @@ export const removePoint = createAsyncThunk(
 // Добавление точки
 export const addPoint = createAsyncThunk(
     'point/addPoint',
-    async ({ address, time_of_work, rubbish, link_to_map, point_name }) => {
+    async ({ address, time_of_work, rubbish, link_to_map, point_name, selectedMarks }) => {
         try {
             const { data } = await axios.post('/points', {
                 address,
@@ -50,6 +50,7 @@ export const addPoint = createAsyncThunk(
                 rubbish,
                 link_to_map,
                 point_name,
+                selectedMarks,
             });
             return data;
         } catch (error) {

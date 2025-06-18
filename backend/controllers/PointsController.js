@@ -7,13 +7,34 @@ const PointsController = {
         try {
             const points = await db.models.Points.findAll({
                 attributes: ["id", "address", "time_of_work", "key_id", "admin_id", "link_to_map", "point_name"],
-            })
+                include: [{
+                    model: db.models.Marks,
+                    through: {
+                        model: db.models.Points_marks,
+                        attributes: []
+                    },
+                    attributes: ["id", "rubbish"],
+                    required: false
+                }]
+            });
 
             if (!points) {
                 return res.json({ message: "Пунктов нет" })
             }
             else {
-                res.json({ points })
+                // Форматируем данные для удобства использования на фронтенде
+                const formattedPoints = points.map(point => {
+                    const pointData = point.toJSON();
+                    // Создаем массив названий видов вторсырья
+                    const rubbishTypes = pointData.Marks ? pointData.Marks.map(mark => mark.rubbish) : [];
+                    return {
+                        ...pointData,
+                        rubbish_types: rubbishTypes,
+                        rubbish: rubbishTypes.join(', ') || 'Не указано'
+                    };
+                });
+
+                res.json({ points: formattedPoints })
             }
         } catch (error) {
             console.log(error);
@@ -99,14 +120,7 @@ const PointsController = {
 
     addPoints: async (req, res) => {
         try {
-            function splitString(stringToSplit, separator) {
-                return stringToSplit.split(separator);
-            }
-
-            const comma = ',';
-            const i_rubbish = req.body.rubbish;
-            const arrayOfStrings = splitString(i_rubbish, comma);
-            const o_length = arrayOfStrings.length;
+            const selectedMarks = req.body.selectedMarks || [];
             const v_check_address = await db.models.Points.findOne({
                 where: { address: req.body.address }
             })
@@ -122,6 +136,15 @@ const PointsController = {
                     })
 
                     if (v_find_used != null) {
+                        console.log('Creating point with data:', {
+                            address: req.body.address,
+                            time_of_work: req.body.time_of_work,
+                            key_id: v_find_used.id,
+                            admin_id: req.userId,
+                            link_to_map: req.body.link_to_map,
+                            point_name: req.body.point_name,
+                        });
+
                         const c_point = await db.models.Points.create({
                             address: req.body.address,
                             time_of_work: req.body.time_of_work,
@@ -131,61 +154,66 @@ const PointsController = {
                             point_name: req.body.point_name,
                         })
 
+                        console.log('Created point object:', c_point.toJSON());
+
                         await db.models.Keys.update({
                             is_used: 1,
                         }, {
                             where: { id: v_find_used.id }
                         })
 
-                        const v_point_id = c_point.null
-                        console.log(v_point_id)
+                        const v_point_id = c_point.getDataValue('id')
+                        console.log('Created point ID:', v_point_id)
+                        console.log('Selected marks:', selectedMarks)
 
-                        for (let j = 0; j < o_length; j++) {
+                        // Создаем записи в points_marks для каждого выбранного вида вторсырья
+                        for (let j = 0; j < selectedMarks.length; j++) {
+                            const markId = selectedMarks[j];
+                            
+                            // Проверяем существование марки
                             const i_rubbish = await db.models.Marks.findOne({
-                                where: { rubbish: arrayOfStrings[j] }
+                                where: { id: markId }
                             })
-                            if (i_rubbish==null){
+                            
+                            if (i_rubbish == null) {
                                 res.json({
-                                    message: `Такого ${arrayOfStrings[j]} вида вторсырья нет сначала добавить его во вторсырье`
+                                    message: `Марка с ID ${markId} не найдена`
                                 });
                                 return;
-                            }
-                            else {
-                                const o_rubbish_id = i_rubbish.id
-                                console.log(o_rubbish_id)
-
+                            } else {
+                                console.log(`Creating points_marks record: points_id=${v_point_id}, marks_id=${markId}`)
                                 await db.models.Points_marks.create({
                                     points_id: v_point_id,
-                                    marks_id: o_rubbish_id,
+                                    marks_id: markId,
                                 })
                             }
-
                         }
+                        
                         res.json({
-                            message: 'Пунк сдачи отходов добавлен'
+                            message: 'Пункт сдачи отходов добавлен'
                         });
                     } else {
                         res.json({
-                            message: 'Пунк сдачи отходов не может быть добавлен, нет свободных ключей'
+                            message: 'Пункт сдачи отходов не может быть добавлен, нет свободных ключей'
                         });
                     }
                 }
                 else {
                     res.json({
-                        message: 'Имя пункта приема уже используется, введите новоес'
+                        message: 'Имя пункта приема уже используется, введите новое'
                     });
                 }
             }
             else {
                 res.json({
-                    message: 'Адрес уже используется, введите новый адресс'
+                    message: 'Адрес уже используется, введите новый адрес'
                 });
             }
         }
         catch (err) {
             console.log(err);
             res.json({
-                message: 'Не удалось добавить пунк сдачи отходов'
+                message: 'Не удалось добавить пункт сдачи отходов'
             });
         }
     },

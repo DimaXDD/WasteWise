@@ -8,7 +8,7 @@ const {Points} = require('../config/Points')
 
 Points_marks.init(
     {
-        id: {type: Sequelize.INTEGER, primaryKey:true, unique: true, autoIncrementIdentity: true, required: true},
+        id: {type: Sequelize.INTEGER, primaryKey:true, unique: true, autoIncrement: true, required: true},
         points_id: {type: Sequelize.INTEGER, allowNull: false, required: true},
         marks_id: {type: Sequelize.INTEGER, allowNull: false, required: true},
     },

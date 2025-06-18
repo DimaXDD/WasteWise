@@ -6,7 +6,7 @@ class Marks extends Model{}
 
 Marks.init (
     {
-        id:	{type: Sequelize.INTEGER, primaryKey:true, unique: true, autoIncrementIdentity: true, required: true},
+        id:	{type: Sequelize.INTEGER, primaryKey:true, unique: true, autoIncrement: true, required: true},
         rubbish: {type: Sequelize.STRING, allowNull: false, required: true},
         points_per_kg: {type: Sequelize.INTEGER, allowNull: false, required: true},
         new_from_kg: {type: Sequelize.FLOAT, allowNull: false, required: true},
