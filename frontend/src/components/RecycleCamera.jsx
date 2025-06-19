@@ -1,71 +1,63 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import "@tensorflow/tfjs";
-import plasticBottle from "../image/plastic_bottle.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getPoints } from "../redux/features/point/pointSlice";
+import { getMark } from "../redux/features/mark/markSlice";
 
 const factsData = {
-  plastic_bottle: {
-    title: "Пластиковая бутылка",
-    facts: [
-      "Пластиковые бутылки можно перерабатывать и использовать снова.",
-      "Время разложения пластиковой бутылки в природе - около 450 лет!",
-      "Переработка одной пластиковой бутылки экономит энергию, достаточную для работы 60-ваттной лампочки в течение 3 часов.",
-      "В мире каждую минуту продается около 1 миллиона пластиковых бутылок."
-    ],
-    image: plasticBottle,
-  },
-  paper: {
-    title: "Бумага",
-    facts: [
-      "Бумага может перерабатываться до 6 раз, но требует аккуратного обращения.",
-      "Переработка одной тонны бумаги спасает 17 деревьев.",
-      "В среднем офисный работник использует около 10,000 листов бумаги в год.",
-      "Бумага изготавливается из древесной массы, воды и химических веществ."
-    ],
-    image: "/image/paper.jpg",
-  },
-  aluminum_can: {
-    title: "Алюминиевая банка",
-    facts: [
-      "Алюминий на 100% пригоден для переработки без потери качества.",
-      "Переработка алюминиевой банки экономит 95% энергии по сравнению с производством новой.",
-      "Алюминиевые банки можно перерабатывать бесконечное количество раз.",
-      "В среднем алюминиевая банка содержит около 70% переработанного материала."
-    ],
-    image: "/image/aluminum_can.jpg",
-  },
-  glass_bottle: {
-    title: "Стеклянная бутылка",
-    facts: [
-      "Стекло перерабатывается неограниченное количество раз.",
-      "Переработка одной стеклянной бутылки экономит энергию для работы телевизора в течение 20 минут.",
-      "Стекло не выделяет вредных веществ при разложении.",
-      "Стеклянные бутылки разлагаются в природе около 4000 лет."
-    ],
-    image: "/image/glass_bottle.jpg",
-  },
-  tetra_pack: {
-    title: "Тетра Пак",
-    facts: [
-      "Тетра Пак состоит из нескольких материалов, что требует сложной переработки.",
-      "Упаковка Тетра Пак на 75% состоит из бумаги, 20% полиэтилена и 5% алюминия.",
-      "Переработка Тетра Пак помогает сохранить природные ресурсы.",
-      "Из переработанного Тетра Пак можно изготовить картон, бумагу и другие материалы."
-    ],
-    image: "/image/tetra_pack.jpg",
-  },
+  plastic_bottle: [
+    "Пластиковые бутылки можно перерабатывать и использовать снова.",
+    "Время разложения пластиковой бутылки в природе — около 450 лет!",
+    "Переработка одной пластиковой бутылки экономит энергию, достаточную для работы 60-ваттной лампочки в течение 3 часов.",
+    "В мире каждую минуту продается около 1 миллиона пластиковых бутылок."
+  ],
+  paper: [
+    "Бумага может перерабатываться до 6 раз, но требует аккуратного обращения.",
+    "Переработка одной тонны бумаги спасает 17 деревьев.",
+    "В среднем офисный работник использует около 10 000 листов бумаги в год.",
+    "Бумага изготавливается из древесной массы, воды и химических веществ."
+  ],
+  aluminum_can: [
+    "Алюминий на 100% пригоден для переработки без потери качества.",
+    "Переработка алюминиевой банки экономит 95% энергии по сравнению с производством новой.",
+    "Алюминиевые банки можно перерабатывать бесконечное количество раз.",
+    "В среднем алюминиевая банка содержит около 70% переработанного материала."
+  ],
+  glass_bottle: [
+    "Стекло перерабатывается неограниченное количество раз.",
+    "Переработка одной стеклянной бутылки экономит энергию для работы телевизора в течение 20 минут.",
+    "Стекло не выделяет вредных веществ при разложении.",
+    "Стеклянные бутылки разлагаются в природе около 4000 лет."
+  ],
+  tetra_pack: [
+    "Тетра Пак состоит из нескольких материалов, что требует сложной переработки.",
+    "Упаковка Тетра Пак на 75% состоит из бумаги, 20% полиэтилена и 5% алюминия.",
+    "Переработка Тетра Пак помогает сохранить природные ресурсы.",
+    "Из переработанного Тетра Пак можно изготовить картон, бумагу и другие материалы."
+  ],
 };
 
 const RecycleCamera = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
-  const [fact, setFact] = useState(null);
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [isDetectionActive, setIsDetectionActive] = useState(true);
+  const [lastCategory, setLastCategory] = useState(null);
+  const [shownFacts, setShownFacts] = useState([]);
   const messagesEndRef = useRef(null);
   const detectionIntervalRef = useRef(null);
+  const dispatch = useDispatch();
+  const { points } = useSelector((state) => state.point);
+  const { marks } = useSelector((state) => state.mark);
+  const [pendingBottleChoice, setPendingBottleChoice] = useState(null);
+
+  useEffect(() => {
+    dispatch(getPoints());
+    dispatch(getMark());
+  }, [dispatch]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -74,35 +66,6 @@ const RecycleCamera = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  const typeMessage = async (text, category) => {
-    setIsTyping(true);
-    let currentText = "";
-    const words = text.split(" ");
-    
-    // Всегда создаем новое сообщение
-    const newMessage = {
-      text: "",
-      type: 'bot',
-      category,
-      timestamp: new Date().getTime()
-    };
-    setMessages(prev => [...prev, newMessage]);
-    
-    for (let word of words) {
-      currentText += word + " ";
-      setMessages(prev => {
-        const newMessages = [...prev];
-        const lastMessage = newMessages[newMessages.length - 1];
-        if (lastMessage && lastMessage.type === 'bot' && lastMessage.category === category) {
-          lastMessage.text = currentText;
-        }
-        return newMessages;
-      });
-      await new Promise(resolve => setTimeout(resolve, 100));
-    }
-    setIsTyping(false);
-  };
 
   const mapToCategory = (label) => {
     if (label.includes("bottle")) return "plastic_bottle";
@@ -197,33 +160,129 @@ const RecycleCamera = () => {
     });
   };
 
+  // Функция для случайного перемешивания массива
+  function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
+
+  // Сопоставление детальных категорий к основным
+  const categoryToMain = {
+    plastic_bottle: 'Пластик',
+    tetra_pack: 'Пластик',
+    aluminum_can: 'Металл',
+    glass_bottle: 'Стекло', // если нужно, можно добавить 'Стекло' как отдельную категорию
+    paper: 'Бумага',
+  };
+
+  // Асинхронно "печатает" сообщения по одному
+  const typeFactMessages = async (facts, category, callback) => {
+    setIsTyping(true);
+    let shuffled = shuffle([...facts]);
+    // Если категория не поменялась, не показываем те же факты подряд
+    if (lastCategory === category && shownFacts.length > 0) {
+      shuffled = shuffled.filter(fact => !shownFacts.includes(fact));
+      if (shuffled.length === 0) shuffled = shuffle([...facts]);
+    }
+    setShownFacts(shuffled);
+    for (let i = 0; i < shuffled.length; i++) {
+      setMessages(prev => [...prev, {
+        text: shuffled[i],
+        type: 'bot',
+        category,
+        timestamp: new Date().getTime() + i
+      }]);
+      await new Promise(resolve => setTimeout(resolve, 700));
+    }
+    setIsTyping(false);
+    if (callback) callback();
+  };
+
   const handleAnalysis = async (predictions) => {
     if (predictions.length > 0 && isDetectionActive) {
-      const category = mapToCategory(predictions[0].class);
-      if (category && factsData[category]) {
-        setIsDetectionActive(false); // Останавливаем обнаружение
-        setFact(factsData[category]);
-
-        // Добавляем приветственное сообщение
-        await typeMessage(`Я вижу ${factsData[category].title}! Давайте я расскажу вам несколько интересных фактов.`, category);
-        
-        // Добавляем факты с паузами
-        for (let i = 0; i < factsData[category].facts.length; i++) {
-          await typeMessage(factsData[category].facts[i], category);
-          if (i < factsData[category].facts.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, 1000)); // Пауза между фактами
-          }
+      const label = predictions[0].class;
+      const category = mapToCategory(label);
+      if (category === 'plastic_bottle' || category === 'glass_bottle') {
+        // Если просто 'bottle', спрашиваем пользователя
+        if (label === 'bottle' || label.includes('bottle')) {
+          setIsDetectionActive(false);
+          setPendingBottleChoice({
+            label,
+            timestamp: new Date().getTime(),
+          });
+          setMessages([
+            {
+              type: 'choice',
+              text: 'Это пластиковая или стеклянная бутылка?',
+              timestamp: new Date().getTime(),
+            }
+          ]);
+          return;
         }
-
-        // Добавляем кнопку продолжения
-        setMessages(prev => [...prev, {
-          text: "",
-          type: 'action',
-          category,
-          timestamp: new Date().getTime()
-        }]);
+      }
+      if (category) {
+        setIsDetectionActive(false);
+        setLastCategory(category);
+        const mainCategory = categoryToMain[category] || 'Другое';
+        const filteredPoints = points.filter(point => point.rubbish && point.rubbish.toLowerCase().includes(mainCategory.toLowerCase()));
+        setMessages([]);
+        await typeFactMessages(factsData[category], category, () => {
+          setMessages(prev => [
+            ...prev,
+            {
+              type: 'bot',
+              text: filteredPoints.length > 0
+                ? `Вот где вы можете сдать: ${mainCategory}`
+                : `В вашем городе пока нет пунктов для сдачи: ${mainCategory}`,
+              points: filteredPoints,
+              timestamp: new Date().getTime() + 1000,
+              rubbishName: mainCategory,
+            },
+            {
+              type: 'action',
+              text: '',
+              timestamp: new Date().getTime() + 1001,
+              category,
+            }
+          ]);
+        });
       }
     }
+  };
+
+  // Обработка выбора пользователя для бутылки
+  const handleBottleChoice = async (choice) => {
+    setPendingBottleChoice(null);
+    setIsDetectionActive(false);
+    setLastCategory(choice);
+    const mainCategory = categoryToMain[choice] || 'Другое';
+    const filteredPoints = points.filter(point => point.rubbish && point.rubbish.toLowerCase().includes(mainCategory.toLowerCase()));
+    setMessages([]);
+    await typeFactMessages(factsData[choice], choice, () => {
+      setMessages(prev => [
+        ...prev,
+        {
+          type: 'bot',
+          text: filteredPoints.length > 0
+            ? `Вот где вы можете сдать: ${mainCategory}`
+            : `В вашем городе пока нет пунктов для сдачи: ${mainCategory}`,
+          points: filteredPoints,
+          timestamp: new Date().getTime() + 1000,
+          rubbishName: mainCategory,
+        },
+        {
+          type: 'action',
+          text: '',
+          timestamp: new Date().getTime() + 1001,
+          category: choice,
+        }
+      ]);
+    });
   };
 
   const handleContinue = () => {
@@ -259,6 +318,35 @@ const RecycleCamera = () => {
                 }}
               >
                 {message.text}
+                {message.type === 'choice' && (
+                  <div className="flex gap-4 mt-3">
+                    <button
+                      onClick={() => handleBottleChoice('plastic_bottle')}
+                      className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-700"
+                    >
+                      Пластиковая
+                    </button>
+                    <button
+                      onClick={() => handleBottleChoice('glass_bottle')}
+                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+                    >
+                      Стеклянная
+                    </button>
+                  </div>
+                )}
+                {message.type === 'bot' && message.points && message.points.length > 0 && (
+                  <ul className="mt-2 space-y-2">
+                    {message.points.map((point) => (
+                      <li key={point.id} className="bg-white rounded-lg p-3 border border-emerald-200 shadow-sm">
+                        <div className="font-semibold text-emerald-700">{point.point_name}</div>
+                        <div className="text-slate-700 text-sm">{point.address}</div>
+                        <div className="text-slate-500 text-xs">Время работы: {point.time_of_work}</div>
+                        <div className="text-slate-500 text-xs">Принимает: {point.rubbish}</div>
+                        <a href={point.link_to_map} target="_blank" rel="noopener noreferrer" className="text-emerald-600 text-xs underline">Открыть на карте</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {message.type === 'action' && (
                   <button 
                     onClick={handleContinue}
@@ -266,13 +354,6 @@ const RecycleCamera = () => {
                   >
                     Продолжить определение
                   </button>
-                )}
-                {isTyping && index === messages.length - 1 && message.type === 'bot' && (
-                  <span className="typing-indicator" style={styles.typingIndicator}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </span>
                 )}
               </div>
             ))}
