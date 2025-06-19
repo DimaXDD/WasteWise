@@ -125,11 +125,23 @@ const ReceptionsController = {
                 weight_key: v_check_key_w.id
             });
 
+            // Получаем original_key из запроса (введённый пользователем ключ)
+            const input_original_key = req.body.key_of_weight;
+            let total_kg = 0;
+            if (input_original_key) {
+                const checkWeightRecord = await db.models.Check_weights.findOne({
+                    where: { original_key: input_original_key }
+                });
+                if (checkWeightRecord) {
+                    total_kg = checkWeightRecord.weight;
+                }
+            }
             // Отправляем успешный ответ
             res.json({
                 o_new_kg,
                 o_new_points,
                 o_new_points_user,
+                o_total_kg: total_kg || 0,
                 message: 'Ваши баллы успешно начислены',
             });
         } catch (error) {

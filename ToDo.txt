@@ -3,33 +3,19 @@ Admin admin@gmail.com admin123
 Users   trubachdmitry@gmail.com dima12345
         qazdimaqazdima@gmail.com dima12345
 
-Виды мусора
-1) Бумага 100 1
-2) Пластик 150 0.9
-3) Металл 300 1
+Пункты приема
+1) secretkey1 - paper + plactic
+2) secretkey2 - metall
+3) secretkey3 - glass
+4) secretkey4 - paper
 
-1) secretkey1 
-    Има-групп (бумага)  
-    ул. Болеслава Берута, 3Б, офис 907 
-    08:00-17:00 
-    https://yandex.by/maps/-/CHQfUFJ1
-2) secretkey2
-    BlackMetal  
-    ул. Карвата, 101А 
-    09:00-17:00 
-    https://yandex.by/maps/-/CHQfaT6N
-3) secretkey3
-    PlastGroup
-    ул. Свердлова, 57 
-    09:00-17:00 
-    https://yandex.by/maps/-/BFfdaT6N
+Keys
+1) key1111 - metall
+2) key2222 - metall
+3) key3333 - metall
+4) key4444 - metall
 
 
-
-
-
-
-z
 
 
 

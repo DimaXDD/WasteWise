@@ -162,24 +162,24 @@ export const ReceptionPage = () => {
                         <div className="flex flex-row flex-wrap items-center justify-center gap-8 bg-emerald-50 border border-emerald-200 rounded-lg p-6 my-4">
                             {response.payload.o_new_kg && (
                                 <CircleProgress
-                                    value={animatedKg}
-                                    max={Math.max(animatedKg, Number(response.payload.o_new_kg) || 1)}
+                                    value={Number(animatedKg.toFixed(2))}
+                                    max={Math.max(Number(animatedKg.toFixed(2)), Number(response.payload.o_new_kg) || 1)}
                                     label="кг новой продукции"
                                     color="#059669"
                                 />
                             )}
                             {response.payload.o_new_points && (
                                 <CircleProgress
-                                    value={animatedPoints}
-                                    max={Math.max(animatedPoints, Number(response.payload.o_new_points) || 1)}
+                                    value={Number(animatedPoints.toFixed(2))}
+                                    max={Math.max(Number(animatedPoints.toFixed(2)), Number(response.payload.o_new_points) || 1)}
                                     label="балл(а/ов) начислено"
                                     color="#2563eb"
                                 />
                             )}
                             {response.payload.o_new_points_user && (
                                 <CircleProgress
-                                    value={animatedUserPoints}
-                                    max={Math.max(animatedUserPoints, Number(response.payload.o_new_points_user) || 1)}
+                                    value={Number(animatedUserPoints.toFixed(2))}
+                                    max={Math.max(Number(animatedUserPoints.toFixed(2)), Number(response.payload.o_new_points_user) || 1)}
                                     label="ваши баллы"
                                     color="#f59e42"
                                 />
@@ -187,9 +187,9 @@ export const ReceptionPage = () => {
                         </div>
                         <div className="text-center text-lg text-emerald-700 font-semibold mt-2">
                             {response.payload.o_total_kg !== undefined
-                                ? `Всего сдано вторсырья: ${response.payload.o_total_kg} кг`
+                                ? `Всего сдано вторсырья: ${Math.round(Number(response.payload.o_total_kg))} кг`
                                 : response.payload.o_new_kg !== undefined
-                                    ? `Всего сдано вторсырья: ${response.payload.o_new_kg} кг`
+                                    ? `Всего сдано вторсырья: ${Math.round(Number(response.payload.o_new_kg))} кг`
                                     : null}
                         </div>
                         </>
