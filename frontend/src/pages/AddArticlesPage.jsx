@@ -69,10 +69,6 @@ export const AddArticlesPage = () => {
         }
     };
 
-    useEffect(() => {
-        if (status) toast(status);
-    }, [status]);
-
     const options = React.useMemo(
         () => ({
             spellChecker: false,

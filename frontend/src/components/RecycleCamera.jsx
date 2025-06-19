@@ -135,7 +135,7 @@ const RecycleCamera = () => {
             }
           }
         }
-      }, 50); // Проверяем каждые 50мс, но реальное обнаружение происходит каждые 200мс
+      }, 50);
     };
 
     initializeCameraAndModel();
@@ -160,7 +160,6 @@ const RecycleCamera = () => {
     });
   };
 
-  // Функция для случайного перемешивания массива
   function shuffle(array) {
     let currentIndex = array.length, randomIndex;
     while (currentIndex !== 0) {
@@ -171,16 +170,14 @@ const RecycleCamera = () => {
     return array;
   }
 
-  // Сопоставление детальных категорий к основным
   const categoryToMain = {
     plastic_bottle: 'Пластик',
     tetra_pack: 'Пластик',
     aluminum_can: 'Металл',
-    glass_bottle: 'Стекло', // если нужно, можно добавить 'Стекло' как отдельную категорию
+    glass_bottle: 'Стекло',
     paper: 'Бумага',
   };
 
-  // Асинхронно "печатает" сообщения по одному
   const typeFactMessages = async (facts, category, callback) => {
     setIsTyping(true);
     let shuffled = shuffle([...facts]);
@@ -208,7 +205,6 @@ const RecycleCamera = () => {
       const label = predictions[0].class;
       const category = mapToCategory(label);
       if (category === 'plastic_bottle' || category === 'glass_bottle') {
-        // Если просто 'bottle', спрашиваем пользователя
         if (label === 'bottle' || label.includes('bottle')) {
           setIsDetectionActive(false);
           setPendingBottleChoice({
@@ -255,7 +251,6 @@ const RecycleCamera = () => {
     }
   };
 
-  // Обработка выбора пользователя для бутылки
   const handleBottleChoice = async (choice) => {
     setPendingBottleChoice(null);
     setIsDetectionActive(false);
@@ -286,8 +281,8 @@ const RecycleCamera = () => {
   };
 
   const handleContinue = () => {
-    setIsDetectionActive(true); // Возобновляем обнаружение
-    setMessages([]); // Очищаем все сообщения
+    setIsDetectionActive(true);
+    setMessages([]);
   };
 
   return (
@@ -476,7 +471,6 @@ const styles = {
   },
 };
 
-// Добавляем стили для анимации
 const styleSheet = document.createElement('style');
 styleSheet.textContent = `
   @keyframes fadeIn {
