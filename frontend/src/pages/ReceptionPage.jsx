@@ -2,9 +2,57 @@ import React, {useEffect, useState} from 'react'
 // import {Link} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import {createReception} from "../redux/features/reception/receptionSlice";
-import {ReactComponent as Earth} from "../image/earth.svg";
+import {clearStatus} from "../redux/features/reception/receptionSlice";
+import { BiRecycle } from "react-icons/bi";
 import { toast } from 'react-toastify'
 
+// Кастомный компонент круговой прогресс-бар
+const CircleProgress = ({ value, max, label, color }) => {
+    const radius = 48;
+    const stroke = 10;
+    const normalizedRadius = radius - stroke / 2;
+    const circumference = normalizedRadius * 2 * Math.PI;
+    const percent = max > 0 ? Math.min(value / max, 1) : 0;
+    const strokeDashoffset = circumference - percent * circumference;
+
+    return (
+        <div className="flex flex-col items-center">
+            <svg height={radius * 2} width={radius * 2}>
+                <circle
+                    stroke="#e5e7eb"
+                    fill="transparent"
+                    strokeWidth={stroke}
+                    r={normalizedRadius}
+                    cx={radius}
+                    cy={radius}Ц
+                />
+                <circle
+                    stroke={color}
+                    fill="transparent"
+                    strokeWidth={stroke}
+                    strokeLinecap="round"
+                    strokeDasharray={circumference + ' ' + circumference}
+                    style={{ strokeDashoffset, transition: 'stroke-dashoffset 1s linear' }}
+                    r={normalizedRadius}
+                    cx={radius}
+                    cy={radius}
+                />
+                <text
+                    x="50%"
+                    y="50%"
+                    textAnchor="middle"
+                    dy=".3em"
+                    fontSize="1.2em"
+                    fill={color}
+                    fontWeight="bold"
+                >
+                    {value}
+                </text>
+            </svg>
+            <span className="mt-2 text-sm text-slate-700 text-center">{label}</span>
+        </div>
+    );
+};
 
 export const ReceptionPage = () => {
 
@@ -18,13 +66,53 @@ export const ReceptionPage = () => {
 
     const { status } = useSelector((state) => state.reception)
 
+    // Состояния для анимации прогресса
+    const [animatedKg, setAnimatedKg] = useState(0);
+    const [animatedPoints, setAnimatedPoints] = useState(0);
+    const [animatedUserPoints, setAnimatedUserPoints] = useState(0);
 
     useEffect(() => {
         // console.log(response);
         if (status) toast(status)
+        // Очищаем статус при размонтировании, чтобы не было дублей уведомлений
+        return () => {
+            dispatch(clearStatus());
+        };
     }, [
         // response,
         status]);
+
+    useEffect(() => {
+        if (response?.payload) {
+            // Анимация для новой продукции
+            let startKg = 0;
+            let startPoints = 0;
+            let startUserPoints = 0;
+            const targetKg = Number(response.payload.o_new_kg) || 0;
+            const targetPoints = Number(response.payload.o_new_points) || 0;
+            const targetUserPoints = Number(response.payload.o_new_points_user) || 0;
+            const duration = 1000; // ms
+            const steps = 30;
+            let step = 0;
+            const interval = setInterval(() => {
+                step++;
+                setAnimatedKg(Math.round((targetKg * step) / steps));
+                setAnimatedPoints(Math.round((targetPoints * step) / steps));
+                setAnimatedUserPoints(Math.round((targetUserPoints * step) / steps));
+                if (step >= steps) {
+                    setAnimatedKg(targetKg);
+                    setAnimatedPoints(targetPoints);
+                    setAnimatedUserPoints(targetUserPoints);
+                    clearInterval(interval);
+                }
+            }, duration / steps);
+            return () => clearInterval(interval);
+        } else {
+            setAnimatedKg(0);
+            setAnimatedPoints(0);
+            setAnimatedUserPoints(0);
+        }
+    }, [response]);
 
     const submitHandler = async () => {
         try {
@@ -70,23 +158,41 @@ export const ReceptionPage = () => {
                     </div>
 
                     {response?.payload && (
-                        <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 space-y-2">
+                        <>
+                        <div className="flex flex-row flex-wrap items-center justify-center gap-8 bg-emerald-50 border border-emerald-200 rounded-lg p-6 my-4">
                             {response.payload.o_new_kg && (
-                                <p className="text-emerald-700">
-                                    {`${response.payload.o_new_kg} кг новой продукции будет произведено`}
-                                </p>
+                                <CircleProgress
+                                    value={animatedKg}
+                                    max={Math.max(animatedKg, Number(response.payload.o_new_kg) || 1)}
+                                    label="кг новой продукции"
+                                    color="#059669"
+                                />
                             )}
                             {response.payload.o_new_points && (
-                                <p className="text-emerald-700">
-                                    {`${response.payload.o_new_points} балл(а/ов) вам начислено`}
-                                </p>
+                                <CircleProgress
+                                    value={animatedPoints}
+                                    max={Math.max(animatedPoints, Number(response.payload.o_new_points) || 1)}
+                                    label="балл(а/ов) начислено"
+                                    color="#2563eb"
+                                />
                             )}
                             {response.payload.o_new_points_user && (
-                                <p className="text-emerald-700">
-                                    {`${response.payload.o_new_points_user} ваши баллы`}
-                                </p>
+                                <CircleProgress
+                                    value={animatedUserPoints}
+                                    max={Math.max(animatedUserPoints, Number(response.payload.o_new_points_user) || 1)}
+                                    label="ваши баллы"
+                                    color="#f59e42"
+                                />
                             )}
                         </div>
+                        <div className="text-center text-lg text-emerald-700 font-semibold mt-2">
+                            {response.payload.o_total_kg !== undefined
+                                ? `Всего сдано вторсырья: ${response.payload.o_total_kg} кг`
+                                : response.payload.o_new_kg !== undefined
+                                    ? `Всего сдано вторсырья: ${response.payload.o_new_kg} кг`
+                                    : null}
+                        </div>
+                        </>
                     )}
 
                     <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
@@ -142,8 +248,8 @@ export const ReceptionPage = () => {
                     </form>
                 </div>
             </div>
-            <div className="hidden xl:block w-1/3 mt-8">
-                <Earth className="w-full h-auto" />
+            <div className="hidden xl:flex w-1/3 mt-8 justify-center items-center">
+                <BiRecycle className="text-emerald-500" style={{ width: '160px', height: '160px' }} />
             </div>
         </section>
     )

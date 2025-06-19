@@ -22,7 +22,7 @@ select * from ecosort.promo_codes;  -- промокоды
 ALTER TABLE ecosort.users MODIFY password_hash VARCHAR(200) NOT NULL;
 DELETE FROM ecosort.users WHERE email = 'qazdimaqazdima@gmail.com';
 ALTER TABLE ecosort.users DROP INDEX password_hash_un;
-UPDATE ecosort.users SET points = 100 WHERE email = 'trubachdmitry@gmail.com';
+UPDATE ecosort.users SET points = 600 WHERE email = 'trubachdmitry@gmail.com';
 
 
 -- Пользователь

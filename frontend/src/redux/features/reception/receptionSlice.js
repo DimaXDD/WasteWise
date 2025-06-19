@@ -25,7 +25,11 @@ export const createReception = createAsyncThunk(
 export const receptionSlice = createSlice({
     name: 'reception',
     initialState,
-    reducers: {},
+    reducers: {
+        clearStatus: (state) => {
+            state.status = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             // Прием отходов
@@ -46,5 +50,7 @@ export const receptionSlice = createSlice({
             })
     }
 })
+
+export const { clearStatus } = receptionSlice.actions;
 
 export default receptionSlice.reducer
