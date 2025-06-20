@@ -14,7 +14,6 @@ export const CommentItem = ({ cmt }) => {
         try {
             dispatch(removeComment(cmt.id)).then(() => {
                 dispatch(clearStatusCom());
-                toast.success('Комментарий удален');
             });
         } catch (e) {
             console.log(e);

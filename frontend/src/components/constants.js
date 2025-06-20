@@ -10,7 +10,7 @@ export const ARTICLES = [
 export const ARTICLESUser = [
     {text: 'Статьи', icon: <BsFillFileRichtextFill/>, link: '/articles' },
     // {text: 'Добавить статью', icon: <BiAddToQueue/>, link: '/new' },
-    {text: 'Добавить статью тест', icon: <BiAddToQueue/>, link: '/addarticle' }
+    {text: 'Добавить статью', icon: <BiAddToQueue/>, link: '/addarticle' }
 ];
 
 export const MARKS = [

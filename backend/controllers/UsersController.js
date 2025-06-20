@@ -11,15 +11,15 @@ const UsersController = {
             })
 
             if (!users) {
-                return res.json({ message: 'Пользователей нет' })
+                return res.status(404).json({ message: 'Пользователей нет' })
             }
             else {
-                res.json({ users })
+                return res.status(200).json({ users })
             }
         }
         catch (error) {
             console.log(error);
-            res.json({
+            return res.status(500).json({
                 message: 'Не удалось найти пользователей',
             });
         }
@@ -33,55 +33,47 @@ const UsersController = {
                 where: {username: req.body.username}
             })
 
-            console.log(v_user)
+            if (!v_user) {
+                return res.status(400).json({ message: 'Пользователь не найден' });
+            }
 
             const isValidPass = await bcrypt.compare(req.body.password, v_user.password_hash);
 
-            console.log(isValidPass)
-
-            if (isValidPass!=true) {
-                res.json({ message: 'Неверное имя пользователя или пароль' })
+            if (!isValidPass) {
+                return res.status(400).json({ message: 'Неверное имя пользователя или пароль' });
             }
 
-            else {
-                const v_new_username = await db.models.Users.findOne({
-                    attributes: ['username'],
-                    where: {username: i_n_username}
-                })
-                console.log(v_new_username)
+            const v_new_username = await db.models.Users.findOne({
+                attributes: ['username'],
+                where: {username: i_n_username}
+            })
 
-                if(v_new_username==null) {
-                    const o_new_username = await db.models.Users.update({
-                        username: i_n_username},
-                        {where: {username: req.body.username}
-                    })
-        //
-        //             console.log(o_new_username)
-        //
-                    res.json({
-                        message: 'Имя пользователя изменено'
-                    });
-                }
-                else {
-                    res.json({
-                        message: 'Имя пользователя занято, введите другое',
-                    });
-                }
+            if(v_new_username == null) {
+                await db.models.Users.update({
+                    username: i_n_username},
+                    {where: {username: req.body.username}
+                })
+                return res.status(200).json({
+                    message: 'Имя пользователя изменено'
+                });
+            }
+            else {
+                return res.status(400).json({
+                    message: 'Имя пользователя занято, введите другое',
+                });
             }
         } catch (error) {
             console.log(error);
-            res.json({
+            return res.status(500).json({
                 message: 'Не удалось изменить имя пользователя',
             });
         }
     },
     changePass: async (req, res) => {
         try{
-
             const i_password = req.body.password;
             const salt = '$2b$10$qNuSSupDD53DkQfO8wqpf.';
             const o_password = await bcrypt.hash(i_password, salt);
-
 
             const v_user = await db.models.Users.findOne({
                 attributes: ['email', 'password_hash'],
@@ -90,30 +82,30 @@ const UsersController = {
                 }
             })
 
-            if(v_user==null){
-                res.json({
+            if(v_user == null){
+                return res.status(400).json({
                     message: 'Не удалось изменить пароль',
                 });
             }
             else{
-            const i_new_pass = req.body.new_pass;
-            const o_new_pass = await bcrypt.hash(i_new_pass, salt);
+                const i_new_pass = req.body.new_pass;
+                const o_new_pass = await bcrypt.hash(i_new_pass, salt);
 
-                const new_pass = await db.models.Users.update({
+                await db.models.Users.update({
                         password_hash: o_new_pass},
                     { where: {
                             [Op.and]: [{ email: req.body.email }, { password_hash: o_password }],
                         }
                     })
 
-            res.json({
-                message: 'Пароль изменен'
-            });
+                return res.status(200).json({
+                    message: 'Пароль изменен'
+                });
             }
 
         }catch (error) {
             console.log(error);
-            res.json({
+            return res.status(500).json({
                 message: 'Не удалось изменить пароль',
             });
         }

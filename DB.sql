@@ -2,9 +2,7 @@ show databases;
 create database ecosort;
 drop database ecosort;
 
-UPDATE ecosort.users
-SET points = 10000
-WHERE id = 2;
+UPDATE ecosort.users SET points = 10000 WHERE id = 2;
 
 select * from ecosort.users;        -- пользователи
 select * from ecosort.articles;     -- статьи
@@ -21,8 +19,10 @@ select * from ecosort.promo_codes;  -- промокоды
 
 ALTER TABLE ecosort.users MODIFY password_hash VARCHAR(200) NOT NULL;
 DELETE FROM ecosort.users WHERE email = 'qazdimaqazdima@gmail.com';
+DELETE FROM ecosort.marks WHERE id = 5;
+DELETE FROM ecosort.articles WHERE id = 6;
 ALTER TABLE ecosort.users DROP INDEX password_hash_un;
-UPDATE ecosort.users SET points = 600 WHERE email = 'trubachdmitry@gmail.com';
+UPDATE ecosort.users SET points = 6000 WHERE email = 'trubachdmitry@gmail.com';
 
 
 -- Пользователь
